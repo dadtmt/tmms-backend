@@ -1,0 +1,11 @@
+exports[`createPage mutation result set page id 1`] = `
+Object {
+  "currentPageId": "SOME_ID",
+}
+`;
+
+exports[`editor reducer return initialState on some action 1`] = `
+Object {
+  "currentPageId": null,
+}
+`;

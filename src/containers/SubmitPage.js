@@ -1,4 +1,6 @@
+import R from 'ramda'
 import { graphql } from 'react-apollo'
+import { connect } from 'react-redux'
 import gql from 'graphql-tag'
 
 import PageEditor from '../components/PageEditor'
@@ -13,6 +15,10 @@ export const CREATE_PAGE_MUTATION = gql`
     }
   }
 `
+
+const mapStateToProps = R.applySpec({
+  currentPageId: R.path(['editor', 'currentPageId'])
+})
 
 export const withCreatePage = graphql(
   CREATE_PAGE_MUTATION,
@@ -29,4 +35,4 @@ export const withCreatePage = graphql(
   }
 )
 
-export default withCreatePage(PageEditor)
+export default connect(mapStateToProps)(withCreatePage(PageEditor))

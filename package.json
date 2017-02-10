@@ -16,9 +16,12 @@
     "draft-js-plugins-editor": "^2.0.0-beta1",
     "draft-js-richbuttons-plugin": "^1.1.0",
     "graphql-tag": "^1.2.4",
+    "ramda": "^0.23.0",
     "react": "^15.4.2",
     "react-apollo": "^0.10.0",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.2",
+    "redux": "^3.6.0"
   },
   "scripts": {
     "start": "react-scripts start",

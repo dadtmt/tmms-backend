@@ -30,19 +30,25 @@ export default class PageEditor extends Component {
   }
 
   render() {
+    const { currentPageId } = this.props
+
     return (
       <div>
-        <div>
-          <BoldButton />
-          <ItalicButton />
-          <MonospaceButton />
-          <UnderlineButton />
-          <ParagraphButton />
-          <H1Button />
-          <H2Button />
-          <ULButton />
-          <OLButton />
-        </div>
+        {
+          currentPageId === null
+          ? (<div>
+              <BoldButton />
+              <ItalicButton />
+              <MonospaceButton />
+              <UnderlineButton />
+              <ParagraphButton />
+              <H1Button />
+              <H2Button />
+              <ULButton />
+              <OLButton />
+            </div>)
+          : <div>Page Id: {currentPageId}</div>
+        }
         <div className='PageEditor'>
           <Editor
             editorState={this.state.editorState}
@@ -54,24 +60,28 @@ export default class PageEditor extends Component {
               }
             }
             plugins={plugins}
+            readOnly={currentPageId !== null}
           />
         </div>
         <EmojiSuggestions />
-        <button
-          onClick={
-            () => this.props.handleSave(
-              convertToRaw(this.state.editorState.getCurrentContent())
-            )
-          }
-          type='button'
-        >
+        {currentPageId === null && (
+          <button
+            onClick={
+              () => this.props.handleSave(
+                convertToRaw(this.state.editorState.getCurrentContent())
+              )
+            }
+            type='button'
+          >
           Save Page
-        </button>
+          </button>
+        )}
       </div>
     )
   }
 }
 
 PageEditor.propTypes = {
+  currentPageId: PropTypes.string,
   handleSave: PropTypes.func.isRequired
 }
