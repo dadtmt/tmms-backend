@@ -1,11 +1,21 @@
-exports[`createPage mutation result set page id 1`] = `
+exports[`createChoice mutation result add choice to page choices 1`] = `
 Object {
-  "currentPageId": "SOME_ID",
+  "currentPage": Object {
+    "choices": Array [
+      Object {
+        "id": "SOME_CHOICE_ID",
+        "text": "choice text",
+      },
+    ],
+    "id": "SOME_PAGE_ID",
+  },
 }
 `;
 
-exports[`editor reducer return initialState on some action 1`] = `
+exports[`createPage mutation result set page id 1`] = `
 Object {
-  "currentPageId": null,
+  "currentPage": Object {
+    "id": "SOME_ID",
+  },
 }
 `;

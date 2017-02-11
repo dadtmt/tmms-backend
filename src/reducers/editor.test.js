@@ -16,15 +16,29 @@ describe('createPage mutation result', () => {
       type: 'APOLLO_MUTATION_RESULT'
     }
     expect(
-      reducer({ currentPageId: null }, action)
+      reducer({ currentPage: null }, action)
     ).toMatchSnapshot()
   })
 })
 
-describe('editor reducer', () => {
-  it('return initialState on some action', () => {
+describe('createChoice mutation result', () => {
+  it('add choice to page choices', () => {
+    const action = {
+      operationName: 'CreateChoice',
+      result: {
+        data: {
+          createChoice: {
+            changedChoice: {
+              id: 'SOME_CHOICE_ID',
+              text: 'choice text'
+            }
+          }
+        }
+      },
+      type: 'APOLLO_MUTATION_RESULT'
+    }
     expect(
-      reducer({ currentPageId: null }, { type: 'SOME_ACTION' })
+      reducer({ currentPage: { id: 'SOME_PAGE_ID' } }, action)
     ).toMatchSnapshot()
   })
 })

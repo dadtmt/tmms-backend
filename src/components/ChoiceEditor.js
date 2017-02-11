@@ -1,4 +1,3 @@
-import R from 'ramda'
 import React, { Component, PropTypes } from 'react'
 import Editor from 'draft-js-plugins-editor'
 import createEmojiPlugin from 'draft-js-emoji-plugin'
@@ -21,7 +20,7 @@ const {
 
 const plugins = [emojiPlugin, richButtonsPlugin]
 
-export default class PageEditor extends Component {
+export default class ChoiceEditor extends Component {
 
   constructor() {
     super()
@@ -31,25 +30,19 @@ export default class PageEditor extends Component {
   }
 
   render() {
-    const { currentPageId } = this.props
-    const editable = R.isEmpty(currentPageId)
-
     return (
       <div>
-        {editable
-          ? (<div>
-              <BoldButton />
-              <ItalicButton />
-              <MonospaceButton />
-              <UnderlineButton />
-              <ParagraphButton />
-              <H1Button />
-              <H2Button />
-              <ULButton />
-              <OLButton />
-            </div>)
-          : <div>Page Id: {currentPageId}</div>
-        }
+        <div>
+            <BoldButton />
+            <ItalicButton />
+            <MonospaceButton />
+            <UnderlineButton />
+            <ParagraphButton />
+            <H1Button />
+            <H2Button />
+            <ULButton />
+            <OLButton />
+        </div>
         <div className='PageEditor'>
           <Editor
             editorState={this.state.editorState}
@@ -61,28 +54,23 @@ export default class PageEditor extends Component {
               }
             }
             plugins={plugins}
-            readOnly={!editable}
           />
         </div>
         <EmojiSuggestions />
-        {editable && (
-          <button
-            onClick={
-              () => this.props.handleSave(
-                convertToRaw(this.state.editorState.getCurrentContent())
-              )
-            }
-            type='button'
-          >
-          Save Page
-          </button>
-        )}
+        <button
+          onClick={
+            () => this.props.handleSave(
+              convertToRaw(this.state.editorState.getCurrentContent())
+            )
+          }
+          type='button'
+        >
+          Save Choice
+        </button>
       </div>
     )
   }
 }
-
-PageEditor.propTypes = {
-  currentPageId: PropTypes.string,
+ChoiceEditor.propTypes = {
   handleSave: PropTypes.func.isRequired
 }

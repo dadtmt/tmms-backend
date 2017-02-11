@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import SubmitPage from './containers/SubmitPage'
+import CurrentPage from './containers/CurrentPageContainer'
 
 import logo from './logo.svg'
 import './App.css'
@@ -16,7 +16,7 @@ class App extends Component {
         <p className='App-intro'>
           Type and save the page, you can use emoji.
         </p>
-        <SubmitPage />
+        <CurrentPage />
       </div>
     )
   }
