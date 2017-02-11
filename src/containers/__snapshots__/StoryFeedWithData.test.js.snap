@@ -1,0 +1,42 @@
+exports[`transformDataToPages return pages array 1`] = `
+Array [
+  Object {
+    "choices": Array [
+      Object {
+        "id": "Q2hvaWNlOjM3",
+        "made": false,
+        "text": "{\'entityMap\':{},\'blocks\':[{\'key\':\'bo88m\',\'text\':\'a\',\'type\':\'unstyled\',\'depth\':0,\'inlineStyleRanges\':[],\'entityRanges\':[],\'data\':{}}]}",
+      },
+    ],
+    "id": "UGFnZTo1NA==",
+    "text": "{\'entityMap\':{},\'blocks\':[{\'key\':\'1q0f0\',\'text\':\'aa\',\'type\':\'unstyled\',\'depth\':0,\'inlineStyleRanges\':[],\'entityRanges\':[],\'data\':{}}]}",
+  },
+  Object {
+    "choices": Array [
+      Object {
+        "id": "Q2hvaWNlOjM2",
+        "made": true,
+        "text": "{\'entityMap\':{},\'blocks\':[{\'key\':\'4cmds\',\'text\':\'rety\',\'type\':\'unstyled\',\'depth\':0,\'inlineStyleRanges\':[],\'entityRanges\':[],\'data\':{}}]}",
+      },
+    ],
+    "id": "UGFnZTo1Mw==",
+    "text": "{\'entityMap\':{},\'blocks\':[{\'key\':\'a1mjs\',\'text\':\'antoher page\',\'type\':\'unstyled\',\'depth\':0,\'inlineStyleRanges\':[],\'entityRanges\':[],\'data\':{}}]}",
+  },
+  Object {
+    "choices": Array [
+      Object {
+        "id": "Q2hvaWNlOjM1",
+        "made": false,
+        "text": "{\'entityMap\':{},\'blocks\':[{\'key\':\'6reaa\',\'text\':\'2nd choice\',\'type\':\'unstyled\',\'depth\':0,\'inlineStyleRanges\':[],\'entityRanges\':[],\'data\':{}}]}",
+      },
+      Object {
+        "id": "Q2hvaWNlOjM0",
+        "made": false,
+        "text": "{\'entityMap\':{},\'blocks\':[{\'key\':\'6reaa\',\'text\':\'ffff\',\'type\':\'unstyled\',\'depth\':0,\'inlineStyleRanges\':[],\'entityRanges\':[],\'data\':{}}]}",
+      },
+    ],
+    "id": "UGFnZTo1Mg==",
+    "text": "{\'entityMap\':{},\'blocks\':[{\'key\':\'afcg\',\'text\':\'first PAge\',\'type\':\'unstyled\',\'depth\':0,\'inlineStyleRanges\':[],\'entityRanges\':[],\'data\':{}}]}",
+  },
+]
+`;
