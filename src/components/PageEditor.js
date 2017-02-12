@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import Editor from 'draft-js-plugins-editor'
 import createEmojiPlugin from 'draft-js-emoji-plugin'
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin'
-import { convertToRaw, EditorState } from 'draft-js'
+import { convertFromRaw, convertToRaw, EditorState } from 'draft-js'
 
 import 'draft-js-emoji-plugin/lib/plugin.css'
 import './PageEditor.css'
@@ -25,8 +25,16 @@ export default class PageEditor extends Component {
 
   constructor() {
     super()
-    this.state = {
-      editorState: EditorState.createEmpty()
+    this.state = { editorState: EditorState.createEmpty() }
+  }
+
+  componentWillReceiveProps(newProps) {
+    const { currentPageText } = newProps
+    if (!R.isEmpty(currentPageText)) {
+      const rawContent = JSON.parse(currentPageText)
+      this.setState({
+        editorState: EditorState.createWithContent(convertFromRaw(rawContent))
+      })
     }
   }
 
@@ -84,5 +92,6 @@ export default class PageEditor extends Component {
 
 PageEditor.propTypes = {
   currentPageId: PropTypes.string,
+  currentPageText: PropTypes.string,
   handleSave: PropTypes.func.isRequired
 }

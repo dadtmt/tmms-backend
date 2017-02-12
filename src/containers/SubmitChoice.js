@@ -1,6 +1,8 @@
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
+import { getCurrentPageQuery } from './CurrentPageWithData'
+import { pageEditorId } from '../config'
 import ChoiceEditor from '../components/ChoiceEditor'
 
 export const CREATE_CHOICE_MUTATION = gql`
@@ -20,6 +22,10 @@ export const withCreateChoice = graphql(
   {
     props: ({ mutate, ownProps: { currentPageId } }) => ({
       handleSave: choiceContent => mutate({
+        refetchQueries: [{
+          query: getCurrentPageQuery,
+          variables: { pageEditorId }
+        }],
         variables: {
           choice: {
             pageId: currentPageId,

@@ -3,7 +3,7 @@ import Choice from './Choice.js'
 
 const PageChoices = ({ choices }) => <div>
   {
-    choices.map(choice => <Choice key={choice.id} {...choice} />)
+    choices.map(({ node }) => <Choice key={node.id} {...node} />)
   }
 </div>
 

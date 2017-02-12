@@ -1,0 +1,38 @@
+exports[`makeProps return currentpage 1`] = `
+Object {
+  "choices": Array [],
+  "id": "UGFnZTo3NQ==",
+  "text": "some text",
+}
+`;
+
+exports[`makeProps return empty currentpage on loading 1`] = `
+Object {
+  "choices": Array [],
+  "id": "",
+  "loading": true,
+  "text": "",
+}
+`;
+
+exports[`makeProps return empty currentpage when no currentPage 1`] = `
+Object {
+  "choices": Array [],
+  "id": "",
+  "text": "",
+}
+`;
+
+exports[`reducer update currentPage on createPage mutation 1`] = `
+Object {
+  "getPageEditor": Object {
+    "currentPage": Object {
+      "choices": Object {
+        "edges": Array [],
+      },
+      "id": "SOME_ID",
+      "text": "some text",
+    },
+  },
+}
+`;

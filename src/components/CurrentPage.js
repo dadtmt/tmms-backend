@@ -5,15 +5,17 @@ import PageChoices from './PageChoices'
 import SubmitChoice from '../containers/SubmitChoice'
 import SubmitPage from '../containers/SubmitPage'
 
-const CurrentPage = ({ id, choices }) => <div>
-  <SubmitPage currentPageId={id} />
+const CurrentPage = ({ id, text, choices }) => <div>
+  <SubmitPage currentPageId={id} currentPageText={text} />
   {!R.isEmpty(id) && <SubmitChoice currentPageId={id} />}
-  {!R.isEmpty(choices) && <PageChoices choices={choices} />}
+  {!R.isEmpty(choices.edges) && <PageChoices choices={choices.edges} />}
 </div>
 
 CurrentPage.propTypes = {
-  choices: PropTypes.array.isRequired,
-  id: PropTypes.string.isRequired
+  choices: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
+  loading: PropTypes.bool,
+  text: PropTypes.string.isRequired
 }
 
 export default CurrentPage

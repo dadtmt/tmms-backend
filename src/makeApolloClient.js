@@ -12,6 +12,8 @@ export default function makeApolloClient() {
     addGraphQLSubscriptions(networkInterface, wsClient)
 
   const clientGraphql = new ApolloClient({
+    addTypename: true,
+    dataIdFromObject: o => o.id,
     initialState: {},
     networkInterface: networkInterfaceWithSubscriptions
   })
