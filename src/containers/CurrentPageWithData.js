@@ -27,6 +27,19 @@ query GetPageEditor($pageEditorId: ID!) {
 }
 `
 
+export const clearPageEditorMutation = gql`
+mutation ClearPageEditorCurrentPage($clearPageEditor: UpdatePageEditorInput!) {
+  updatePageEditor(input: $clearPageEditor){
+    changedPageEditor {
+      id
+      currentPage {
+        id
+      }
+    }
+  }
+}
+`
+
 // NOT WORKING reducer, bad hack by refetchQueries in mutation
 
 const mutationHandlers = {
@@ -71,12 +84,29 @@ export const makeProps = R.ifElse(
   )
 )
 
-export default graphql(
+const withData = graphql(
   getCurrentPageQuery,
   {
     options: {
-      // reducer,
       variables: { pageEditorId }
     }
   }
-)(Editor)
+)
+
+const withMutation = graphql(
+  clearPageEditorMutation,
+  {
+    props: ({ mutate }) => ({
+      clearPageEditor: () => mutate({
+        variables: {
+          clearPageEditor: {
+            currentPageId: '',
+            id: pageEditorId
+          }
+        }
+      })
+    })
+  }
+)
+
+export default withData(withMutation(Editor))
