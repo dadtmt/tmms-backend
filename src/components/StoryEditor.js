@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 
 import CurrentPage from './CurrentPage'
 
-const updateToUpdateChoice = gql`
+const subscribeToUpdateChoice = gql`
   subscription SubscribeToUpdateChoice($choiceFilter:ChoiceSubscriptionFilter) {
     subscribeToChoice(mutations: [updateChoice], filter:$choiceFilter) {
       mutation
@@ -37,7 +37,7 @@ class StoryEditor extends Component {
     if (!loading && hasCurrentPage) {
       const pageId = R.path(['getPageEditor', 'currentPage', 'id'])(data)
       this.subscription = data.subscribeToMore({
-        document: updateToUpdateChoice,
+        document: subscribeToUpdateChoice,
         variables: {
           choiceFilter: {
             pageId: {
