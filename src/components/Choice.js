@@ -4,7 +4,7 @@ import RichTextDisplay from './RichTextDisplay'
 const Choice = ({ id, made, text }) => <div className='PageEditor'>
   {made && <p>Player made this choice</p>}
   <p>Choice id: {id}</p>
-  <RichTextDisplay rawContent={JSON.parse(text)} />
+  <RichTextDisplay rawContent={text} />
 </div>
 
 Choice.propTypes = {

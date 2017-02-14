@@ -1,13 +1,7 @@
-import R from 'ramda'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-const isChoiceMade = R.pipe(
-  R.path(['choices', 'edges']),
-  R.map(R.path(['node', 'made'])),
-  R.reduce(
-    R.or,
-    false
-  )
-)
+import StoryEditor, { isChoiceMade } from './StoryEditor'
 
 describe('isChoiceMade', () => {
   it('return true if one choice is made', () => {
@@ -56,4 +50,18 @@ describe('isChoiceMade', () => {
     }
     expect(isChoiceMade(currentPage)).toBe(false)
   })
+})
+
+it('renders without crashing', () => {
+  const div = document.createElement('div')
+  const props = {
+    clearPageEditor: jest.fn(),
+    createChoice: jest.fn(),
+    createPage: jest.fn(),
+    data: {}
+  }
+  ReactDOM.render(
+    <StoryEditor {...props} />,
+    div
+  )
 })

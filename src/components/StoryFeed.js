@@ -3,7 +3,7 @@ import Page from './Page'
 
 const StoryFeed = ({ pages }) => <div>
   {
-    pages.map(page => <Page key={page.id} {...page } />)
+    pages.map(({ node }) => <Page key={node.id} {...node } />)
   }
 </div>
 

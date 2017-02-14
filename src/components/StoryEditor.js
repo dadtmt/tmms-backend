@@ -16,7 +16,16 @@ const updateToUpdateChoice = gql`
   }
 `
 
-class Editor extends Component {
+export const isChoiceMade = R.pipe(
+  R.path(['choices', 'edges']),
+  R.map(R.path(['node', 'made'])),
+  R.reduce(
+    R.or,
+    false
+  )
+)
+
+class StoryEditor extends Component {
   componentWillReceiveProps(newProps) {
     const { data } = newProps
     const { loading } = data
@@ -40,7 +49,7 @@ class Editor extends Component {
     }
   }
   render() {
-    const { clearPageEditor, data } = this.props
+    const { clearPageEditor, createChoice, createPage, data } = this.props
     const { loading } = data
     const currentPage = R.pathOr(
       {
@@ -50,19 +59,16 @@ class Editor extends Component {
       },
       ['getPageEditor', 'currentPage']
     )(data)
-    const isChoiceMade = R.pipe(
-      R.path(['choices', 'edges']),
-      R.map(R.path(['node', 'made'])),
-      R.reduce(
-        R.or,
-        false
-      )
-    )(currentPage)
+    const choiceMade = isChoiceMade(currentPage)
 
     return (<div>
-      <CurrentPage {...currentPage} />
+      <CurrentPage
+        {...currentPage}
+        createChoice={createChoice}
+        createPage={createPage}
+      />
       {
-        isChoiceMade &&
+        choiceMade &&
           <button type='button' onClick={clearPageEditor} >New page</button>
       }
       {loading && <p>Loading...</p>}
@@ -70,9 +76,11 @@ class Editor extends Component {
   }
 }
 
-Editor.propTypes = {
+StoryEditor.propTypes = {
   clearPageEditor: PropTypes.func.isRequired,
+  createChoice: PropTypes.func.isRequired,
+  createPage: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired
 }
 
-export default Editor
+export default StoryEditor

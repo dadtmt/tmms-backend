@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
-import CurrentPage from './containers/CurrentPageWithData'
+import StoryEditor from './containers/StoryEditorWithData'
+import StoryFeed from './containers/StoryFeedWithData'
 
 import logo from './logo.svg'
 import './App.css'
@@ -16,7 +17,8 @@ class App extends Component {
         <p className='App-intro'>
           Type and save the page, you can use emoji.
         </p>
-        <CurrentPage />
+        <StoryEditor />
+        <StoryFeed />
       </div>
     )
   }

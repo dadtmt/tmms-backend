@@ -1,20 +1,31 @@
 import R from 'ramda'
 import React, { PropTypes } from 'react'
 
+import ChoiceEditor from './ChoiceEditor'
 import PageChoices from './PageChoices'
-import SubmitChoice from '../containers/SubmitChoice'
-import SubmitPage from '../containers/SubmitPage'
+import PageEditor from './PageEditor'
 
-const CurrentPage = ({ id, text, choices }) => <div>
-  <SubmitPage currentPageId={id} currentPageText={text} />
-  {!R.isEmpty(id) && <SubmitChoice currentPageId={id} />}
-  {!R.isEmpty(choices.edges) && <PageChoices choices={choices.edges} />}
+
+const CurrentPage = ({ id, text, choices, createPage, createChoice }) => <div>
+  <PageEditor
+    currentPageId={id}
+    currentPageText={text}
+    handleSave={createPage}
+  />
+  {
+    !R.isEmpty(id) &&
+      <ChoiceEditor currentPageId={id} handleSave={createChoice} />
+  }
+  <PageChoices choices={choices} />
 </div>
 
 CurrentPage.propTypes = {
-  choices: PropTypes.object.isRequired,
+  choices: PropTypes.shape({
+    edges: PropTypes.array.isRequired
+  }).isRequired,
+  createChoice: PropTypes.func.isRequired,
+  createPage: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
-  loading: PropTypes.bool,
   text: PropTypes.string.isRequired
 }
 
