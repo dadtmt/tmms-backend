@@ -60,6 +60,7 @@ export default class ChoiceEditor extends Component {
         <button
           onClick={
             () => this.props.handleSave(
+              this.props.currentPageId,
               convertToRaw(this.state.editorState.getCurrentContent())
             )
           }
@@ -72,5 +73,6 @@ export default class ChoiceEditor extends Component {
   }
 }
 ChoiceEditor.propTypes = {
+  currentPageId: PropTypes.string.isRequired,
   handleSave: PropTypes.func.isRequired
 }

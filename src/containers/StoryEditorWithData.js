@@ -65,8 +65,8 @@ export const CREATE_PAGE_MUTATION = gql`
 export const withCreateChoice = graphql(
   CREATE_CHOICE_MUTATION,
   {
-    props: ({ mutate, ownProps: { currentPageId } }) => ({
-      createChoice: choiceContent => mutate({
+    props: ({ mutate }) => ({
+      createChoice: (currentPageId, choiceContent) => mutate({
         refetchQueries: [{
           query: getCurrentPageQuery,
           variables: { pageEditorId }
