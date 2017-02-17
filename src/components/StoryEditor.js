@@ -38,6 +38,7 @@ class StoryEditor extends Component {
       const pageId = R.path(['getPageEditor', 'currentPage', 'id'])(data)
       this.subscription = data.subscribeToMore({
         document: subscribeToUpdateChoice,
+        updateQuery: prev => prev,
         variables: {
           choiceFilter: {
             pageId: {
