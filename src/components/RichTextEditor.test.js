@@ -1,15 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import RichTextEditor from './RichTextEditor'
 
-import StoryFeed from './StoryFeed'
+const handleSave = jest.fn()
 
 it('renders without crashing', () => {
   const div = document.createElement('div')
-  const props = {
-    pages: []
-  }
-  ReactDOM.render(
-    <StoryFeed {...props} />,
-    div
-  )
+  ReactDOM.render(<RichTextEditor handleSave={handleSave} />, div)
 })

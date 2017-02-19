@@ -4,14 +4,14 @@ import { convertFromRaw, EditorState } from 'draft-js'
 
 const RichTextDisplay = ({ rawContent }) => <Editor
   editorState={
-    EditorState.createWithContent(convertFromRaw(JSON.parse(rawContent)))
+    EditorState.createWithContent(convertFromRaw(rawContent))
   }
   onChange={() => {}}
   readOnly={true}
 />
 
 RichTextDisplay.propTypes = {
-  rawContent: PropTypes.string.isRequired
+  rawContent: PropTypes.object.isRequired
 }
 
 export default RichTextDisplay

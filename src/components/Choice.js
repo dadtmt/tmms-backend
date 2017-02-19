@@ -10,7 +10,7 @@ const Choice = ({ id, made, text }) => <div className='PageEditor'>
 Choice.propTypes = {
   id: PropTypes.string.isRequired,
   made: PropTypes.bool.isRequired,
-  text: PropTypes.string.isRequired
+  text: PropTypes.object.isRequired
 }
 
 export default Choice

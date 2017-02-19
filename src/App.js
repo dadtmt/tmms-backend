@@ -15,7 +15,7 @@ class App extends Component {
           <h2>Tell me my story</h2>
         </div>
         <p className='App-intro'>
-          Type and save the page, you can use emoji.
+          Write the story
         </p>
         <StoryEditor />
         <StoryFeed />

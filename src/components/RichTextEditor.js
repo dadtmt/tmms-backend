@@ -5,7 +5,7 @@ import createRichButtonsPlugin from 'draft-js-richbuttons-plugin'
 import { convertToRaw, EditorState } from 'draft-js'
 
 import 'draft-js-emoji-plugin/lib/plugin.css'
-import './PageEditor.css'
+import './RichText.css'
 
 const emojiPlugin = createEmojiPlugin()
 const { EmojiSuggestions } = emojiPlugin
@@ -20,30 +20,31 @@ const {
 
 const plugins = [emojiPlugin, richButtonsPlugin]
 
-export default class ChoiceEditor extends Component {
+export default class RichTextEditor extends Component {
 
   constructor() {
     super()
-    this.state = {
-      editorState: EditorState.createEmpty()
-    }
+    this.state = { editorState: EditorState.createEmpty() }
   }
 
   render() {
+
     return (
       <div>
-        <div>
-            <BoldButton />
-            <ItalicButton />
-            <MonospaceButton />
-            <UnderlineButton />
-            <ParagraphButton />
-            <H1Button />
-            <H2Button />
-            <ULButton />
-            <OLButton />
-        </div>
-        <div className='PageEditor'>
+        {
+            <div>
+              <BoldButton />
+              <ItalicButton />
+              <MonospaceButton />
+              <UnderlineButton />
+              <ParagraphButton />
+              <H1Button />
+              <H2Button />
+              <ULButton />
+              <OLButton />
+            </div>
+        }
+        <div className='RichText'>
           <Editor
             editorState={this.state.editorState}
             onChange={
@@ -60,19 +61,18 @@ export default class ChoiceEditor extends Component {
         <button
           onClick={
             () => this.props.handleSave(
-              this.props.currentPageId,
-              convertToRaw(this.state.editorState.getCurrentContent())
+                convertToRaw(this.state.editorState.getCurrentContent())
             )
           }
           type='button'
         >
-          Save Choice
+          Create
         </button>
       </div>
     )
   }
 }
-ChoiceEditor.propTypes = {
-  currentPageId: PropTypes.string.isRequired,
+
+RichTextEditor.propTypes = {
   handleSave: PropTypes.func.isRequired
 }

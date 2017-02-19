@@ -2,12 +2,13 @@ import React, { Component, PropTypes } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import StoryFeed from '../components/StoryFeed'
+import Crossroads from '../components/Crossroads'
 
-const getAllPagesQuery = gql`
-  query GetAllPages($first: Int, $after: String, $orderBy: [PageOrderByArgs]) {
+/* eslint-disable max-len */
+const getAllCrossroadsQuery = gql`
+  query GetAllCrossroads($first: Int, $after: String, $orderBy: [CrossroadOrderByArgs]) {
     viewer {
-      allPages(first: $first, after: $after, orderBy: $orderBy) {
+      allCrossroads(first: $first, after: $after, orderBy: $orderBy) {
         edges {
           cursor
           node {
@@ -29,12 +30,14 @@ const getAllPagesQuery = gql`
   }
 `
 
+/* eslint-disable max-len */
+
 class Feed extends Component {
 
   render() {
     return this.props.data.loading
       ? <div>Loading...</div>
-      : <StoryFeed pages={this.props.data.viewer.allPages.edges} />
+      : <Crossroads crossroads={this.props.data.viewer.allCrossroads} />
   }
 }
 
@@ -42,4 +45,4 @@ Feed.propTypes = {
   data: PropTypes.object.isRequired
 }
 
-export default graphql(getAllPagesQuery)(Feed)
+export default graphql(getAllCrossroadsQuery)(Feed)

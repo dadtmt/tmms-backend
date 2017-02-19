@@ -2,7 +2,9 @@ import R from 'ramda'
 import React, { Component, PropTypes } from 'react'
 import gql from 'graphql-tag'
 
-import CurrentPage from './CurrentPage'
+import CreateChoice from './CreateChoice'
+import Crossroads from './Crossroads'
+import RichTextEditor from './RichTextEditor'
 
 const subscribeToUpdateChoice = gql`
   subscription SubscribeToUpdateChoice($choiceFilter:ChoiceSubscriptionFilter) {
@@ -17,7 +19,9 @@ const subscribeToUpdateChoice = gql`
 `
 
 export const isChoiceMade = R.pipe(
-  R.path(['choices', 'edges']),
+  R.prop('edges'),
+  R.head,
+  R.pathOr([], ['node', 'choices', 'edges']),
   R.map(R.path(['node', 'made'])),
   R.reduce(
     R.or,
@@ -25,62 +29,66 @@ export const isChoiceMade = R.pipe(
   )
 )
 
+export const getCrossroadIdFromProps = R.pipe(
+  R.pathOr([], ['data', 'getPageEditor', 'crossroads', 'edges']),
+  R.head,
+  R.path(['node', 'id'])
+)
+
 class StoryEditor extends Component {
+
   componentWillReceiveProps(newProps) {
     const { data } = newProps
     const { loading } = data
-    const hasCurrentPage = R.pipe(
-      R.path(['getPageEditor', 'currentPage']),
-      R.or(R.isNil, R.isEmpty),
-      R.not
-    )(data)
-    if (!loading && hasCurrentPage) {
-      const pageId = R.path(['getPageEditor', 'currentPage', 'id'])(data)
+    const crossroadId = getCrossroadIdFromProps(newProps)
+    const lastCrossroadId = getCrossroadIdFromProps(this.props)
+
+    if (!loading && !R.isNil(crossroadId) && crossroadId !== lastCrossroadId) {
       this.subscription = data.subscribeToMore({
         document: subscribeToUpdateChoice,
         updateQuery: prev => prev,
         variables: {
           choiceFilter: {
-            pageId: {
-              eq: pageId
+            crossroadId: {
+              eq: crossroadId
             }
           }
         }
       })
     }
   }
-  render() {
-    const { clearPageEditor, createChoice, createPage, data } = this.props
-    const { loading } = data
-    const currentPage = R.pathOr(
-      {
-        choices: { edges: [] },
-        id: '',
-        text: ''
-      },
-      ['getPageEditor', 'currentPage']
-    )(data)
-    const choiceMade = isChoiceMade(currentPage)
 
-    return (<div>
-      <CurrentPage
-        {...currentPage}
-        createChoice={createChoice}
-        createPage={createPage}
-      />
-      {
-        choiceMade &&
-          <button type='button' onClick={clearPageEditor} >New page</button>
-      }
-      {loading && <p>Loading...</p>}
-    </div>)
+  render() {
+    const { createChoice, createCrossroad, data } = this.props
+    const { loading } = data
+    const crossroads = R.pathOr(
+      { edges: [] },
+      ['getPageEditor', 'crossroads']
+    )(data)
+    const allowNewCrossroad = R.isEmpty(crossroads.edges) ||
+      isChoiceMade(crossroads)
+
+    return (
+      <div>
+        {loading && <p>Loading...</p>}
+        {allowNewCrossroad &&
+          <RichTextEditor handleSave={createCrossroad} />}
+        {
+          !allowNewCrossroad &&
+            <CreateChoice
+              createChoice={createChoice}
+              crossroadId={crossroads.edges[0].node.id}
+            />
+        }
+        <Crossroads crossroads={crossroads} />
+      </div>
+    )
   }
 }
 
 StoryEditor.propTypes = {
-  clearPageEditor: PropTypes.func.isRequired,
   createChoice: PropTypes.func.isRequired,
-  createPage: PropTypes.func.isRequired,
+  createCrossroad: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired
 }
 

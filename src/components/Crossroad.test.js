@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Choice from './Choice'
+import Crossroad from './Crossroad'
 
 it('renders without crashing', () => {
   const text = {
@@ -20,12 +20,12 @@ it('renders without crashing', () => {
   }
   const div = document.createElement('div')
   const props = {
+    choices: { edges: [] },
     id: 'SOME_ID',
-    made: false,
     text
   }
   ReactDOM.render(
-    <Choice {...props} />,
+    <Crossroad {...props} />,
     div
   )
 })

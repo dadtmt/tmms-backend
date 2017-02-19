@@ -1,15 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import PageChoices from './PageChoices'
+import Crossroads from './Crossroads'
 
 it('renders without crashing', () => {
   const div = document.createElement('div')
   const props = {
-    choices: { edges: [] }
+    crossroads: { edges: [] }
   }
   ReactDOM.render(
-    <PageChoices {...props} />,
+    <Crossroads {...props} />,
     div
   )
 })

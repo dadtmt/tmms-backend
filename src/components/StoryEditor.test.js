@@ -1,54 +1,102 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import StoryEditor, { isChoiceMade } from './StoryEditor'
+import StoryEditor, {
+  getCrossroadIdFromProps,
+  isChoiceMade
+} from './StoryEditor'
+
+describe('getCrossroadIdFromProps', () => {
+  it('should return crossroadId', () => {
+    const props = {
+      data: {
+        getPageEditor: {
+          crossroads: {
+            edges: [
+              {
+                node: {
+                  id: 'SOME_ID'
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+    expect(getCrossroadIdFromProps(props)).toBe('SOME_ID')
+  })
+  it('should return falsy when edges empty', () => {
+    const props = {
+      data: {
+        getPageEditor: {
+          crossroads: {
+            edges: []
+          }
+        }
+      }
+    }
+    expect(getCrossroadIdFromProps(props)).toBeFalsy()
+  })
+  it('should return falsy when no getPageEditor', () => {
+    const props = {
+      data: {}
+    }
+    expect(getCrossroadIdFromProps(props)).toBeFalsy()
+  })
+})
 
 describe('isChoiceMade', () => {
   it('return true if one choice is made', () => {
-    const currentPage = {
-      choices: { edges: [
+    const crossroads = {
+      edges: [
         {
           node: {
-            made: true
-          }
-        },
-        {
-          node: {
-            made: false
-          }
-        }
-      ] },
-      id: '',
-      text: ''
-    }
-    expect(isChoiceMade(currentPage)).toBe(true)
-  })
-  it('return true if one choice is made', () => {
-    const currentPage = {
-      choices: { edges: [] },
-      id: '',
-      text: ''
-    }
-    expect(isChoiceMade(currentPage)).toBe(false)
-  })
-  it('return true if one choice is made', () => {
-    const currentPage = {
-      choices: { edges: [
-        {
-          node: {
-            made: false
-          }
-        },
-        {
-          node: {
-            made: false
+            choices: { edges: [
+              {
+                node: {
+                  made: true
+                }
+              },
+              {
+                node: {
+                  made: false
+                }
+              }
+            ] }
           }
         }
-      ] },
-      id: '',
-      text: ''
+      ]
     }
-    expect(isChoiceMade(currentPage)).toBe(false)
+    expect(isChoiceMade(crossroads)).toBeTruthy()
+  })
+  it('return false if no crossroad', () => {
+    const crossroads = {
+      edges: []
+    }
+    expect(isChoiceMade(crossroads)).toBeFalsy()
+  })
+  it('return false if no choice is made', () => {
+    const crossroads = {
+      edges: [
+        {
+          node: {
+            choices: { edges: [
+              {
+                node: {
+                  made: false
+                }
+              },
+              {
+                node: {
+                  made: false
+                }
+              }
+            ] }
+          }
+        }
+      ]
+    }
+    expect(isChoiceMade(crossroads)).toBeFalsy()
   })
 })
 
@@ -57,7 +105,7 @@ it('renders without crashing', () => {
   const props = {
     clearPageEditor: jest.fn(),
     createChoice: jest.fn(),
-    createPage: jest.fn(),
+    createCrossroad: jest.fn(),
     data: {}
   }
   ReactDOM.render(
