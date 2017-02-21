@@ -1,12 +1,13 @@
 import React, { PropTypes } from 'react'
+import { Panel } from 'react-bootstrap'
+
 import Choices from './Choices'
 import RichTextDisplay from './RichTextDisplay'
 
-const Crossroad = ({ id, text, choices }) => <div className='PageEditor'>
-  <p>Page Id: {id}</p>
+const Crossroad = ({ id, text, choices }) => <Panel header={id}>
   <RichTextDisplay rawContent={text} />
   <Choices choices={choices} />
-</div>
+</Panel>
 
 Crossroad.propTypes = {
   choices: PropTypes.shape({

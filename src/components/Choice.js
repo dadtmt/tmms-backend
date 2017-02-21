@@ -1,14 +1,13 @@
 import React, { PropTypes } from 'react'
+import { ListGroupItem } from 'react-bootstrap'
+
 import RichTextDisplay from './RichTextDisplay'
 
-const Choice = ({ id, made, text }) => <div className='PageEditor'>
-  {made && <p>Player made this choice</p>}
-  <p>Choice id: {id}</p>
+const Choice = ({ made, text }) => <ListGroupItem active={made}>
   <RichTextDisplay rawContent={text} />
-</div>
+</ListGroupItem>
 
 Choice.propTypes = {
-  id: PropTypes.string.isRequired,
   made: PropTypes.bool.isRequired,
   text: PropTypes.object.isRequired
 }

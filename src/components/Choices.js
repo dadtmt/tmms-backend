@@ -1,11 +1,13 @@
 import React, { PropTypes } from 'react'
+import { ListGroup } from 'react-bootstrap'
+
 import Choice from './Choice.js'
 
-const Choices = ({ choices }) => <div>
+const Choices = ({ choices }) => <ListGroup>
   {
     choices.edges.map(({ node }) => <Choice key={node.id} {...node} />)
   }
-</div>
+</ListGroup>
 
 Choices.propTypes = {
   choices: PropTypes.shape({

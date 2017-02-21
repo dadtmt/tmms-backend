@@ -5,7 +5,6 @@ import RichTextDisplay from './RichTextDisplay'
 
 it('renders without crashing', () => {
   const props = {
-    // eslint-disable-next-line max-len
     rawContent: {
       blocks: [
         {

@@ -3,8 +3,8 @@ import React, { Component, PropTypes } from 'react'
 import gql from 'graphql-tag'
 
 import CreateChoice from './CreateChoice'
+import CreateCrossroad from './CreateCrossroad'
 import Crossroads from './Crossroads'
-import RichTextEditor from './RichTextEditor'
 
 const subscribeToUpdateChoice = gql`
   subscription SubscribeToUpdateChoice($choiceFilter:ChoiceSubscriptionFilter) {
@@ -72,7 +72,7 @@ class StoryEditor extends Component {
       <div>
         {loading && <p>Loading...</p>}
         {allowNewCrossroad &&
-          <RichTextEditor handleSave={createCrossroad} />}
+          <CreateCrossroad createCrossroad={createCrossroad} />}
         {
           !allowNewCrossroad &&
             <CreateChoice
