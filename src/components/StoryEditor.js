@@ -80,7 +80,7 @@ class StoryEditor extends Component {
               crossroadId={crossroads.edges[0].node.id}
             />
         }
-        <Crossroads crossroads={crossroads} />
+        <Crossroads crossroads={crossroads} header='What the player see:' />
       </div>
     )
   }

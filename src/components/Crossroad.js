@@ -4,7 +4,8 @@ import { Panel } from 'react-bootstrap'
 import Choices from './Choices'
 import RichTextDisplay from './RichTextDisplay'
 
-const Crossroad = ({ id, text, choices }) => <Panel header={id}>
+const Crossroad = ({ header, text, choices }) =>
+<Panel header={header}>
   <RichTextDisplay rawContent={text} />
   <Choices choices={choices} />
 </Panel>
@@ -13,7 +14,7 @@ Crossroad.propTypes = {
   choices: PropTypes.shape({
     edges: PropTypes.array.isRequired
   }).isRequired,
-  id: PropTypes.string.isRequired,
+  header: PropTypes.string.isRequired,
   text: PropTypes.object.isRequired
 }
 

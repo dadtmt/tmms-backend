@@ -37,7 +37,10 @@ class Feed extends Component {
   render() {
     return this.props.data.loading
       ? <div>Loading...</div>
-      : <Crossroads crossroads={this.props.data.viewer.allCrossroads} />
+      : <Crossroads
+          crossroads={this.props.data.viewer.allCrossroads}
+          header='TODO display created date'
+        />
   }
 }
 

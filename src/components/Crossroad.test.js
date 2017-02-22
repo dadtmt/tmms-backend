@@ -21,7 +21,7 @@ it('renders without crashing', () => {
   const div = document.createElement('div')
   const props = {
     choices: { edges: [] },
-    id: 'SOME_ID',
+    header: 'header',
     text
   }
   ReactDOM.render(
