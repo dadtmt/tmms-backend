@@ -1,10 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import Crossroads from './Crossroads'
+import TestDice from './TestDice'
 
 it('renders without crashing', () => {
-  const div = document.createElement('div')
   const text = {
     blocks: [
       {
@@ -19,19 +18,16 @@ it('renders without crashing', () => {
     ],
     entityMap: {}
   }
+  const div = document.createElement('div')
   const props = {
-    crossroads: { edges: [{
-      node: {
-        choices: { edges: [] },
-        id: 'SOME_ID',
-        testDices: { edges: [] },
-        text
-      }
-    }] },
-    header: 'header'
+    id: 'SOME_ID',
+    modifier: 0,
+    nbDices: 1,
+    nbSides: 6,
+    text
   }
   ReactDOM.render(
-    <Crossroads {...props} />,
+    <TestDice {...props} />,
     div
   )
 })

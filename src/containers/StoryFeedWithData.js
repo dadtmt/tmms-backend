@@ -6,21 +6,33 @@ import Crossroads from '../components/Crossroads'
 
 /* eslint-disable max-len */
 const getAllCrossroadsQuery = gql`
-  query GetAllCrossroads($first: Int, $after: String, $orderBy: [CrossroadOrderByArgs]) {
-    viewer {
-      allCrossroads(first: $first, after: $after, orderBy: $orderBy) {
-        edges {
-          cursor
-          node {
-            id
-            text
-            choices {
-              edges{
-                node {
-                  id
-                  text
-                  made
-                }
+query GetAllCrossroads($first: Int, $after: String, $orderBy: [CrossroadOrderByArgs]) {
+  viewer {
+    allCrossroads(first: $first, after: $after, orderBy: $orderBy) {
+      edges {
+        cursor
+        node {
+          id
+          text
+          choices {
+            edges{
+              node {
+                id
+                text
+                made
+              }
+            }
+          }
+          testDices{
+            edges{
+              node{
+                id
+                details
+                nbDices
+                nbSides
+                modifier
+                text
+                result
               }
             }
           }
@@ -28,6 +40,7 @@ const getAllCrossroadsQuery = gql`
       }
     }
   }
+}
 `
 
 /* eslint-disable max-len */

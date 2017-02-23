@@ -91,6 +91,50 @@ const withCreateCrossroad = graphql(
   }
 )
 
+const CREATE_TEST_MUTATION = gql`
+mutation CreateTestDice($createTest: CreateTestDiceInput!) {
+  createTestDice(input: $createTest){
+    changedEdge{
+      node{
+        id
+        text
+        nbDices
+        nbSides
+        modifier
+        details
+        result
+      }
+    }
+  }
+}
+`
+const withCreateTest = graphql(
+  CREATE_TEST_MUTATION,
+  {
+    props: ({ mutate }) => ({
+      createTest: values => mutate({
+        updateQueries: {
+          GetPageEditor: (prev, result) => R.over(
+            R.lensPath(['getPageEditor', 'crossroads', 'edges']),
+            R.over(
+              R.lensIndex(0),
+              R.over(
+                R.lensPath(['node', 'testDices', 'edges']),
+                R.append(result.mutationResult.data.createTestDice.changedEdge)
+              )
+            )
+          )(prev)
+        },
+        variables: {
+          createTest: {
+            ...values
+          }
+        }
+      })
+    })
+  }
+)
+
 const GET_PAGE_EDITOR_QUERY = gql`
 query GetPageEditor($pageEditorId: ID!) {
   getPageEditor(id: $pageEditorId) {
@@ -106,6 +150,19 @@ query GetPageEditor($pageEditorId: ID!) {
                 id
                 text
                 made
+              }
+            }
+          }
+          testDices{
+            edges{
+              node{
+                id
+                details
+                nbDices
+                nbSides
+                modifier
+                text
+                result
               }
             }
           }
@@ -128,5 +185,6 @@ const withData = graphql(
 export default R.compose(
   withCreateChoice,
   withCreateCrossroad,
+  withCreateTest,
   withData
 )(StoryEditor)

@@ -22,6 +22,7 @@ it('renders without crashing', () => {
   const props = {
     choices: { edges: [] },
     header: 'header',
+    testDices: { edges: [] },
     text
   }
   ReactDOM.render(

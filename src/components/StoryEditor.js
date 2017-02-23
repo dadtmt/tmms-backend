@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react'
 import gql from 'graphql-tag'
 
 import CreateChoice from './CreateChoice'
+import CreateTest from './CreateTest'
 import CreateCrossroad from './CreateCrossroad'
 import Crossroads from './Crossroads'
 
@@ -59,7 +60,7 @@ class StoryEditor extends Component {
   }
 
   render() {
-    const { createChoice, createCrossroad, data } = this.props
+    const { createChoice, createCrossroad, createTest, data } = this.props
     const { loading } = data
     const crossroads = R.pathOr(
       { edges: [] },
@@ -75,10 +76,16 @@ class StoryEditor extends Component {
           <CreateCrossroad createCrossroad={createCrossroad} />}
         {
           !allowNewCrossroad &&
-            <CreateChoice
-              createChoice={createChoice}
-              crossroadId={crossroads.edges[0].node.id}
-            />
+            <div>
+              <CreateChoice
+                createChoice={createChoice}
+                crossroadId={crossroads.edges[0].node.id}
+              />
+            <CreateTest
+                createTest={createTest}
+                crossroadId={crossroads.edges[0].node.id}
+              />
+            </div>
         }
         <Crossroads crossroads={crossroads} header='What the player see:' />
       </div>
@@ -89,6 +96,7 @@ class StoryEditor extends Component {
 StoryEditor.propTypes = {
   createChoice: PropTypes.func.isRequired,
   createCrossroad: PropTypes.func.isRequired,
+  createTest: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired
 }
 

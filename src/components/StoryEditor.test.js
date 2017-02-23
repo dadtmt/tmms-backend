@@ -106,6 +106,7 @@ it('renders without crashing', () => {
     clearPageEditor: jest.fn(),
     createChoice: jest.fn(),
     createCrossroad: jest.fn(),
+    createTest: jest.fn(),
     data: {}
   }
   ReactDOM.render(
