@@ -63,6 +63,20 @@ mutation CreateCrossroad($newCrossroad: CreateCrossroadInput!) {
             }
           }
         }
+        testDices{
+          edges{
+            node{
+              id
+              details
+              made
+              modifier
+              nbDices
+              nbSides
+              text
+              result
+            }
+          }
+        }
       }
     }
   }
@@ -98,9 +112,10 @@ mutation CreateTestDice($createTest: CreateTestDiceInput!) {
       node{
         id
         text
+        made
+        modifier
         nbDices
         nbSides
-        modifier
         details
         result
       }
@@ -127,7 +142,8 @@ const withCreateTest = graphql(
         },
         variables: {
           createTest: {
-            ...values
+            ...values,
+            made: false
           }
         }
       })
@@ -158,9 +174,10 @@ query GetPageEditor($pageEditorId: ID!) {
               node{
                 id
                 details
+                made
+                modifier
                 nbDices
                 nbSides
-                modifier
                 text
                 result
               }

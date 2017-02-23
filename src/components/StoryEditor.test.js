@@ -69,6 +69,41 @@ describe('isChoiceMade', () => {
     }
     expect(isChoiceMade(crossroads)).toBeTruthy()
   })
+  it('return true if one test is made', () => {
+    const crossroads = {
+      edges: [
+        {
+          node: {
+            choices: { edges: [
+              {
+                node: {
+                  made: false
+                }
+              },
+              {
+                node: {
+                  made: false
+                }
+              }
+            ] },
+            testDices: { edges: [
+              {
+                node: {
+                  made: true
+                }
+              },
+              {
+                node: {
+                  made: false
+                }
+              }
+            ] }
+          }
+        }
+      ]
+    }
+    expect(isChoiceMade(crossroads)).toBeTruthy()
+  })
   it('return false if no crossroad', () => {
     const crossroads = {
       edges: []

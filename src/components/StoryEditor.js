@@ -19,11 +19,37 @@ const subscribeToUpdateChoice = gql`
   }
 `
 
+/* eslint-disable  max-len*/
+const subscribeToUpdateTestDice = gql`
+  subscription SubscribeToUpdateTestDice($testDiceFilter:TestDiceSubscriptionFilter) {
+    subscribeToTestDice(mutations: [updateTestDice], filter:$testDiceFilter) {
+      mutation
+      value {
+        id
+        made
+      }
+    }
+  }
+`
+
+/* eslint-enable  max-len*/
+
 export const isChoiceMade = R.pipe(
   R.prop('edges'),
   R.head,
-  R.pathOr([], ['node', 'choices', 'edges']),
-  R.map(R.path(['node', 'made'])),
+  R.converge(
+    R.concat,
+    [
+      R.pipe(
+        R.pathOr([], ['node', 'choices', 'edges']),
+        R.map(R.path(['node', 'made']))
+      ),
+      R.pipe(
+        R.pathOr([], ['node', 'testDices', 'edges']),
+        R.map(R.path(['node', 'made']))
+      )
+    ]
+  ),
   R.reduce(
     R.or,
     false
@@ -45,11 +71,22 @@ class StoryEditor extends Component {
     const lastCrossroadId = getCrossroadIdFromProps(this.props)
 
     if (!loading && !R.isNil(crossroadId) && crossroadId !== lastCrossroadId) {
-      this.subscription = data.subscribeToMore({
+      this.choiceSubscription = data.subscribeToMore({
         document: subscribeToUpdateChoice,
         updateQuery: prev => prev,
         variables: {
           choiceFilter: {
+            crossroadId: {
+              eq: crossroadId
+            }
+          }
+        }
+      })
+      this.testDiceSubscription = data.subscribeToMore({
+        document: subscribeToUpdateTestDice,
+        updateQuery: prev => prev,
+        variables: {
+          testDiceFilter: {
             crossroadId: {
               eq: crossroadId
             }
@@ -81,7 +118,7 @@ class StoryEditor extends Component {
                 createChoice={createChoice}
                 crossroadId={crossroads.edges[0].node.id}
               />
-            <CreateTest
+              <CreateTest
                 createTest={createTest}
                 crossroadId={crossroads.edges[0].node.id}
               />

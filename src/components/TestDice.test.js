@@ -20,10 +20,13 @@ it('renders without crashing', () => {
   }
   const div = document.createElement('div')
   const props = {
+    details: 'details',
     id: 'SOME_ID',
+    made: false,
     modifier: 0,
     nbDices: 1,
     nbSides: 6,
+    result: 6,
     text
   }
   ReactDOM.render(

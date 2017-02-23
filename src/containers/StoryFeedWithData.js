@@ -30,6 +30,7 @@ query GetAllCrossroads($first: Int, $after: String, $orderBy: [CrossroadOrderByA
                 details
                 nbDices
                 nbSides
+                made
                 modifier
                 text
                 result
