@@ -70,6 +70,7 @@ mutation CreateCrossroad($newCrossroad: CreateCrossroadInput!) {
               id
               details
               made
+              master
               modifier
               nbDices
               nbSides
@@ -114,6 +115,7 @@ mutation CreateTestDice($createTest: CreateTestDiceInput!) {
         id
         text
         made
+        master
         modifier
         nbDices
         nbSides
@@ -177,6 +179,7 @@ query GetPageEditor($pageEditorId: ID!) {
                 id
                 details
                 made
+                master
                 modifier
                 nbDices
                 nbSides

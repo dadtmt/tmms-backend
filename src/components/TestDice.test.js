@@ -23,6 +23,7 @@ it('renders without crashing', () => {
     details: 'details',
     id: 'SOME_ID',
     made: false,
+    master: false,
     modifier: 0,
     nbDices: 1,
     nbSides: 6,

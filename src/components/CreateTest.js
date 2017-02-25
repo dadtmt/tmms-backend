@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Panel } from 'react-bootstrap'
+import { Checkbox, Panel } from 'react-bootstrap'
 
 import FieldGroup from './FieldGroup'
 import RichTextEditor from './RichTextEditor'
@@ -8,6 +8,7 @@ class CreateTest extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      master: false,
       modifier: 0,
       nbDices: 1,
       nbSides: 6
@@ -15,6 +16,7 @@ class CreateTest extends Component {
     this.handleNbDicesChange = this.handleNbDicesChange.bind(this)
     this.handleNbSidesChange = this.handleNbSidesChange.bind(this)
     this.handleModifierChange = this.handleModifierChange.bind(this)
+    this.handleMasterChange = this.handleMasterChange.bind(this)
   }
 
   handleNbDicesChange(event) {
@@ -29,6 +31,10 @@ class CreateTest extends Component {
     this.setState({ modifier: event.target.value })
   }
 
+  handleMasterChange() {
+    this.setState({ master: !this.state.master })
+  }
+
   render() {
     const { createTest, crossroadId } = this.props
 
@@ -40,6 +46,7 @@ class CreateTest extends Component {
           handleSave={
             text => (createTest({
               crossroadId,
+              master: this.state.master,
               modifier: this.state.modifier,
               nbDices: this.state.nbDices,
               nbSides: this.state.nbSides,
@@ -68,6 +75,9 @@ class CreateTest extends Component {
           onChange={this.handleModifierChange}
           value={this.state.modifier}
         />
+      <Checkbox checked={this.state.master} onChange={this.handleMasterChange}>
+        The story teller rolls the dice!
+      </Checkbox>
       </Panel>
     )
   }

@@ -6,6 +6,7 @@ import RichTextDisplay from './RichTextDisplay'
 const TestDice = ({
   details,
   made,
+  master,
   modifier,
   nbDices,
   nbSides,
@@ -16,7 +17,7 @@ const TestDice = ({
     <RichTextDisplay rawContent={text} />
     <Label>Lancer les dés: {`${nbDices}D${nbSides}+${modifier}`}</Label>
     {
-      made &&
+      (made || master) &&
         <div>
           <Label>Résultat: {result}</Label>
           <Label>Détails: {details}</Label>
@@ -27,6 +28,7 @@ const TestDice = ({
 TestDice.propTypes = {
   details: PropTypes.string.isRequired,
   made: PropTypes.bool.isRequired,
+  master: PropTypes.bool.isRequired,
   modifier: PropTypes.number.isRequired,
   nbDices: PropTypes.number.isRequired,
   nbSides: PropTypes.number.isRequired,
