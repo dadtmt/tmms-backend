@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom'
 
 import StoryEditor, {
   getCrossroadIdFromProps,
-  isChoiceMade
+  isChoiceMade,
+  isReady
 } from './StoryEditor'
 
 describe('getCrossroadIdFromProps', () => {
@@ -142,10 +143,26 @@ it('renders without crashing', () => {
     createChoice: jest.fn(),
     createCrossroad: jest.fn(),
     createTest: jest.fn(),
-    data: {}
+    data: {},
+    toggleIsReady: jest.fn()
   }
   ReactDOM.render(
     <StoryEditor {...props} />,
     div
   )
+})
+
+describe('isReady', () => {
+  it('return false if crossroad not ready', () => {
+    const crossroads = {
+      edges: [{ node: { isReady: false } }]
+    }
+    expect(isReady(crossroads)).toBeFalsy()
+  })
+  it('return true if crossroad not ready', () => {
+    const crossroads = {
+      edges: [{ node: { isReady: true } }]
+    }
+    expect(isReady(crossroads)).toBeTruthy()
+  })
 })

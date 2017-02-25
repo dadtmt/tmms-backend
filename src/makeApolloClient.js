@@ -1,9 +1,10 @@
-import addGraphQLSubscriptions from './addGraphQLSubscriptions'
 import ApolloClient, { createNetworkInterface } from 'apollo-client'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 
+import addGraphQLSubscriptions from './addGraphQLSubscriptions'
+import { scapholdUrl } from './config'
+
 export default function makeApolloClient() {
-  const scapholdUrl = 'us-west-2.api.scaphold.io/graphql/tmms'
   const graphqlUrl = `https://${scapholdUrl}`
   const websocketUrl = `wss://${scapholdUrl}`
   const networkInterface = createNetworkInterface({ uri: graphqlUrl })

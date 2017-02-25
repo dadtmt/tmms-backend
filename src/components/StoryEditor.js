@@ -1,6 +1,7 @@
 import R from 'ramda'
 import React, { Component, PropTypes } from 'react'
 import gql from 'graphql-tag'
+import { Checkbox } from 'react-bootstrap'
 
 import CreateChoice from './CreateChoice'
 import CreateTest from './CreateTest'
@@ -56,6 +57,12 @@ export const isChoiceMade = R.pipe(
   )
 )
 
+export const isReady = R.pipe(
+  R.prop('edges'),
+  R.head,
+  R.pathOr(false, ['node', 'isReady'])
+)
+
 export const getCrossroadIdFromProps = R.pipe(
   R.pathOr([], ['data', 'getPageEditor', 'crossroads', 'edges']),
   R.head,
@@ -97,7 +104,13 @@ class StoryEditor extends Component {
   }
 
   render() {
-    const { createChoice, createCrossroad, createTest, data } = this.props
+    const {
+      createChoice,
+      createCrossroad,
+      createTest,
+      data,
+      toggleIsReady
+    } = this.props
     const { loading } = data
     const crossroads = R.pathOr(
       { edges: [] },
@@ -105,6 +118,12 @@ class StoryEditor extends Component {
     )(data)
     const allowNewCrossroad = R.isEmpty(crossroads.edges) ||
       isChoiceMade(crossroads)
+    const isCrossroadReady = isReady(crossroads)
+    const crossroadId = R.pipe(
+      R.prop('edges'),
+      R.head,
+      R.pathOr('', ['node', 'id'])
+    )(crossroads)
 
     return (
       <div>
@@ -114,13 +133,22 @@ class StoryEditor extends Component {
         {
           !allowNewCrossroad &&
             <div>
+              <Checkbox
+                checked={isCrossroadReady}
+                onChange={() => toggleIsReady({
+                  id: crossroadId,
+                  isReady: !isCrossroadReady
+                })}
+              >
+                Make the page ready to play
+              </Checkbox>
               <CreateChoice
                 createChoice={createChoice}
-                crossroadId={crossroads.edges[0].node.id}
+                crossroadId={crossroadId}
               />
               <CreateTest
                 createTest={createTest}
-                crossroadId={crossroads.edges[0].node.id}
+                crossroadId={crossroadId}
               />
             </div>
         }
@@ -134,7 +162,8 @@ StoryEditor.propTypes = {
   createChoice: PropTypes.func.isRequired,
   createCrossroad: PropTypes.func.isRequired,
   createTest: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  toggleIsReady: PropTypes.func.isRequired
 }
 
 export default StoryEditor

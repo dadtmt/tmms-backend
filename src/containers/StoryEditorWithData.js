@@ -53,6 +53,7 @@ mutation CreateCrossroad($newCrossroad: CreateCrossroadInput!) {
     changedEdge{
       node{
         id
+        isReady
         text
         choices{
           edges{
@@ -159,6 +160,7 @@ query GetPageEditor($pageEditorId: ID!) {
       edges{
         node{
           id
+          isReady
           text
           choices{
             edges{
@@ -190,6 +192,49 @@ query GetPageEditor($pageEditorId: ID!) {
 }
 `
 
+const TOGGLE_CROSSROAD_IS_READY = gql`
+mutation ToggleCrossroadReady($toggleCrossroadReady:UpdateCrossroadInput!) {
+  updateCrossroad(input: $toggleCrossroadReady) {
+    changedCrossroad {
+      id,
+      isReady
+    }
+  }
+}
+`
+const withToggleCrossroadIsReady = graphql(
+  TOGGLE_CROSSROAD_IS_READY,
+  {
+    props: ({ mutate }) => ({
+      toggleIsReady: values => mutate({
+        updateQueries: {
+          GetPageEditor: (prev, result) => R.over(
+            R.lensPath(['getPageEditor', 'crossroads', 'edges']),
+            R.over(
+              R.lensIndex(0),
+              R.set(
+                R.lensPath(['node', 'isReady']),
+                R.path([
+                  'mutationResult',
+                  'data',
+                  'updateCrossroad',
+                  'changedCrossroad',
+                  'isReady'
+                ])(result)
+              )
+            )
+          )(prev)
+        },
+        variables: {
+          toggleCrossroadReady: {
+            ...values
+          }
+        }
+      })
+    })
+  }
+)
+
 const withData = graphql(
   GET_PAGE_EDITOR_QUERY,
   {
@@ -203,5 +248,6 @@ export default R.compose(
   withCreateChoice,
   withCreateCrossroad,
   withCreateTest,
-  withData
+  withData,
+  withToggleCrossroadIsReady
 )(StoryEditor)
