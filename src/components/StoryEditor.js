@@ -1,39 +1,15 @@
 import R from 'ramda'
 import React, { Component, PropTypes } from 'react'
-import gql from 'graphql-tag'
 import { Checkbox } from 'react-bootstrap'
 
+import {
+  UPDATE_CHOICE_SUBSCRIPTION,
+  UPDATE_TESTDICE_SUBSCRIPTION
+} from '../graphql/subscriptions'
 import CreateChoice from './CreateChoice'
 import CreateTest from './CreateTest'
 import CreateCrossroad from './CreateCrossroad'
 import Crossroads from './Crossroads'
-
-const subscribeToUpdateChoice = gql`
-  subscription SubscribeToUpdateChoice($choiceFilter:ChoiceSubscriptionFilter) {
-    subscribeToChoice(mutations: [updateChoice], filter:$choiceFilter) {
-      mutation
-      value {
-        id
-        made
-      }
-    }
-  }
-`
-
-/* eslint-disable  max-len*/
-const subscribeToUpdateTestDice = gql`
-  subscription SubscribeToUpdateTestDice($testDiceFilter:TestDiceSubscriptionFilter) {
-    subscribeToTestDice(mutations: [updateTestDice], filter:$testDiceFilter) {
-      mutation
-      value {
-        id
-        made
-      }
-    }
-  }
-`
-
-/* eslint-enable  max-len*/
 
 export const isChoiceMade = R.pipe(
   R.prop('edges'),
@@ -79,7 +55,7 @@ class StoryEditor extends Component {
 
     if (!loading && !R.isNil(crossroadId) && crossroadId !== lastCrossroadId) {
       this.choiceSubscription = data.subscribeToMore({
-        document: subscribeToUpdateChoice,
+        document: UPDATE_CHOICE_SUBSCRIPTION,
         updateQuery: prev => prev,
         variables: {
           choiceFilter: {
@@ -90,7 +66,7 @@ class StoryEditor extends Component {
         }
       })
       this.testDiceSubscription = data.subscribeToMore({
-        document: subscribeToUpdateTestDice,
+        document: UPDATE_TESTDICE_SUBSCRIPTION,
         updateQuery: prev => prev,
         variables: {
           testDiceFilter: {

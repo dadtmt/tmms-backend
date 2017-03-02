@@ -1,23 +1,15 @@
 import R from 'ramda'
 import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
 
 import { pageEditorId } from '../config'
+import {
+  CREATE_CHOICE_MUTATION,
+  CREATE_CROSSROAD_MUTATION,
+  CREATE_TEST_MUTATION,
+  TOGGLE_CROSSROAD_IS_READY
+} from '../graphql/mutations'
+import { GET_PAGE_EDITOR_QUERY } from '../graphql/queries'
 import StoryEditor from '../components/StoryEditor'
-
-const CREATE_CHOICE_MUTATION = gql`
-  mutation CreateChoice($newChoice: CreateChoiceInput!) {
-    createChoice(input: $newChoice) {
-      changedEdge{
-        node{
-          id
-          made
-          text
-        }
-      }
-    }
-  }
-`
 
 const withCreateChoice = graphql(
   CREATE_CHOICE_MUTATION,
@@ -47,44 +39,6 @@ const withCreateChoice = graphql(
   }
 )
 
-const CREATE_CROSSROAD_MUTATION = gql`
-mutation CreateCrossroad($newCrossroad: CreateCrossroadInput!) {
-  createCrossroad(input: $newCrossroad){
-    changedEdge{
-      node{
-        id
-        isReady
-        text
-        choices{
-          edges{
-            node{
-              id
-              text
-              made
-            }
-          }
-        }
-        testDices{
-          edges{
-            node{
-              id
-              details
-              made
-              master
-              modifier
-              nbDices
-              nbSides
-              text
-              result
-            }
-          }
-        }
-      }
-    }
-  }
-}
-`
-
 const withCreateCrossroad = graphql(
   CREATE_CROSSROAD_MUTATION,
   {
@@ -107,25 +61,6 @@ const withCreateCrossroad = graphql(
   }
 )
 
-const CREATE_TEST_MUTATION = gql`
-mutation CreateTestDice($createTest: CreateTestDiceInput!) {
-  createTestDice(input: $createTest){
-    changedEdge{
-      node{
-        id
-        text
-        made
-        master
-        modifier
-        nbDices
-        nbSides
-        details
-        result
-      }
-    }
-  }
-}
-`
 const withCreateTest = graphql(
   CREATE_TEST_MUTATION,
   {
@@ -154,57 +89,6 @@ const withCreateTest = graphql(
   }
 )
 
-const GET_PAGE_EDITOR_QUERY = gql`
-query GetPageEditor($pageEditorId: ID!) {
-  getPageEditor(id: $pageEditorId) {
-    id
-    crossroads(first: 1, orderBy: {field:createdAt, direction:DESC}){
-      edges{
-        node{
-          id
-          isReady
-          text
-          choices{
-            edges{
-              node{
-                id
-                text
-                made
-              }
-            }
-          }
-          testDices{
-            edges{
-              node{
-                id
-                details
-                made
-                master
-                modifier
-                nbDices
-                nbSides
-                text
-                result
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-`
-
-const TOGGLE_CROSSROAD_IS_READY = gql`
-mutation ToggleCrossroadReady($toggleCrossroadReady:UpdateCrossroadInput!) {
-  updateCrossroad(input: $toggleCrossroadReady) {
-    changedCrossroad {
-      id,
-      isReady
-    }
-  }
-}
-`
 const withToggleCrossroadIsReady = graphql(
   TOGGLE_CROSSROAD_IS_READY,
   {

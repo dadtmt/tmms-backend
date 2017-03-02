@@ -1,49 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
 
+import { GET_ALL_CROSSROADS_QUERY } from '../graphql/queries'
 import Crossroads from '../components/Crossroads'
-
-/* eslint-disable max-len */
-const getAllCrossroadsQuery = gql`
-query GetAllCrossroads($first: Int, $after: String, $orderBy: [CrossroadOrderByArgs]) {
-  viewer {
-    allCrossroads(first: $first, after: $after, orderBy: $orderBy) {
-      edges {
-        cursor
-        node {
-          id
-          text
-          choices {
-            edges{
-              node {
-                id
-                text
-                made
-              }
-            }
-          }
-          testDices{
-            edges{
-              node{
-                id
-                details
-                nbDices
-                nbSides
-                made
-                master
-                modifier
-                text
-                result
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-`
 
 /* eslint-disable max-len */
 
@@ -63,4 +22,4 @@ Feed.propTypes = {
   data: PropTypes.object.isRequired
 }
 
-export default graphql(getAllCrossroadsQuery)(Feed)
+export default graphql(GET_ALL_CROSSROADS_QUERY)(Feed)
