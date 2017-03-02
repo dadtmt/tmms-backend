@@ -1,2 +1,5 @@
-export const pageEditorId = 'UGFnZUVkaXRvcjox'
-export const scapholdUrl = 'us-west-2.api.scaphold.io/graphql/tmms-dev'
+export const pageEditorId = 'pageEditorId'
+export const scapholdUrl = 'scapholdUrl'
+export const auth0ClientId = 'auth0ClientId'
+export const auth0Domain = 'auth0Domain'
+export const auth0CallbackUrl = 'auth0CallbackUrl'

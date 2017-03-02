@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { Button, ButtonToolbar, Panel } from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
 import Editor from 'draft-js-plugins-editor'
-import createEmojiPlugin from 'draft-js-emoji-plugin'
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin'
 import { convertToRaw, EditorState } from 'draft-js'
 
@@ -10,9 +9,6 @@ import BlockRichTextButton from './BlockRichTextButton'
 import InlineRichTextButton from './InlineRichTextButton'
 
 import 'draft-js-emoji-plugin/lib/plugin.css'
-
-const emojiPlugin = createEmojiPlugin()
-const { EmojiSuggestions } = emojiPlugin
 
 const richButtonsPlugin = createRichButtonsPlugin()
 const {
@@ -23,7 +19,7 @@ const {
   ParagraphButton, ULButton, H1Button, H2Button
 } = richButtonsPlugin
 
-const plugins = [emojiPlugin, richButtonsPlugin]
+const plugins = [richButtonsPlugin]
 
 export default class RichTextEditor extends Component {
 
@@ -73,7 +69,6 @@ export default class RichTextEditor extends Component {
               plugins={plugins}
             />
         </Panel>
-        <EmojiSuggestions />
         <Button
           bsStyle='primary'
           onClick={

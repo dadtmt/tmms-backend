@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
-import { Col, Grid, PageHeader, Row } from 'react-bootstrap'
+import { Grid, PageHeader } from 'react-bootstrap'
 
-import StoryEditor from './containers/StoryEditorWithData'
-import StoryFeed from './containers/StoryFeedWithData'
+import { auth0CallbackUrl, auth0ClientId, auth0Domain } from './config'
+import AuthService from './utils/AuthService'
+import EditAndView from './components/EditAndView'
+import Login from './containers/LoginWithData'
+
+const auth = new AuthService(auth0ClientId, auth0Domain, auth0CallbackUrl)
 
 class App extends Component {
   render() {
@@ -11,14 +15,8 @@ class App extends Component {
         <PageHeader>
           Tell Me My Story
         </PageHeader>
-        <Row>
-          <Col md={8}>
-            <StoryEditor />
-          </Col>
-          <Col md={4}>
-            <StoryFeed />
-          </Col>
-        </Row>
+        <Login auth={auth} />
+        <EditAndView auth={auth} />
       </Grid>
     )
   }
