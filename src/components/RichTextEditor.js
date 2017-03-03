@@ -10,25 +10,53 @@ import InlineRichTextButton from './InlineRichTextButton'
 
 import 'draft-js-emoji-plugin/lib/plugin.css'
 
-const richButtonsPlugin = createRichButtonsPlugin()
-const {
-  // Inline buttons
-  ItalicButton, BoldButton,
-   UnderlineButton,
-  // Block buttons
-  ParagraphButton, ULButton, H1Button, H2Button
-} = richButtonsPlugin
-
-const plugins = [richButtonsPlugin]
-
 export default class RichTextEditor extends Component {
 
   constructor() {
     super()
+    const richButtonsPlugin = createRichButtonsPlugin()
+    const {
+      // Inline buttons
+      ItalicButton,
+      BoldButton,
+      UnderlineButton,
+      // Block buttons
+      ParagraphButton,
+      ULButton,
+      H1Button,
+      H2Button
+    } = richButtonsPlugin
+    this.components = {
+      BoldButton,
+      H1Button,
+      H2Button,
+      ItalicButton,
+      ParagraphButton,
+      ULButton,
+      UnderlineButton
+    }
+    this.plugins = [richButtonsPlugin]
+    this.handleChange = this.handleChange.bind(this)
     this.state = { editorState: EditorState.createEmpty() }
   }
 
+  handleChange(editorState) {
+    this.setState({ editorState })
+  }
+
   render() {
+
+    const {
+      // Inline buttons
+      ItalicButton,
+      BoldButton,
+      UnderlineButton,
+      // Block buttons
+      ParagraphButton,
+      ULButton,
+      H1Button,
+      H2Button
+    } = this.components
 
     return (
       <div>
@@ -66,7 +94,7 @@ export default class RichTextEditor extends Component {
                   })
                 }
               }
-              plugins={plugins}
+              plugins={this.plugins}
             />
         </Panel>
         <Button
