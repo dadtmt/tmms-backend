@@ -1,4 +1,3 @@
-import R from 'ramda'
 import React, { PropTypes } from 'react'
 import { ButtonToolbar, Button } from 'react-bootstrap'
 
@@ -8,13 +7,20 @@ export class Login extends React.Component {
     super(props)
     const { auth, logUser } = props
     this.state = {
+      loggedIn: auth.loggedIn(),
       profile: auth.getProfile()
     }
     auth.on('token_received', (token, profile) => {
       logUser(token)
-      this.setState({ profile })
+      this.setState({
+        loggedIn: auth.loggedIn(),
+        profile
+      })
     })
-    auth.on('logout', () => this.setState({ profile: {} }))
+    auth.on('logout', () => this.setState({
+      loggedIn: auth.loggedIn(),
+      profile: {}
+    }))
   }
 
   render() {
@@ -24,16 +30,16 @@ export class Login extends React.Component {
       <div>
         <ButtonToolbar >
           {
-            R.isEmpty(this.state.profile) &&
-            <Button bsStyle='primary' onClick={auth.login.bind(this)}>
-              Login
-            </Button>
-          }
-          {
-            !R.isEmpty(this.state.profile) &&
-            <Button bsStyle='danger' onClick={auth.logout.bind(this)}>
-              Logout
-            </Button>
+            this.state.loggedIn
+            ? <div>
+                <Button bsStyle='danger' onClick={auth.logout.bind(this)}>
+                  Logout
+                </Button>
+                <span>Logged as {this.state.profile.name}</span>
+              </div>
+            : <Button bsStyle='primary' onClick={auth.login.bind(this)}>
+                Login
+              </Button>
           }
         </ButtonToolbar>
       </div>
