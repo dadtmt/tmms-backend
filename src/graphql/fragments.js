@@ -27,14 +27,14 @@ export const crossroadFragment = gql`
     id
     isReady
     text
-    choices{
+    choices(orderBy: {field:createdAt, direction:ASC}){
       edges{
         node{
           ...choiceFields
         }
       }
     }
-    testDices{
+    testDices(orderBy: {field:createdAt, direction:ASC}){
       edges{
         node{
           ...testDiceFields

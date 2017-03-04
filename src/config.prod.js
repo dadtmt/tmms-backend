@@ -1,2 +1,5 @@
 export const pageEditorId = 'UGFnZUVkaXRvcjoz'
 export const scapholdUrl = 'us-west-2.api.scaphold.io/graphql/tmms'
+export const auth0ClientId = '8pxfV8tkdBxczd1t643oQi9E33DiTtp4'
+export const auth0Domain = 'tmt.eu.auth0.com'
+export const auth0CallbackUrl = 'https://dadtmt.github.io/tmms-backend'
