@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { Col, Row } from 'react-bootstrap'
 
 import StoryEditor from '../containers/StoryEditorWithData'
-import StoryFeed from '../containers/StoryFeedWithData'
 
 class EditAndView extends Component {
   constructor(props) {
@@ -19,15 +17,7 @@ class EditAndView extends Component {
     return (
       <div>
         {!this.state.show && <p>Please, login...</p>}
-        {this.state.show &&
-          <Row>
-            <Col md={8}>
-              <StoryEditor />
-            </Col>
-            <Col md={4}>
-              <StoryFeed />
-            </Col>
-          </Row>}
+        {this.state.show && <StoryEditor />}
       </div>
     )
   }

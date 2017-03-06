@@ -1,18 +1,17 @@
 import React, { PropTypes } from 'react'
 import Crossroad from './Crossroad.js'
 
-const Crossroads = ({ crossroads, header }) => <div>
+const Crossroads = ({ crossroads }) => <div>
   {
     crossroads.edges.map(({ node }) =>
-      <Crossroad header={header} key={node.id} {...node} />)
+      <Crossroad key={node.id} {...node} />)
   }
 </div>
 
 Crossroads.propTypes = {
   crossroads: PropTypes.shape({
     edges: PropTypes.array.isRequired
-  }).isRequired,
-  header: PropTypes.string.isRequired
+  }).isRequired
 }
 
 export default Crossroads

@@ -5,8 +5,8 @@ import Choices from './Choices'
 import RichTextDisplay from './RichTextDisplay'
 import TestDices from './TestDices'
 
-const Crossroad = ({ header, text, choices, testDices }) =>
-<Panel header={header}>
+const Crossroad = ({ createdAt, text, choices, testDices }) =>
+<Panel header={createdAt}>
   <RichTextDisplay rawContent={text} />
   <Choices choices={choices} />
   <TestDices testDices={testDices} />
@@ -16,7 +16,7 @@ Crossroad.propTypes = {
   choices: PropTypes.shape({
     edges: PropTypes.array.isRequired
   }).isRequired,
-  header: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
   testDices: PropTypes.shape({
     edges: PropTypes.array.isRequired
   }).isRequired,

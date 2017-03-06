@@ -1,11 +1,12 @@
 import R from 'ramda'
 import React, { Component, PropTypes } from 'react'
-import { Checkbox } from 'react-bootstrap'
+import { Button, ButtonToolbar, Checkbox, Col, Row } from 'react-bootstrap'
 
 import {
   UPDATE_CHOICE_SUBSCRIPTION,
   UPDATE_TESTDICE_SUBSCRIPTION
 } from '../graphql/subscriptions'
+import StoryFeed from '../containers/StoryFeedWithData'
 import CreateChoice from './CreateChoice'
 import CreateTest from './CreateTest'
 import CreateCrossroad from './CreateCrossroad'
@@ -46,6 +47,13 @@ export const getCrossroadIdFromProps = R.pipe(
 )
 
 class StoryEditor extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showAddChoice: false,
+      showAddTest: false
+    }
+  }
 
   componentWillReceiveProps(newProps) {
     const { data } = newProps
@@ -118,41 +126,66 @@ class StoryEditor extends Component {
     )(crossroads)
 
     return (
-      <div>
-        {loading && <p>Loading...</p>}
-        <CreateCrossroad
-          createCrossroad={createCrossroad}
-          crossroad={currentCrossroad}
-          updateCrossroadText={updateCrossroadText}
-        />
-        {
-          !allowNewCrossroad &&
-            <div>
-              <Checkbox
-                checked={isCrossroadReady}
-                onChange={() => toggleIsReady({
-                  id: crossroadId,
-                  isReady: !isCrossroadReady
-                })}
-              >
-                Make the page ready to play
-              </Checkbox>
-              <CreateChoice
-                createChoice={createChoice}
-                crossroadId={crossroadId}
-              />
-              <CreateTest
-                createTest={createTest}
-                crossroadId={crossroadId}
-              />
-            </div>
-        }
-        {currentCrossroad && <CurrentCrossroad
-          crossroad={currentCrossroad}
-          deleteChoice={deleteChoice}
-          deleteTestDice={deleteTestDice}
-        />}
-      </div>
+      <Row>
+        <Col sm={6}>
+          {loading && <p>Loading...</p>}
+          <CreateCrossroad
+            createCrossroad={createCrossroad}
+            crossroad={allowNewCrossroad ? null : currentCrossroad}
+            updateCrossroadText={updateCrossroadText}
+          />
+          <Checkbox
+            checked={isCrossroadReady}
+            disabled={allowNewCrossroad}
+            onChange={() => toggleIsReady({
+              id: crossroadId,
+              isReady: !isCrossroadReady
+            })}
+          >
+            Make the page ready to play
+          </Checkbox>
+          <ButtonToolbar>
+            <Button
+              bsStyle='primary'
+              disabled={allowNewCrossroad}
+              onClick={() => this.setState({
+                showAddChoice: true,
+                showAddTest: false
+              })}
+            >
+              Add a Choice
+            </Button>
+            <Button
+              bsStyle='primary'
+              disabled={allowNewCrossroad}
+              onClick={() => this.setState({
+                showAddChoice: false,
+                showAddTest: true
+              })}
+            >
+              Add a Test
+            </Button>
+          </ButtonToolbar>
+          {(this.state.showAddChoice && !allowNewCrossroad) && <CreateChoice
+            createChoice={createChoice}
+            crossroadId={crossroadId}
+          />}
+          {(this.state.showAddTest && !allowNewCrossroad) && <CreateTest
+            createTest={createTest}
+            crossroadId={crossroadId}
+          />}
+        </Col>
+        <Col sm={6}>
+          {currentCrossroad && <CurrentCrossroad
+            crossroad={currentCrossroad}
+            deleteChoice={deleteChoice}
+            deleteTestDice={deleteTestDice}
+          />}
+          <StoryFeed
+            currentCrossroadId={R.propOr(null, 'id')(currentCrossroad)}
+          />
+        </Col>
+      </Row>
     )
   }
 }

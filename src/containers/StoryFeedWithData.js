@@ -1,3 +1,4 @@
+import R from 'ramda'
 import React, { Component, PropTypes } from 'react'
 import { graphql } from 'react-apollo'
 
@@ -9,16 +10,23 @@ import Crossroads from '../components/Crossroads'
 class Feed extends Component {
 
   render() {
+    const { currentCrossroadId } = this.props
+
     return this.props.data.loading
       ? <div>Loading...</div>
       : <Crossroads
-          crossroads={this.props.data.viewer.allCrossroads}
-          header='TODO display created date'
+          crossroads={
+            R.over(
+              R.lensProp('edges'),
+              R.filter(({ node }) => node.id !== currentCrossroadId)
+            )(this.props.data.viewer.allCrossroads)
+          }
         />
   }
 }
 
 Feed.propTypes = {
+  currentCrossroadId: PropTypes.string,
   data: PropTypes.object.isRequired
 }
 

@@ -144,7 +144,10 @@ it('renders without crashing', () => {
     createCrossroad: jest.fn(),
     createTest: jest.fn(),
     data: {},
-    toggleIsReady: jest.fn()
+    deleteChoice: jest.fn(),
+    deleteTestDice: jest.fn(),
+    toggleIsReady: jest.fn(),
+    updateCrossroadText: jest.fn()
   }
   ReactDOM.render(
     <StoryEditor {...props} />,

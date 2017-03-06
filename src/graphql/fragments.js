@@ -24,6 +24,7 @@ export const testDiceFragment = gql`
 
 export const crossroadFragment = gql`
   fragment crossroadFields on Crossroad {
+    createdAt
     id
     isReady
     text
