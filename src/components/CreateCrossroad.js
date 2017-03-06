@@ -8,7 +8,7 @@ import { crossroadFragment } from '../graphql/fragments'
 
 const CreateCrossroad = ({ createCrossroad, crossroad, updateCrossroadText }) =>
 <Panel
-  header='Add a new Page'
+  header='Add or Edit Page'
 >
   <RichTextEditor
     handleSave={

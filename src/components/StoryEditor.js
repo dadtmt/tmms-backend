@@ -9,7 +9,7 @@ import {
 import CreateChoice from './CreateChoice'
 import CreateTest from './CreateTest'
 import CreateCrossroad from './CreateCrossroad'
-import Crossroads from './Crossroads'
+import CurrentCrossroad from './CurrentCrossroad'
 
 export const isChoiceMade = R.pipe(
   R.prop('edges'),
@@ -82,29 +82,39 @@ class StoryEditor extends Component {
   render() {
     const {
       createChoice,
+      deleteChoice,
       createCrossroad,
       createTest,
+      deleteTestDice,
       data,
       toggleIsReady,
       updateCrossroadText
     } = this.props
+
     const { loading } = data
+
     const crossroads = R.pathOr(
       { edges: [] },
       ['getPageEditor', 'crossroads']
     )(data)
-    const allowNewCrossroad = R.isEmpty(crossroads.edges) ||
-      isChoiceMade(crossroads)
-    const isCrossroadReady = isReady(crossroads)
-    const crossroadId = R.pipe(
-      R.prop('edges'),
-      R.head,
-      R.pathOr('', ['node', 'id'])
-    )(crossroads)
+
     const currentCrossroad = R.pipe(
       R.prop('edges'),
       R.head,
       R.propOr(null, 'node')
+    )(crossroads)
+
+// Dirty
+
+    const allowNewCrossroad = R.isEmpty(crossroads.edges) ||
+      isChoiceMade(crossroads)
+
+    const isCrossroadReady = isReady(crossroads)
+
+    const crossroadId = R.pipe(
+      R.prop('edges'),
+      R.head,
+      R.pathOr('', ['node', 'id'])
     )(crossroads)
 
     return (
@@ -137,7 +147,11 @@ class StoryEditor extends Component {
               />
             </div>
         }
-        <Crossroads crossroads={crossroads} header='What the player see:' />
+        {currentCrossroad && <CurrentCrossroad
+          crossroad={currentCrossroad}
+          deleteChoice={deleteChoice}
+          deleteTestDice={deleteTestDice}
+        />}
       </div>
     )
   }
@@ -148,6 +162,8 @@ StoryEditor.propTypes = {
   createCrossroad: PropTypes.func.isRequired,
   createTest: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
+  deleteChoice: PropTypes.func.isRequired,
+  deleteTestDice: PropTypes.func.isRequired,
   toggleIsReady: PropTypes.func.isRequired,
   updateCrossroadText: PropTypes.func.isRequired
 }

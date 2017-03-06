@@ -4,8 +4,10 @@ import { graphql } from 'react-apollo'
 import { pageEditorId } from '../config'
 import {
   CREATE_CHOICE_MUTATION,
+  DELETE_CHOICE_MUTATION,
   CREATE_CROSSROAD_MUTATION,
   CREATE_TEST_MUTATION,
+  DELETE_TEST_MUTATION,
   TOGGLE_CROSSROAD_IS_READY,
   UPDATE_CROSSROAD_TEXT
 } from '../graphql/mutations'
@@ -33,6 +35,36 @@ const withCreateChoice = graphql(
           newChoice: {
             ...values,
             made: false
+          }
+        }
+      })
+    })
+  }
+)
+
+const withDeleteChoice = graphql(
+  DELETE_CHOICE_MUTATION,
+  {
+    props: ({ mutate }) => ({
+      deleteChoice: id => mutate({
+        updateQueries: {
+          GetPageEditor: (prev, result) => R.over(
+            R.lensPath(['getPageEditor', 'crossroads', 'edges']),
+            R.over(
+              R.lensIndex(0),
+              R.over(
+                R.lensPath(['node', 'choices', 'edges']),
+                R.filter(
+                  ({ node }) => node.id !==
+                    result.mutationResult.data.deleteChoice.changedChoice.id
+                )
+              )
+            )
+          )(prev)
+        },
+        variables: {
+          choice: {
+            id
           }
         }
       })
@@ -89,6 +121,37 @@ const withCreateTest = graphql(
     })
   }
 )
+
+const withDeleteTestDice = graphql(
+  DELETE_TEST_MUTATION,
+  {
+    props: ({ mutate }) => ({
+      deleteTestDice: id => mutate({
+        updateQueries: {
+          GetPageEditor: (prev, result) => R.over(
+            R.lensPath(['getPageEditor', 'crossroads', 'edges']),
+            R.over(
+              R.lensIndex(0),
+              R.over(
+                R.lensPath(['node', 'testDices', 'edges']),
+                R.filter(
+                  ({ node }) => node.id !==
+                    result.mutationResult.data.deleteTestDice.changedTestDice.id
+                )
+              )
+            )
+          )(prev)
+        },
+        variables: {
+          testDice: {
+            id
+          }
+        }
+      })
+    })
+  }
+)
+
 
 const withToggleCrossroadIsReady = graphql(
   TOGGLE_CROSSROAD_IS_READY,
@@ -167,8 +230,10 @@ const withData = graphql(
 
 export default R.compose(
   withCreateChoice,
+  withDeleteChoice,
   withCreateCrossroad,
   withCreateTest,
+  withDeleteTestDice,
   withData,
   withToggleCrossroadIsReady,
   withUpdateCrossroadText

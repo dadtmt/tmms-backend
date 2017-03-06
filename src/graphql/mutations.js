@@ -19,6 +19,16 @@ export const CREATE_CHOICE_MUTATION = gql`
   ${choiceFragment}
 `
 
+export const DELETE_CHOICE_MUTATION = gql`
+  mutation DeleteChoice($choice: DeleteChoiceInput!){
+    deleteChoice(input: $choice) {
+      changedChoice {
+        id
+      }
+    }
+  }
+`
+
 export const CREATE_CROSSROAD_MUTATION = gql`
 mutation CreateCrossroad($newCrossroad: CreateCrossroadInput!) {
   createCrossroad(input: $newCrossroad){
@@ -43,6 +53,16 @@ mutation CreateTestDice($createTest: CreateTestDiceInput!) {
   }
 }
 ${testDiceFragment}
+`
+
+export const DELETE_TEST_MUTATION = gql`
+  mutation DeleteTestDice($testDice: DeleteTestDiceInput!){
+    deleteTestDice(input: $testDice) {
+      changedTestDice {
+        id
+      }
+    }
+  }
 `
 
 export const TOGGLE_CROSSROAD_IS_READY = gql`
