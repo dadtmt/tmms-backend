@@ -6,7 +6,8 @@ import {
   CREATE_CHOICE_MUTATION,
   CREATE_CROSSROAD_MUTATION,
   CREATE_TEST_MUTATION,
-  TOGGLE_CROSSROAD_IS_READY
+  TOGGLE_CROSSROAD_IS_READY,
+  UPDATE_CROSSROAD_TEXT
 } from '../graphql/mutations'
 import { GET_PAGE_EDITOR_QUERY } from '../graphql/queries'
 import StoryEditor from '../components/StoryEditor'
@@ -122,6 +123,39 @@ const withToggleCrossroadIsReady = graphql(
   }
 )
 
+const withUpdateCrossroadText = graphql(
+  UPDATE_CROSSROAD_TEXT,
+  {
+    props: ({ mutate }) => ({
+      updateCrossroadText: values => mutate({
+        updateQueries: {
+          GetPageEditor: (prev, result) => R.over(
+            R.lensPath(['getPageEditor', 'crossroads', 'edges']),
+            R.over(
+              R.lensIndex(0),
+              R.set(
+                R.lensPath(['node', 'text']),
+                R.path([
+                  'mutationResult',
+                  'data',
+                  'updateCrossroad',
+                  'changedCrossroad',
+                  'text'
+                ])(result)
+              )
+            )
+          )(prev)
+        },
+        variables: {
+          updateCrossroadText: {
+            ...values
+          }
+        }
+      })
+    })
+  }
+)
+
 const withData = graphql(
   GET_PAGE_EDITOR_QUERY,
   {
@@ -136,5 +170,6 @@ export default R.compose(
   withCreateCrossroad,
   withCreateTest,
   withData,
-  withToggleCrossroadIsReady
+  withToggleCrossroadIsReady,
+  withUpdateCrossroadText
 )(StoryEditor)

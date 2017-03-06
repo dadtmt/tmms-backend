@@ -55,3 +55,13 @@ mutation ToggleCrossroadReady($toggleCrossroadReady:UpdateCrossroadInput!) {
   }
 }
 `
+export const UPDATE_CROSSROAD_TEXT = gql`
+mutation UpdateCrossroadText($updateCrossroadText:UpdateCrossroadInput!) {
+  updateCrossroad(input: $updateCrossroadText) {
+    changedCrossroad {
+      id,
+      text
+    }
+  }
+}
+`

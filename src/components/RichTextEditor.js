@@ -1,9 +1,10 @@
+import R from 'ramda'
 import React, { Component, PropTypes } from 'react'
-import { Button, ButtonToolbar, Panel } from 'react-bootstrap'
+import { Alert, Button, ButtonToolbar, Col, Panel, Row } from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
 import Editor from 'draft-js-plugins-editor'
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin'
-import { convertToRaw, EditorState } from 'draft-js'
+import { convertFromRaw, convertToRaw, EditorState } from 'draft-js'
 
 import BlockRichTextButton from './BlockRichTextButton'
 import InlineRichTextButton from './InlineRichTextButton'
@@ -37,7 +38,31 @@ export default class RichTextEditor extends Component {
     }
     this.plugins = [richButtonsPlugin]
     this.handleChange = this.handleChange.bind(this)
-    this.state = { editorState: EditorState.createEmpty() }
+    const editorState = EditorState.createEmpty()
+    const originalContent = editorState.getCurrentContent()
+    this.state = {
+      editorState,
+      originalContent,
+      originalIsEmpty: true
+    }
+  }
+
+  componentWillReceiveProps(props) {
+    const { text } = props
+    if (!R.equals(text, this.props.text)) {
+      let editorState = EditorState.createEmpty()
+      let originalIsEmpty = true
+      if (text) {
+        editorState = EditorState.createWithContent(convertFromRaw(text))
+        originalIsEmpty = false
+      }
+      const originalContent = editorState.getCurrentContent()
+      this.setState({
+        editorState,
+        originalContent,
+        originalIsEmpty
+      })
+    }
   }
 
   handleChange(editorState) {
@@ -57,6 +82,14 @@ export default class RichTextEditor extends Component {
       H1Button,
       H2Button
     } = this.components
+
+    const nothingToSubmit = R.equals(
+      this.state.editorState.getCurrentContent(),
+      this.state.originalContent
+    )
+
+    const warningOnReplaceContent =
+      !nothingToSubmit && !this.state.originalIsEmpty
 
     return (
       <div>
@@ -97,21 +130,33 @@ export default class RichTextEditor extends Component {
               plugins={this.plugins}
             />
         </Panel>
-        <Button
-          bsStyle='primary'
-          onClick={
-            () => this.props.handleSave(
-                convertToRaw(this.state.editorState.getCurrentContent())
-            )
-          }
-        >
-          <FontAwesome name='paper-plane' />
-        </Button>
+        <Row>
+          <Col xs={2}>
+            <Button
+              disabled={nothingToSubmit}
+              bsSize='large'
+              bsStyle={warningOnReplaceContent ? 'warning' : 'primary'}
+              onClick={
+                () => this.props.handleSave(
+                    convertToRaw(this.state.editorState.getCurrentContent())
+                )
+              }
+            >
+              <FontAwesome name='paper-plane' />
+            </Button>
+          </Col>
+          <Col xs={10}>
+            {warningOnReplaceContent && <Alert bsStyle='warning'>
+              This will change the content displayed to the player
+            </Alert>}
+          </Col>
+        </Row>
       </div>
     )
   }
 }
 
 RichTextEditor.propTypes = {
-  handleSave: PropTypes.func.isRequired
+  handleSave: PropTypes.func.isRequired,
+  text: PropTypes.object
 }

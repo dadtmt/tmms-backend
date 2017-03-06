@@ -1,18 +1,36 @@
+import R from 'ramda'
 import React, { PropTypes } from 'react'
 import { Panel } from 'react-bootstrap'
-import RichTextEditor from './RichTextEditor'
+import { propType } from 'graphql-anywhere'
 
-const CreateCrossroad = ({ createCrossroad }) =>
+import RichTextEditor from './RichTextEditor'
+import { crossroadFragment } from '../graphql/fragments'
+
+const CreateCrossroad = ({ createCrossroad, crossroad, updateCrossroadText }) =>
 <Panel
   header='Add a new Page'
 >
   <RichTextEditor
-    handleSave={createCrossroad}
+    handleSave={
+      text => crossroad
+        ? updateCrossroadText({
+          id: crossroad.id,
+          text
+        })
+        : createCrossroad(text)
+    }
+    text={R.propOr(null, 'text', crossroad)}
   />
 </Panel>
 
+CreateCrossroad.fragments = {
+  crossroad: crossroadFragment
+}
+
 CreateCrossroad.propTypes = {
-  createCrossroad: PropTypes.func.isRequired
+  createCrossroad: PropTypes.func.isRequired,
+  crossroad: propType(CreateCrossroad.fragments.crossroad),
+  updateCrossroadText: PropTypes.func.isRequired
 }
 
 export default CreateCrossroad

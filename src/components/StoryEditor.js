@@ -85,7 +85,8 @@ class StoryEditor extends Component {
       createCrossroad,
       createTest,
       data,
-      toggleIsReady
+      toggleIsReady,
+      updateCrossroadText
     } = this.props
     const { loading } = data
     const crossroads = R.pathOr(
@@ -100,12 +101,20 @@ class StoryEditor extends Component {
       R.head,
       R.pathOr('', ['node', 'id'])
     )(crossroads)
+    const currentCrossroad = R.pipe(
+      R.prop('edges'),
+      R.head,
+      R.propOr(null, 'node')
+    )(crossroads)
 
     return (
       <div>
         {loading && <p>Loading...</p>}
-        {allowNewCrossroad &&
-          <CreateCrossroad createCrossroad={createCrossroad} />}
+        <CreateCrossroad
+          createCrossroad={createCrossroad}
+          crossroad={currentCrossroad}
+          updateCrossroadText={updateCrossroadText}
+        />
         {
           !allowNewCrossroad &&
             <div>
@@ -139,7 +148,8 @@ StoryEditor.propTypes = {
   createCrossroad: PropTypes.func.isRequired,
   createTest: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
-  toggleIsReady: PropTypes.func.isRequired
+  toggleIsReady: PropTypes.func.isRequired,
+  updateCrossroadText: PropTypes.func.isRequired
 }
 
 export default StoryEditor
