@@ -1,6 +1,9 @@
 import React, { PropTypes } from 'react'
 import Editor from 'draft-js-plugins-editor'
 import { convertFromRaw, EditorState } from 'draft-js'
+import createImagePlugin from 'draft-js-image-plugin'
+
+const imagePlugin = createImagePlugin()
 
 const RichTextDisplay = ({ rawContent }) => <Editor
   editorState={
@@ -8,6 +11,7 @@ const RichTextDisplay = ({ rawContent }) => <Editor
   }
   onChange={() => {}}
   readOnly={true}
+  plugins={[imagePlugin]}
 />
 
 RichTextDisplay.propTypes = {

@@ -3,13 +3,13 @@ import { ControlLabel, FormControl, FormGroup } from 'react-bootstrap'
 
 const FieldGroup = ({ id, label, ...props }) =>
     <FormGroup controlId={id}>
-      <ControlLabel>{label}</ControlLabel>
+      {label && <ControlLabel>{label}</ControlLabel>}
       <FormControl {...props} />
     </FormGroup>
 
 FieldGroup.propTypes = {
-  id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired
+  id: PropTypes.string,
+  label: PropTypes.string
 }
 
 export default FieldGroup

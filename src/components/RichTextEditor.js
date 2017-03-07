@@ -4,17 +4,22 @@ import { Alert, Button, ButtonToolbar, Col, Panel, Row } from 'react-bootstrap'
 import FontAwesome from 'react-fontawesome'
 import Editor from 'draft-js-plugins-editor'
 import createRichButtonsPlugin from 'draft-js-richbuttons-plugin'
+import createImagePlugin from 'draft-js-image-plugin'
 import { convertFromRaw, convertToRaw, EditorState } from 'draft-js'
 
 import BlockRichTextButton from './BlockRichTextButton'
 import InlineRichTextButton from './InlineRichTextButton'
+import ImageAdd from './ImageAdd'
 
-import 'draft-js-emoji-plugin/lib/plugin.css'
+import 'draft-js-image-plugin/lib/plugin.css'
 
 export default class RichTextEditor extends Component {
 
   constructor() {
     super()
+    const imagePlugin = createImagePlugin()
+    const { addImage } = imagePlugin
+    this.addImage = addImage
     const richButtonsPlugin = createRichButtonsPlugin()
     const {
       // Inline buttons
@@ -36,7 +41,7 @@ export default class RichTextEditor extends Component {
       ULButton,
       UnderlineButton
     }
-    this.plugins = [richButtonsPlugin]
+    this.plugins = [imagePlugin, richButtonsPlugin]
     this.handleChange = this.handleChange.bind(this)
     const editorState = EditorState.createEmpty()
     const originalContent = editorState.getCurrentContent()
@@ -116,17 +121,16 @@ export default class RichTextEditor extends Component {
               <BlockRichTextButton iconName='list-ul' />
             </ULButton>
           </ButtonToolbar>
-          <p />
+          <p/>
+          <ImageAdd
+            editorState={this.state.editorState}
+            onChange={this.handleChange}
+            modifier={this.addImage}
+          />
           <Panel header='edit your text below'>
             <Editor
               editorState={this.state.editorState}
-              onChange={
-                editorState => {
-                  this.setState({
-                    editorState
-                  })
-                }
-              }
+              onChange={this.handleChange}
               plugins={this.plugins}
             />
         </Panel>
