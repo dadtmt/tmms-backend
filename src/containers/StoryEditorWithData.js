@@ -12,6 +12,7 @@ import {
   UPDATE_CROSSROAD_TEXT
 } from '../graphql/mutations'
 import { GET_PAGE_EDITOR_QUERY } from '../graphql/queries'
+import makeReducer from '../reducers/makeReducer'
 import StoryEditor from '../components/StoryEditor'
 
 const withCreateChoice = graphql(
@@ -19,18 +20,6 @@ const withCreateChoice = graphql(
   {
     props: ({ mutate }) => ({
       createChoice: values => mutate({
-        updateQueries: {
-          GetPageEditor: (prev, result) => R.over(
-            R.lensPath(['getPageEditor', 'crossroads', 'edges']),
-            R.over(
-              R.lensIndex(0),
-              R.over(
-                R.lensPath(['node', 'choices', 'edges']),
-                R.append(result.mutationResult.data.createChoice.changedEdge)
-              )
-            )
-          )(prev)
-        },
         variables: {
           newChoice: {
             ...values,
@@ -47,21 +36,6 @@ const withDeleteChoice = graphql(
   {
     props: ({ mutate }) => ({
       deleteChoice: id => mutate({
-        updateQueries: {
-          GetPageEditor: (prev, result) => R.over(
-            R.lensPath(['getPageEditor', 'crossroads', 'edges']),
-            R.over(
-              R.lensIndex(0),
-              R.over(
-                R.lensPath(['node', 'choices', 'edges']),
-                R.filter(
-                  ({ node }) => node.id !==
-                    result.mutationResult.data.deleteChoice.changedChoice.id
-                )
-              )
-            )
-          )(prev)
-        },
         variables: {
           choice: {
             id
@@ -77,12 +51,6 @@ const withCreateCrossroad = graphql(
   {
     props: ({ mutate }) => ({
       createCrossroad: text => mutate({
-        updateQueries: {
-          GetPageEditor: (prev, result) => R.assocPath(
-            ['getPageEditor', 'crossroads', 'edges'],
-            [result.mutationResult.data.createCrossroad.changedEdge]
-          )(prev)
-        },
         variables: {
           newCrossroad: {
             pageEditorId,
@@ -94,23 +62,11 @@ const withCreateCrossroad = graphql(
   }
 )
 
-const withCreateTest = graphql(
+const withCreateTestDice = graphql(
   CREATE_TEST_MUTATION,
   {
     props: ({ mutate }) => ({
       createTest: values => mutate({
-        updateQueries: {
-          GetPageEditor: (prev, result) => R.over(
-            R.lensPath(['getPageEditor', 'crossroads', 'edges']),
-            R.over(
-              R.lensIndex(0),
-              R.over(
-                R.lensPath(['node', 'testDices', 'edges']),
-                R.append(result.mutationResult.data.createTestDice.changedEdge)
-              )
-            )
-          )(prev)
-        },
         variables: {
           createTest: {
             ...values,
@@ -127,21 +83,6 @@ const withDeleteTestDice = graphql(
   {
     props: ({ mutate }) => ({
       deleteTestDice: id => mutate({
-        updateQueries: {
-          GetPageEditor: (prev, result) => R.over(
-            R.lensPath(['getPageEditor', 'crossroads', 'edges']),
-            R.over(
-              R.lensIndex(0),
-              R.over(
-                R.lensPath(['node', 'testDices', 'edges']),
-                R.filter(
-                  ({ node }) => node.id !==
-                    result.mutationResult.data.deleteTestDice.changedTestDice.id
-                )
-              )
-            )
-          )(prev)
-        },
         variables: {
           testDice: {
             id
@@ -158,24 +99,6 @@ const withToggleCrossroadIsReady = graphql(
   {
     props: ({ mutate }) => ({
       toggleIsReady: values => mutate({
-        updateQueries: {
-          GetPageEditor: (prev, result) => R.over(
-            R.lensPath(['getPageEditor', 'crossroads', 'edges']),
-            R.over(
-              R.lensIndex(0),
-              R.set(
-                R.lensPath(['node', 'isReady']),
-                R.path([
-                  'mutationResult',
-                  'data',
-                  'updateCrossroad',
-                  'changedCrossroad',
-                  'isReady'
-                ])(result)
-              )
-            )
-          )(prev)
-        },
         variables: {
           toggleCrossroadReady: {
             ...values
@@ -191,24 +114,6 @@ const withUpdateCrossroadText = graphql(
   {
     props: ({ mutate }) => ({
       updateCrossroadText: values => mutate({
-        updateQueries: {
-          GetPageEditor: (prev, result) => R.over(
-            R.lensPath(['getPageEditor', 'crossroads', 'edges']),
-            R.over(
-              R.lensIndex(0),
-              R.set(
-                R.lensPath(['node', 'text']),
-                R.path([
-                  'mutationResult',
-                  'data',
-                  'updateCrossroad',
-                  'changedCrossroad',
-                  'text'
-                ])(result)
-              )
-            )
-          )(prev)
-        },
         variables: {
           updateCrossroadText: {
             ...values
@@ -219,10 +124,75 @@ const withUpdateCrossroadText = graphql(
   }
 )
 
+const updatePageEditor = update => R.over(
+  R.lensPath(['viewer', 'user', 'editors', 'edges']),
+  R.over(
+    R.lensIndex(0),
+    update
+  )
+)
+
+const updateCrossroad = update => updatePageEditor(
+  R.over(
+    R.lensPath(['node', 'crossroads', 'edges']),
+    R.over(
+      R.lensIndex(0),
+      update
+    )
+  )
+)
+
+const mutationHandlers = {
+  CreateChoice: (state, { createChoice }) => updateCrossroad(
+    R.over(
+      R.lensPath(['node', 'choices', 'edges']),
+      R.append(createChoice.changedEdge)
+    )
+  )(state),
+  CreateCrossroad: (state, { createCrossroad }) => updatePageEditor(
+    R.over(
+      R.lensPath(['node', 'crossroads', 'edges']),
+      R.prepend(createCrossroad.changedEdge)
+    )
+  )(state),
+  CreateTestDice: (state, { createTestDice }) => updateCrossroad(
+    R.over(
+      R.lensPath(['node', 'testDices', 'edges']),
+      R.append(createTestDice.changedEdge)
+    )
+  )(state),
+  DeleteChoice: (state, { deleteChoice }) => updateCrossroad(
+    R.over(
+      R.lensPath(['node', 'choices', 'edges']),
+      R.filter(({ node }) => node.id !== deleteChoice.changedChoice.id)
+    )
+  )(state),
+  DeleteTestDice: (state, { deleteTestDice }) => updateCrossroad(
+    R.over(
+      R.lensPath(['node', 'testDices', 'edges']),
+      R.filter(({ node }) => node.id !== deleteTestDice.changedTestDice.id)
+    )
+  )(state)
+}
+
+const handlers = {
+  APOLLO_MUTATION_RESULT: (state, {
+    operationName,
+    result: { data }
+  }) => R.propOr(
+    R.identity,
+    operationName,
+    mutationHandlers
+  )(state, data)
+}
+
+export const reducer = makeReducer(handlers)
+
 const withData = graphql(
   GET_PAGE_EDITOR_QUERY,
   {
     options: {
+      reducer,
       variables: { pageEditorId }
     }
   }
@@ -232,7 +202,7 @@ export default R.compose(
   withCreateChoice,
   withDeleteChoice,
   withCreateCrossroad,
-  withCreateTest,
+  withCreateTestDice,
   withDeleteTestDice,
   withData,
   withToggleCrossroadIsReady,

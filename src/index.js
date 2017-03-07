@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom'
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 
 import makeApolloClient from './makeApolloClient'
-import editor from './reducers/editor'
 import App from './App'
 
 import './index.css'
@@ -15,8 +14,7 @@ const client = makeApolloClient()
 
 const store = createStore(
   combineReducers({
-    apollo: client.reducer(),
-    editor
+    apollo: client.reducer()
   }),
   {},
   compose(

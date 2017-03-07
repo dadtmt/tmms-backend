@@ -1,138 +1,368 @@
+import R from 'ramda'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { ApolloProvider } from 'react-apollo'
+import ApolloClient from 'apollo-client'
 
 import StoryEditor, {
-  getCrossroadIdFromProps,
-  isChoiceMade,
-  isReady
+  getCrossroadsFromData,
+  getCurrentCrossroad,
+  isChoiceMade
 } from './StoryEditor'
 
-describe('getCrossroadIdFromProps', () => {
-  it('should return crossroadId', () => {
-    const props = {
-      data: {
-        getPageEditor: {
-          crossroads: {
-            edges: [
+describe('getCurrentCrossroad', () => {
+  it('should return null on loading', () => {
+    const data = {
+      loading: true
+    }
+    expect(getCurrentCrossroad(getCrossroadsFromData(data))).toMatchSnapshot()
+  })
+  it('should return current crossroad', () => {
+
+    /* eslint-disable sort-keys */
+    const data = {
+      'variables': {
+        'pageEditorId': 'UGFnZUVkaXRvcjox'
+      },
+      'loading': false,
+      'networkStatus': 7,
+      'viewer': {
+        'user': {
+          'editors': {
+            'edges': [
               {
-                node: {
-                  id: 'SOME_ID'
-                }
+                'node': {
+                  'id': 'UGFnZUVkaXRvcjox',
+                  'crossroads': {
+                    'edges': [
+                      {
+                        'node': {
+                          'createdAt': '2017-03-07T11:37:25.000Z',
+                          'id': 'Q3Jvc3Nyb2FkOjIx',
+                          'isReady': false,
+                          'text': {
+                            'entityMap': {},
+                            'blocks': [
+                              {
+                                'key': '8ussa',
+                                'text': 'fsdfsfsdfsfd',
+                                'type': 'unstyled',
+                                'depth': 0,
+                                'inlineStyleRanges': [],
+                                'entityRanges': [],
+                                'data': {}
+                              }
+                            ]
+                          },
+                          'choices': {
+                            'edges': [],
+                            '__typename': 'ChoiceConnection'
+                          },
+                          'testDices': {
+                            'edges': [],
+                            '__typename': 'TestDiceConnection'
+                          },
+                          '__typename': 'Crossroad'
+                        },
+                        '__typename': 'CrossroadEdge'
+                      }
+                    ],
+                    '__typename': 'CrossroadConnection'
+                  },
+                  '__typename': 'PageEditor'
+                },
+                '__typename': 'UserEditorsEdge'
               }
-            ]
-          }
-        }
+            ],
+            '__typename': 'UserEditorsConnection'
+          },
+          '__typename': 'User'
+        },
+        '__typename': 'Viewer'
       }
     }
-    expect(getCrossroadIdFromProps(props)).toBe('SOME_ID')
-  })
-  it('should return falsy when edges empty', () => {
-    const props = {
-      data: {
-        getPageEditor: {
-          crossroads: {
-            edges: []
-          }
-        }
-      }
-    }
-    expect(getCrossroadIdFromProps(props)).toBeFalsy()
-  })
-  it('should return falsy when no getPageEditor', () => {
-    const props = {
-      data: {}
-    }
-    expect(getCrossroadIdFromProps(props)).toBeFalsy()
+
+    /* eslint-enable sort-keys */
+
+    expect(getCurrentCrossroad(getCrossroadsFromData(data))).toMatchSnapshot()
   })
 })
 
 describe('isChoiceMade', () => {
   it('return true if one choice is made', () => {
-    const crossroads = {
-      edges: [
-        {
-          node: {
-            choices: { edges: [
+
+    /* eslint-disable sort-keys */
+    const data = {
+      'variables': {
+        'pageEditorId': 'UGFnZUVkaXRvcjox'
+      },
+      'loading': false,
+      'networkStatus': 7,
+      'viewer': {
+        'user': {
+          'editors': {
+            'edges': [
               {
-                node: {
-                  made: true
-                }
-              },
-              {
-                node: {
-                  made: false
-                }
+                'node': {
+                  'id': 'UGFnZUVkaXRvcjox',
+                  'crossroads': {
+                    'edges': [
+                      {
+                        'node': {
+                          'createdAt': '2017-03-07T11:37:25.000Z',
+                          'id': 'Q3Jvc3Nyb2FkOjIx',
+                          'isReady': false,
+                          'text': {
+                            'entityMap': {},
+                            'blocks': [
+                              {
+                                'key': '8ussa',
+                                'text': 'fsdfsfsdfsfd',
+                                'type': 'unstyled',
+                                'depth': 0,
+                                'inlineStyleRanges': [],
+                                'entityRanges': [],
+                                'data': {}
+                              }
+                            ]
+                          },
+                          'choices': {
+                            'edges': [
+                              {
+                                node: {
+                                  made: true
+                                }
+                              },
+                              {
+                                node: {
+                                  made: false
+                                }
+                              }
+                            ],
+                            '__typename': 'ChoiceConnection'
+                          },
+                          'testDices': {
+                            'edges': [],
+                            '__typename': 'TestDiceConnection'
+                          },
+                          '__typename': 'Crossroad'
+                        },
+                        '__typename': 'CrossroadEdge'
+                      }
+                    ],
+                    '__typename': 'CrossroadConnection'
+                  },
+                  '__typename': 'PageEditor'
+                },
+                '__typename': 'UserEditorsEdge'
               }
-            ] }
-          }
-        }
-      ]
+            ],
+            '__typename': 'UserEditorsConnection'
+          },
+          '__typename': 'User'
+        },
+        '__typename': 'Viewer'
+      }
     }
-    expect(isChoiceMade(crossroads)).toBeTruthy()
+
+    /* eslint-enable sort-keys */
+    expect(
+      isChoiceMade(getCurrentCrossroad(getCrossroadsFromData(data)))
+    ).toBeTruthy()
   })
+
   it('return true if one test is made', () => {
-    const crossroads = {
-      edges: [
-        {
-          node: {
-            choices: { edges: [
+
+    /* eslint-disable sort-keys */
+    const data = {
+      'variables': {
+        'pageEditorId': 'UGFnZUVkaXRvcjox'
+      },
+      'loading': false,
+      'networkStatus': 7,
+      'viewer': {
+        'user': {
+          'editors': {
+            'edges': [
               {
-                node: {
-                  made: false
-                }
-              },
-              {
-                node: {
-                  made: false
-                }
+                'node': {
+                  'id': 'UGFnZUVkaXRvcjox',
+                  'crossroads': {
+                    'edges': [
+                      {
+                        'node': {
+                          'createdAt': '2017-03-07T11:37:25.000Z',
+                          'id': 'Q3Jvc3Nyb2FkOjIx',
+                          'isReady': false,
+                          'text': {
+                            'entityMap': {},
+                            'blocks': [
+                              {
+                                'key': '8ussa',
+                                'text': 'fsdfsfsdfsfd',
+                                'type': 'unstyled',
+                                'depth': 0,
+                                'inlineStyleRanges': [],
+                                'entityRanges': [],
+                                'data': {}
+                              }
+                            ]
+                          },
+                          'choices': {
+                            'edges': [
+                              {
+                                node: {
+                                  made: false
+                                }
+                              },
+                              {
+                                node: {
+                                  made: false
+                                }
+                              }
+                            ],
+                            '__typename': 'ChoiceConnection'
+                          },
+                          'testDices': {
+                            'edges': [
+                              {
+                                node: {
+                                  made: true
+                                }
+                              },
+                              {
+                                node: {
+                                  made: false
+                                }
+                              }
+                            ],
+                            '__typename': 'TestDiceConnection'
+                          },
+                          '__typename': 'Crossroad'
+                        },
+                        '__typename': 'CrossroadEdge'
+                      }
+                    ],
+                    '__typename': 'CrossroadConnection'
+                  },
+                  '__typename': 'PageEditor'
+                },
+                '__typename': 'UserEditorsEdge'
               }
-            ] },
-            testDices: { edges: [
-              {
-                node: {
-                  made: true
-                }
-              },
-              {
-                node: {
-                  made: false
-                }
-              }
-            ] }
-          }
-        }
-      ]
+            ],
+            '__typename': 'UserEditorsConnection'
+          },
+          '__typename': 'User'
+        },
+        '__typename': 'Viewer'
+      }
     }
-    expect(isChoiceMade(crossroads)).toBeTruthy()
+
+    /* eslint-enable sort-keys */
+    expect(
+      isChoiceMade(getCurrentCrossroad(getCrossroadsFromData(data)))
+    ).toBeTruthy()
   })
   it('return false if no crossroad', () => {
-    const crossroads = {
-      edges: []
+    const data = {
+      loading: true
     }
-    expect(isChoiceMade(crossroads)).toBeFalsy()
+    expect(
+      isChoiceMade(getCurrentCrossroad(getCrossroadsFromData(data)))
+    ).toBeFalsy()
   })
   it('return false if no choice is made', () => {
-    const crossroads = {
-      edges: [
-        {
-          node: {
-            choices: { edges: [
+
+    /* eslint-disable sort-keys */
+    const data = {
+      'variables': {
+        'pageEditorId': 'UGFnZUVkaXRvcjox'
+      },
+      'loading': false,
+      'networkStatus': 7,
+      'viewer': {
+        'user': {
+          'editors': {
+            'edges': [
               {
-                node: {
-                  made: false
-                }
-              },
-              {
-                node: {
-                  made: false
-                }
+                'node': {
+                  'id': 'UGFnZUVkaXRvcjox',
+                  'crossroads': {
+                    'edges': [
+                      {
+                        'node': {
+                          'createdAt': '2017-03-07T11:37:25.000Z',
+                          'id': 'Q3Jvc3Nyb2FkOjIx',
+                          'isReady': false,
+                          'text': {
+                            'entityMap': {},
+                            'blocks': [
+                              {
+                                'key': '8ussa',
+                                'text': 'fsdfsfsdfsfd',
+                                'type': 'unstyled',
+                                'depth': 0,
+                                'inlineStyleRanges': [],
+                                'entityRanges': [],
+                                'data': {}
+                              }
+                            ]
+                          },
+                          'choices': {
+                            'edges': [
+                              {
+                                node: {
+                                  made: false
+                                }
+                              },
+                              {
+                                node: {
+                                  made: false
+                                }
+                              }
+                            ],
+                            '__typename': 'ChoiceConnection'
+                          },
+                          'testDices': {
+                            'edges': [
+                              {
+                                node: {
+                                  made: false
+                                }
+                              },
+                              {
+                                node: {
+                                  made: false
+                                }
+                              }
+                            ],
+                            '__typename': 'TestDiceConnection'
+                          },
+                          '__typename': 'Crossroad'
+                        },
+                        '__typename': 'CrossroadEdge'
+                      }
+                    ],
+                    '__typename': 'CrossroadConnection'
+                  },
+                  '__typename': 'PageEditor'
+                },
+                '__typename': 'UserEditorsEdge'
               }
-            ] }
-          }
-        }
-      ]
+            ],
+            '__typename': 'UserEditorsConnection'
+          },
+          '__typename': 'User'
+        },
+        '__typename': 'Viewer'
+      }
     }
-    expect(isChoiceMade(crossroads)).toBeFalsy()
+
+    /* eslint-enable sort-keys */
+
+    expect(
+      isChoiceMade(getCurrentCrossroad(getCrossroadsFromData(data)))
+    ).toBeFalsy()
   })
 })
 
@@ -149,23 +379,11 @@ it('renders without crashing', () => {
     toggleIsReady: jest.fn(),
     updateCrossroadText: jest.fn()
   }
+  const client = new ApolloClient()
   ReactDOM.render(
-    <StoryEditor {...props} />,
+    <ApolloProvider client={client}>
+      <StoryEditor {...props} />
+    </ApolloProvider>,
     div
   )
-})
-
-describe('isReady', () => {
-  it('return false if crossroad not ready', () => {
-    const crossroads = {
-      edges: [{ node: { isReady: false } }]
-    }
-    expect(isReady(crossroads)).toBeFalsy()
-  })
-  it('return true if crossroad not ready', () => {
-    const crossroads = {
-      edges: [{ node: { isReady: true } }]
-    }
-    expect(isReady(crossroads)).toBeTruthy()
-  })
 })

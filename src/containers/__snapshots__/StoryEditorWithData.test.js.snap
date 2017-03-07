@@ -1,0 +1,716 @@
+exports[`reducer handles CREATE_CHOICE_MUTATION 1`] = `
+Object {
+  "viewer": Object {
+    "__typename": "Viewer",
+    "user": Object {
+      "__typename": "User",
+      "editors": Object {
+        "__typename": "UserEditorsConnection",
+        "edges": Array [
+          Object {
+            "__typename": "UserEditorsEdge",
+            "node": Object {
+              "__typename": "PageEditor",
+              "crossroads": Object {
+                "__typename": "CrossroadConnection",
+                "edges": Array [
+                  Object {
+                    "__typename": "CrossroadEdge",
+                    "node": Object {
+                      "__typename": "Crossroad",
+                      "choices": Object {
+                        "__typename": "ChoiceConnection",
+                        "edges": Array [
+                          Object {
+                            "__typename": "ChoiceEdge",
+                            "node": Object {
+                              "__typename": "Choice",
+                              "id": "Q2hvaWNlOjY0",
+                              "made": false,
+                              "text": Object {
+                                "blocks": Array [
+                                  Object {
+                                    "data": Object {},
+                                    "depth": 0,
+                                    "entityRanges": Array [],
+                                    "inlineStyleRanges": Array [],
+                                    "key": "f7ujh",
+                                    "text": "Go left",
+                                    "type": "unstyled",
+                                  },
+                                ],
+                                "entityMap": Object {},
+                              },
+                            },
+                          },
+                          Object {
+                            "__typename": "ChoiceEdge",
+                            "node": Object {
+                              "__typename": "Choice",
+                              "id": "Q2hvaWNlOjU2",
+                              "made": false,
+                              "text": Object {
+                                "blocks": Array [
+                                  Object {
+                                    "data": Object {},
+                                    "depth": 0,
+                                    "entityRanges": Array [],
+                                    "inlineStyleRanges": Array [],
+                                    "key": "nts2",
+                                    "text": "This is my choice",
+                                    "type": "unstyled",
+                                  },
+                                ],
+                                "entityMap": Object {},
+                              },
+                            },
+                          },
+                        ],
+                      },
+                      "createdAt": "2017-03-07T11:37:25.000Z",
+                      "id": "Q3Jvc3Nyb2FkOjIx",
+                      "isReady": false,
+                      "testDices": Object {
+                        "__typename": "TestDiceConnection",
+                        "edges": Array [
+                          Object {
+                            "__typename": "TestDiceEdge",
+                            "node": Object {
+                              "__typename": "TestDice",
+                              "details": " (3)  + 0",
+                              "id": "VGVzdERpY2U6MzI=",
+                              "made": false,
+                              "master": true,
+                              "modifier": 0,
+                              "nbDices": 1,
+                              "nbSides": 6,
+                              "result": 3,
+                              "text": Object {
+                                "blocks": Array [
+                                  Object {
+                                    "data": Object {},
+                                    "depth": 0,
+                                    "entityRanges": Array [],
+                                    "inlineStyleRanges": Array [],
+                                    "key": "f10c4",
+                                    "text": "I KILL YOU",
+                                    "type": "unstyled",
+                                  },
+                                ],
+                                "entityMap": Object {},
+                              },
+                            },
+                          },
+                        ],
+                      },
+                      "text": Object {
+                        "blocks": Array [
+                          Object {
+                            "data": Object {},
+                            "depth": 0,
+                            "entityRanges": Array [],
+                            "inlineStyleRanges": Array [],
+                            "key": "8ussa",
+                            "text": "crossroad",
+                            "type": "unstyled",
+                          },
+                        ],
+                        "entityMap": Object {},
+                      },
+                    },
+                  },
+                ],
+              },
+              "id": "UGFnZUVkaXRvcjox",
+            },
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`reducer handles CREATE_CROSSROAD_MUTATION 1`] = `
+Object {
+  "viewer": Object {
+    "__typename": "Viewer",
+    "user": Object {
+      "__typename": "User",
+      "editors": Object {
+        "__typename": "UserEditorsConnection",
+        "edges": Array [
+          Object {
+            "__typename": "UserEditorsEdge",
+            "node": Object {
+              "__typename": "PageEditor",
+              "crossroads": Object {
+                "__typename": "CrossroadConnection",
+                "edges": Array [
+                  Object {
+                    "__typename": "CrossroadEdge",
+                    "node": Object {
+                      "__typename": "Crossroad",
+                      "choices": Object {
+                        "__typename": "ChoiceConnection",
+                        "edges": Array [],
+                      },
+                      "createdAt": "2017-03-07T15:12:18.000Z",
+                      "id": "Q3Jvc3Nyb2FkOjIy",
+                      "isReady": false,
+                      "testDices": Object {
+                        "__typename": "TestDiceConnection",
+                        "edges": Array [],
+                      },
+                      "text": Object {
+                        "blocks": Array [
+                          Object {
+                            "data": Object {},
+                            "depth": 0,
+                            "entityRanges": Array [],
+                            "inlineStyleRanges": Array [],
+                            "key": "2ovct",
+                            "text": "Here comes the troll...",
+                            "type": "unstyled",
+                          },
+                        ],
+                        "entityMap": Object {},
+                      },
+                    },
+                  },
+                  Object {
+                    "__typename": "CrossroadEdge",
+                    "node": Object {
+                      "__typename": "Crossroad",
+                      "choices": Object {
+                        "__typename": "ChoiceConnection",
+                        "edges": Array [
+                          Object {
+                            "__typename": "ChoiceEdge",
+                            "node": Object {
+                              "__typename": "Choice",
+                              "id": "Q2hvaWNlOjY0",
+                              "made": false,
+                              "text": Object {
+                                "blocks": Array [
+                                  Object {
+                                    "data": Object {},
+                                    "depth": 0,
+                                    "entityRanges": Array [],
+                                    "inlineStyleRanges": Array [],
+                                    "key": "f7ujh",
+                                    "text": "Go left",
+                                    "type": "unstyled",
+                                  },
+                                ],
+                                "entityMap": Object {},
+                              },
+                            },
+                          },
+                        ],
+                      },
+                      "createdAt": "2017-03-07T11:37:25.000Z",
+                      "id": "Q3Jvc3Nyb2FkOjIx",
+                      "isReady": false,
+                      "testDices": Object {
+                        "__typename": "TestDiceConnection",
+                        "edges": Array [
+                          Object {
+                            "__typename": "TestDiceEdge",
+                            "node": Object {
+                              "__typename": "TestDice",
+                              "details": " (3)  + 0",
+                              "id": "VGVzdERpY2U6MzI=",
+                              "made": false,
+                              "master": true,
+                              "modifier": 0,
+                              "nbDices": 1,
+                              "nbSides": 6,
+                              "result": 3,
+                              "text": Object {
+                                "blocks": Array [
+                                  Object {
+                                    "data": Object {},
+                                    "depth": 0,
+                                    "entityRanges": Array [],
+                                    "inlineStyleRanges": Array [],
+                                    "key": "f10c4",
+                                    "text": "I KILL YOU",
+                                    "type": "unstyled",
+                                  },
+                                ],
+                                "entityMap": Object {},
+                              },
+                            },
+                          },
+                        ],
+                      },
+                      "text": Object {
+                        "blocks": Array [
+                          Object {
+                            "data": Object {},
+                            "depth": 0,
+                            "entityRanges": Array [],
+                            "inlineStyleRanges": Array [],
+                            "key": "8ussa",
+                            "text": "crossroad",
+                            "type": "unstyled",
+                          },
+                        ],
+                        "entityMap": Object {},
+                      },
+                    },
+                  },
+                ],
+              },
+              "id": "UGFnZUVkaXRvcjox",
+            },
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`reducer handles CREATE_TEST_MUTATION 1`] = `
+Object {
+  "viewer": Object {
+    "__typename": "Viewer",
+    "user": Object {
+      "__typename": "User",
+      "editors": Object {
+        "__typename": "UserEditorsConnection",
+        "edges": Array [
+          Object {
+            "__typename": "UserEditorsEdge",
+            "node": Object {
+              "__typename": "PageEditor",
+              "crossroads": Object {
+                "__typename": "CrossroadConnection",
+                "edges": Array [
+                  Object {
+                    "__typename": "CrossroadEdge",
+                    "node": Object {
+                      "__typename": "Crossroad",
+                      "choices": Object {
+                        "__typename": "ChoiceConnection",
+                        "edges": Array [
+                          Object {
+                            "__typename": "ChoiceEdge",
+                            "node": Object {
+                              "__typename": "Choice",
+                              "id": "Q2hvaWNlOjY0",
+                              "made": false,
+                              "text": Object {
+                                "blocks": Array [
+                                  Object {
+                                    "data": Object {},
+                                    "depth": 0,
+                                    "entityRanges": Array [],
+                                    "inlineStyleRanges": Array [],
+                                    "key": "f7ujh",
+                                    "text": "Go left",
+                                    "type": "unstyled",
+                                  },
+                                ],
+                                "entityMap": Object {},
+                              },
+                            },
+                          },
+                        ],
+                      },
+                      "createdAt": "2017-03-07T11:37:25.000Z",
+                      "id": "Q3Jvc3Nyb2FkOjIx",
+                      "isReady": false,
+                      "testDices": Object {
+                        "__typename": "TestDiceConnection",
+                        "edges": Array [
+                          Object {
+                            "__typename": "TestDiceEdge",
+                            "node": Object {
+                              "__typename": "TestDice",
+                              "details": " (3)  + 0",
+                              "id": "VGVzdERpY2U6MzI=",
+                              "made": false,
+                              "master": true,
+                              "modifier": 0,
+                              "nbDices": 1,
+                              "nbSides": 6,
+                              "result": 3,
+                              "text": Object {
+                                "blocks": Array [
+                                  Object {
+                                    "data": Object {},
+                                    "depth": 0,
+                                    "entityRanges": Array [],
+                                    "inlineStyleRanges": Array [],
+                                    "key": "f10c4",
+                                    "text": "I KILL YOU",
+                                    "type": "unstyled",
+                                  },
+                                ],
+                                "entityMap": Object {},
+                              },
+                            },
+                          },
+                          Object {
+                            "__typename": "TestDiceEdge",
+                            "node": Object {
+                              "__typename": "TestDice",
+                              "details": " (17)  + 0",
+                              "id": "VGVzdERpY2U6MjY=",
+                              "made": false,
+                              "master": false,
+                              "modifier": 0,
+                              "nbDices": 1,
+                              "nbSides": 20,
+                              "result": 17,
+                              "text": Object {
+                                "blocks": Array [
+                                  Object {
+                                    "data": Object {},
+                                    "depth": 0,
+                                    "entityRanges": Array [],
+                                    "inlineStyleRanges": Array [],
+                                    "key": "alu20",
+                                    "text": "Roll to survive...",
+                                    "type": "unstyled",
+                                  },
+                                ],
+                                "entityMap": Object {},
+                              },
+                            },
+                          },
+                        ],
+                      },
+                      "text": Object {
+                        "blocks": Array [
+                          Object {
+                            "data": Object {},
+                            "depth": 0,
+                            "entityRanges": Array [],
+                            "inlineStyleRanges": Array [],
+                            "key": "8ussa",
+                            "text": "crossroad",
+                            "type": "unstyled",
+                          },
+                        ],
+                        "entityMap": Object {},
+                      },
+                    },
+                  },
+                ],
+              },
+              "id": "UGFnZUVkaXRvcjox",
+            },
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`reducer handles DELETE_CHOICE_MUTATION 1`] = `
+Object {
+  "viewer": Object {
+    "__typename": "Viewer",
+    "user": Object {
+      "__typename": "User",
+      "editors": Object {
+        "__typename": "UserEditorsConnection",
+        "edges": Array [
+          Object {
+            "__typename": "UserEditorsEdge",
+            "node": Object {
+              "__typename": "PageEditor",
+              "crossroads": Object {
+                "__typename": "CrossroadConnection",
+                "edges": Array [
+                  Object {
+                    "__typename": "CrossroadEdge",
+                    "node": Object {
+                      "__typename": "Crossroad",
+                      "choices": Object {
+                        "__typename": "ChoiceConnection",
+                        "edges": Array [],
+                      },
+                      "createdAt": "2017-03-07T11:37:25.000Z",
+                      "id": "Q3Jvc3Nyb2FkOjIx",
+                      "isReady": false,
+                      "testDices": Object {
+                        "__typename": "TestDiceConnection",
+                        "edges": Array [
+                          Object {
+                            "__typename": "TestDiceEdge",
+                            "node": Object {
+                              "__typename": "TestDice",
+                              "details": " (3)  + 0",
+                              "id": "VGVzdERpY2U6MzI=",
+                              "made": false,
+                              "master": true,
+                              "modifier": 0,
+                              "nbDices": 1,
+                              "nbSides": 6,
+                              "result": 3,
+                              "text": Object {
+                                "blocks": Array [
+                                  Object {
+                                    "data": Object {},
+                                    "depth": 0,
+                                    "entityRanges": Array [],
+                                    "inlineStyleRanges": Array [],
+                                    "key": "f10c4",
+                                    "text": "I KILL YOU",
+                                    "type": "unstyled",
+                                  },
+                                ],
+                                "entityMap": Object {},
+                              },
+                            },
+                          },
+                        ],
+                      },
+                      "text": Object {
+                        "blocks": Array [
+                          Object {
+                            "data": Object {},
+                            "depth": 0,
+                            "entityRanges": Array [],
+                            "inlineStyleRanges": Array [],
+                            "key": "8ussa",
+                            "text": "crossroad",
+                            "type": "unstyled",
+                          },
+                        ],
+                        "entityMap": Object {},
+                      },
+                    },
+                  },
+                ],
+              },
+              "id": "UGFnZUVkaXRvcjox",
+            },
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`reducer handles DELETE_TEST_MUTATION 1`] = `
+Object {
+  "viewer": Object {
+    "__typename": "Viewer",
+    "user": Object {
+      "__typename": "User",
+      "editors": Object {
+        "__typename": "UserEditorsConnection",
+        "edges": Array [
+          Object {
+            "__typename": "UserEditorsEdge",
+            "node": Object {
+              "__typename": "PageEditor",
+              "crossroads": Object {
+                "__typename": "CrossroadConnection",
+                "edges": Array [
+                  Object {
+                    "__typename": "CrossroadEdge",
+                    "node": Object {
+                      "__typename": "Crossroad",
+                      "choices": Object {
+                        "__typename": "ChoiceConnection",
+                        "edges": Array [
+                          Object {
+                            "__typename": "ChoiceEdge",
+                            "node": Object {
+                              "__typename": "Choice",
+                              "id": "Q2hvaWNlOjY0",
+                              "made": false,
+                              "text": Object {
+                                "blocks": Array [
+                                  Object {
+                                    "data": Object {},
+                                    "depth": 0,
+                                    "entityRanges": Array [],
+                                    "inlineStyleRanges": Array [],
+                                    "key": "f7ujh",
+                                    "text": "Go left",
+                                    "type": "unstyled",
+                                  },
+                                ],
+                                "entityMap": Object {},
+                              },
+                            },
+                          },
+                        ],
+                      },
+                      "createdAt": "2017-03-07T11:37:25.000Z",
+                      "id": "Q3Jvc3Nyb2FkOjIx",
+                      "isReady": false,
+                      "testDices": Object {
+                        "__typename": "TestDiceConnection",
+                        "edges": Array [],
+                      },
+                      "text": Object {
+                        "blocks": Array [
+                          Object {
+                            "data": Object {},
+                            "depth": 0,
+                            "entityRanges": Array [],
+                            "inlineStyleRanges": Array [],
+                            "key": "8ussa",
+                            "text": "crossroad",
+                            "type": "unstyled",
+                          },
+                        ],
+                        "entityMap": Object {},
+                      },
+                    },
+                  },
+                ],
+              },
+              "id": "UGFnZUVkaXRvcjox",
+            },
+          },
+        ],
+      },
+    },
+  },
+}
+`;
+
+exports[`reducer handles DELETE_TEST_MUTATION 2`] = `
+Object {
+  "viewer": Object {
+    "__typename": "Viewer",
+    "user": Object {
+      "__typename": "User",
+      "editors": Object {
+        "__typename": "UserEditorsConnection",
+        "edges": Array [
+          Object {
+            "__typename": "UserEditorsEdge",
+            "node": Object {
+              "__typename": "PageEditor",
+              "crossroads": Object {
+                "__typename": "CrossroadConnection",
+                "edges": Array [
+                  Object {
+                    "__typename": "CrossroadEdge",
+                    "node": Object {
+                      "__typename": "Crossroad",
+                      "choices": Object {
+                        "__typename": "ChoiceConnection",
+                        "edges": Array [
+                          Object {
+                            "__typename": "ChoiceEdge",
+                            "node": Object {
+                              "__typename": "Choice",
+                              "id": "Q2hvaWNlOjY0",
+                              "made": false,
+                              "text": Object {
+                                "blocks": Array [
+                                  Object {
+                                    "data": Object {},
+                                    "depth": 0,
+                                    "entityRanges": Array [],
+                                    "inlineStyleRanges": Array [],
+                                    "key": "f7ujh",
+                                    "text": "Go left",
+                                    "type": "unstyled",
+                                  },
+                                ],
+                                "entityMap": Object {},
+                              },
+                            },
+                          },
+                          Object {
+                            "__typename": "ChoiceEdge",
+                            "node": Object {
+                              "__typename": "Choice",
+                              "id": "Q2hvaWNlOjU2",
+                              "made": false,
+                              "text": Object {
+                                "blocks": Array [
+                                  Object {
+                                    "data": Object {},
+                                    "depth": 0,
+                                    "entityRanges": Array [],
+                                    "inlineStyleRanges": Array [],
+                                    "key": "nts2",
+                                    "text": "This is my choice",
+                                    "type": "unstyled",
+                                  },
+                                ],
+                                "entityMap": Object {},
+                              },
+                            },
+                          },
+                        ],
+                      },
+                      "createdAt": "2017-03-07T11:37:25.000Z",
+                      "id": "Q3Jvc3Nyb2FkOjIx",
+                      "isReady": false,
+                      "testDices": Object {
+                        "__typename": "TestDiceConnection",
+                        "edges": Array [
+                          Object {
+                            "__typename": "TestDiceEdge",
+                            "node": Object {
+                              "__typename": "TestDice",
+                              "details": " (3)  + 0",
+                              "id": "VGVzdERpY2U6MzI=",
+                              "made": false,
+                              "master": true,
+                              "modifier": 0,
+                              "nbDices": 1,
+                              "nbSides": 6,
+                              "result": 3,
+                              "text": Object {
+                                "blocks": Array [
+                                  Object {
+                                    "data": Object {},
+                                    "depth": 0,
+                                    "entityRanges": Array [],
+                                    "inlineStyleRanges": Array [],
+                                    "key": "f10c4",
+                                    "text": "I KILL YOU",
+                                    "type": "unstyled",
+                                  },
+                                ],
+                                "entityMap": Object {},
+                              },
+                            },
+                          },
+                        ],
+                      },
+                      "text": Object {
+                        "blocks": Array [
+                          Object {
+                            "data": Object {},
+                            "depth": 0,
+                            "entityRanges": Array [],
+                            "inlineStyleRanges": Array [],
+                            "key": "8ussa",
+                            "text": "crossroad",
+                            "type": "unstyled",
+                          },
+                        ],
+                        "entityMap": Object {},
+                      },
+                    },
+                  },
+                ],
+              },
+              "id": "UGFnZUVkaXRvcjox",
+            },
+          },
+        ],
+      },
+    },
+  },
+}
+`;

@@ -6,24 +6,36 @@ import {
   UPDATE_CHOICE_SUBSCRIPTION,
   UPDATE_TESTDICE_SUBSCRIPTION
 } from '../graphql/subscriptions'
-import StoryFeed from '../containers/StoryFeedWithData'
 import CreateChoice from './CreateChoice'
 import CreateTest from './CreateTest'
 import CreateCrossroad from './CreateCrossroad'
 import CurrentCrossroad from './CurrentCrossroad'
+import Crossroads from './Crossroads'
+
+export const getCrossroadsFromData = R.pipe(
+  R.pathOr(
+    [],
+    ['viewer', 'user', 'editors', 'edges']
+  ),
+  R.head,
+  R.pathOr([], ['node', 'crossroads', 'edges'])
+)
+
+export const getCurrentCrossroad = R.pipe(
+  R.head,
+  R.propOr(null, 'node')
+)
 
 export const isChoiceMade = R.pipe(
-  R.prop('edges'),
-  R.head,
   R.converge(
     R.concat,
     [
       R.pipe(
-        R.pathOr([], ['node', 'choices', 'edges']),
+        R.pathOr([], ['choices', 'edges']),
         R.map(R.path(['node', 'made']))
       ),
       R.pipe(
-        R.pathOr([], ['node', 'testDices', 'edges']),
+        R.pathOr([], ['testDices', 'edges']),
         R.map(R.path(['node', 'made']))
       )
     ]
@@ -32,18 +44,6 @@ export const isChoiceMade = R.pipe(
     R.or,
     false
   )
-)
-
-export const isReady = R.pipe(
-  R.prop('edges'),
-  R.head,
-  R.pathOr(false, ['node', 'isReady'])
-)
-
-export const getCrossroadIdFromProps = R.pipe(
-  R.pathOr([], ['data', 'getPageEditor', 'crossroads', 'edges']),
-  R.head,
-  R.path(['node', 'id'])
 )
 
 class StoryEditor extends Component {
@@ -58,8 +58,15 @@ class StoryEditor extends Component {
   componentWillReceiveProps(newProps) {
     const { data } = newProps
     const { loading } = data
-    const crossroadId = getCrossroadIdFromProps(newProps)
-    const lastCrossroadId = getCrossroadIdFromProps(this.props)
+    const crossroadId = R.propOr(
+      null,
+      'id'
+    )(getCurrentCrossroad(getCrossroadsFromData(data)))
+    const lastCrossroadId =
+      R.propOr(
+        null,
+        'id'
+      )(getCurrentCrossroad(getCrossroadsFromData(this.props.data)))
 
     if (!loading && !R.isNil(crossroadId) && crossroadId !== lastCrossroadId) {
       this.choiceSubscription = data.subscribeToMore({
@@ -101,29 +108,17 @@ class StoryEditor extends Component {
 
     const { loading } = data
 
-    const crossroads = R.pathOr(
-      { edges: [] },
-      ['getPageEditor', 'crossroads']
-    )(data)
+    const crossroads = getCrossroadsFromData(data)
 
-    const currentCrossroad = R.pipe(
-      R.prop('edges'),
-      R.head,
-      R.propOr(null, 'node')
-    )(crossroads)
+    const currentCrossroad = getCurrentCrossroad(crossroads)
 
-// Dirty
+    const crossroadsWithoutCurrent = R.tail(crossroads)
+    const allowNewCrossroad = R.isNil(currentCrossroad) ||
+      isChoiceMade(currentCrossroad)
 
-    const allowNewCrossroad = R.isEmpty(crossroads.edges) ||
-      isChoiceMade(crossroads)
+    const isCrossroadReady = R.propOr(false, 'isReady')(currentCrossroad)
 
-    const isCrossroadReady = isReady(crossroads)
-
-    const crossroadId = R.pipe(
-      R.prop('edges'),
-      R.head,
-      R.pathOr('', ['node', 'id'])
-    )(crossroads)
+    const crossroadId = R.propOr(null, 'id')(currentCrossroad)
 
     return (
       <Row>
@@ -181,9 +176,7 @@ class StoryEditor extends Component {
             deleteChoice={deleteChoice}
             deleteTestDice={deleteTestDice}
           />}
-          <StoryFeed
-            currentCrossroadId={R.propOr(null, 'id')(currentCrossroad)}
-          />
+          <Crossroads crossroads={{ edges: crossroadsWithoutCurrent }} />
         </Col>
       </Row>
     )
