@@ -41,7 +41,8 @@ export default class RichTextEditor extends Component {
       ULButton,
       UnderlineButton
     }
-    this.plugins = [imagePlugin, richButtonsPlugin]
+    // this.plugins = [imagePlugin, richButtonsPlugin]
+    this.plugins = [richButtonsPlugin]
     this.handleChange = this.handleChange.bind(this)
     const editorState = EditorState.createEmpty()
     const originalContent = editorState.getCurrentContent()

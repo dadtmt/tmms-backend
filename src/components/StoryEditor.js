@@ -1,13 +1,12 @@
 import R from 'ramda'
 import React, { Component, PropTypes } from 'react'
-import { Button, ButtonToolbar, Checkbox, Col, Row } from 'react-bootstrap'
+import { Checkbox, Col, Row } from 'react-bootstrap'
 
 import {
   UPDATE_CHOICE_SUBSCRIPTION,
   UPDATE_TESTDICE_SUBSCRIPTION
 } from '../graphql/subscriptions'
 import CreateChoice from './CreateChoice'
-import CreateTest from './CreateTest'
 import CreateCrossroad from './CreateCrossroad'
 import CurrentCrossroad from './CurrentCrossroad'
 import Crossroads from './Crossroads'
@@ -49,10 +48,6 @@ export const isChoiceMade = R.pipe(
 class StoryEditor extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      showAddChoice: false,
-      showAddTest: false
-    }
   }
 
   componentWillReceiveProps(newProps) {
@@ -99,7 +94,6 @@ class StoryEditor extends Component {
       createChoice,
       deleteChoice,
       createCrossroad,
-      createTest,
       deleteTestDice,
       data,
       toggleIsReady,
@@ -139,34 +133,8 @@ class StoryEditor extends Component {
           >
             Make the page ready to play
           </Checkbox>
-          <ButtonToolbar>
-            <Button
-              bsStyle='primary'
-              disabled={allowNewCrossroad}
-              onClick={() => this.setState({
-                showAddChoice: true,
-                showAddTest: false
-              })}
-            >
-              Add a Choice
-            </Button>
-            <Button
-              bsStyle='primary'
-              disabled={allowNewCrossroad}
-              onClick={() => this.setState({
-                showAddChoice: false,
-                showAddTest: true
-              })}
-            >
-              Add a Test
-            </Button>
-          </ButtonToolbar>
-          {(this.state.showAddChoice && !allowNewCrossroad) && <CreateChoice
+          {(!allowNewCrossroad) && <CreateChoice
             createChoice={createChoice}
-            crossroadId={crossroadId}
-          />}
-          {(this.state.showAddTest && !allowNewCrossroad) && <CreateTest
-            createTest={createTest}
             crossroadId={crossroadId}
           />}
         </Col>

@@ -23,6 +23,7 @@ it('renders without crashing', () => {
     crossroads: { edges: [{
       node: {
         choices: { edges: [] },
+        createdAt: 'some date',
         id: 'SOME_ID',
         testDices: { edges: [] },
         text

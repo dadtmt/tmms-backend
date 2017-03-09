@@ -1,0 +1,75 @@
+exports[`test renders hiding details and result when master and made false 1`] = `
+<div>
+  <span
+    className="label label-default">
+    Lancer les dés: 
+    1D6+0
+  </span>
+</div>
+`;
+
+exports[`test renders showing details and result when master or made true 1`] = `
+<div>
+  <span
+    className="label label-default">
+    Lancer les dés: 
+    1D6+0
+  </span>
+  <div>
+    <span
+      className="label label-default">
+      Résultat: 
+      6
+    </span>
+    <span
+      className="label label-default">
+      Détails: 
+      details
+    </span>
+  </div>
+</div>
+`;
+
+exports[`test renders showing details and result when master or made true 2`] = `
+<div>
+  <span
+    className="label label-default">
+    Lancer les dés: 
+    1D6+0
+  </span>
+  <div>
+    <span
+      className="label label-default">
+      Résultat: 
+      6
+    </span>
+    <span
+      className="label label-default">
+      Détails: 
+      details
+    </span>
+  </div>
+</div>
+`;
+
+exports[`test renders showing details and result when master or made true 3`] = `
+<div>
+  <span
+    className="label label-default">
+    Lancer les dés: 
+    1D6+0
+  </span>
+  <div>
+    <span
+      className="label label-default">
+      Résultat: 
+      6
+    </span>
+    <span
+      className="label label-default">
+      Détails: 
+      details
+    </span>
+  </div>
+</div>
+`;

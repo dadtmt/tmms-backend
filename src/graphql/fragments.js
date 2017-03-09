@@ -2,9 +2,11 @@ import gql from 'graphql-tag'
 
 export const choiceFragment = gql`
   fragment choiceFields on Choice {
+    content
     id
     made
     text
+    type
   }
 `
 

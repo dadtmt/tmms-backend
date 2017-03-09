@@ -21,6 +21,7 @@ it('renders without crashing', () => {
   const div = document.createElement('div')
   const props = {
     choices: { edges: [] },
+    createdAt: 'some date',
     header: 'header',
     testDices: { edges: [] },
     text
