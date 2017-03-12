@@ -1,0 +1,83 @@
+exports[`FieldGroup should render correctly password input 1`] = `
+<div
+  className="form-group form-group-lg">
+  <input
+    className="form-control"
+    id="password"
+    name="password"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onDragStart={[Function]}
+    onDrop={[Function]}
+    onFocus={[Function]}
+    placeholder="password"
+    type="password"
+    value="" />
+  
+  <span
+    className="help-block" />
+</div>
+`;
+
+exports[`FieldGroup should render correctly with optional props 1`] = `
+<div
+  className="form-group form-group-lg">
+  <label
+    className="control-label"
+    htmlFor="fieldGroupControlId">
+    a label
+  </label>
+  <input
+    className="form-control"
+    id="fieldGroupControlId"
+    placeholder="a placeholder"
+    type="text" />
+  <span
+    className="help-block" />
+</div>
+`;
+
+exports[`FieldGroup should render correctly with required props 1`] = `
+<div
+  className="form-group">
+  <input
+    className="form-control"
+    id="fieldGroupControlId"
+    placeholder={undefined}
+    type="text" />
+  <span
+    className="help-block" />
+</div>
+`;
+
+exports[`ValidableFieldGroup should render correctly with error and touched 1`] = `
+<div
+  className="form-group has-feedback has-error">
+  <input
+    className="form-control"
+    id="fieldGroupControlId"
+    placeholder={undefined}
+    type="text" />
+  <span
+    className="form-control-feedback glyphicon glyphicon-remove" />
+  <span
+    className="help-block">
+    some error
+  </span>
+</div>
+`;
+
+exports[`ValidableFieldGroup should render correctly with no error and touched 1`] = `
+<div
+  className="form-group has-feedback has-success">
+  <input
+    className="form-control"
+    id="fieldGroupControlId"
+    placeholder={undefined}
+    type="text" />
+  <span
+    className="form-control-feedback glyphicon glyphicon-ok" />
+  <span
+    className="help-block" />
+</div>
+`;

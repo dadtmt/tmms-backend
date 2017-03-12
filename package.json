@@ -35,6 +35,7 @@
     "recompose": "^0.22.0",
     "redraft": "^0.7.0",
     "redux": "^3.6.0",
+    "redux-form": "^6.5.0",
     "subscriptions-transport-ws": "^0.5.1"
   },
   "homepage": "https://dadtmt.github.io/tmms-backend",

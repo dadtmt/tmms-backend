@@ -1,0 +1,14 @@
+exports[`test should render correctly 1`] = `
+<div
+  className="checkbox"
+  style={undefined}>
+  <label>
+    <input
+      checked={false}
+      disabled={false}
+      type="checkbox"
+      value={false} />
+    Check this
+  </label>
+</div>
+`;

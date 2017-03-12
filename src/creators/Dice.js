@@ -1,92 +1,49 @@
-import React, { Component, PropTypes } from 'react'
-import { Checkbox, Panel } from 'react-bootstrap'
+import React from 'react'
+import { Field, reduxForm } from 'redux-form'
 
-import FieldGroup from '../components/FieldGroup'
+import CheckboxGroup from '../forms/components/CheckboxGroup'
+import FieldGroup from '../forms/components/FieldGroup'
 
-class Dice extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      master: false,
-      modifier: 0,
-      nbDices: 1,
-      nbSides: 6
-    }
-    this.handleChange = this.handleChange.bind(this)
-    this.handleNbDicesChange = this.handleNbDicesChange.bind(this)
-    this.handleNbSidesChange = this.handleNbSidesChange.bind(this)
-    this.handleModifierChange = this.handleModifierChange.bind(this)
-    this.handleMasterChange = this.handleMasterChange.bind(this)
+const normalizeInt = value => parseInt(value, 10)
+
+const Dice = () => <form>
+  <Field
+    component={CheckboxGroup}
+    label='The story teller rolls the dice!'
+    name='master'
+  />
+  <Field
+    component={FieldGroup}
+    controlId='nbDices'
+    label='Number of dices:'
+    name={'nbDices'}
+    normalize={normalizeInt}
+    type='number'
+  />
+  <Field
+    component={FieldGroup}
+    controlId='nbSides'
+    label='Number of sides:'
+    name={'nbSides'}
+    normalize={normalizeInt}
+    type='number'
+  />
+  <Field
+    component={FieldGroup}
+    controlId='modifier'
+    label='Modifier:'
+    name={'modifier'}
+    normalize={normalizeInt}
+    type='number'
+  />
+</form>
+
+export default reduxForm({
+  form: 'content',
+  initialValues: {
+    master: false,
+    modifier: 0,
+    nbDices: 1,
+    nbSides: 6
   }
-
-  componentDidMount() {
-    this.handleChange()
-  }
-
-  handleChange() {
-    this.props.onChange(this.state)
-  }
-
-  handleNbDicesChange(event) {
-    this.setState({ nbDices: event.target.value })
-    this.handleChange()
-  }
-
-  handleNbSidesChange(event) {
-    this.setState({ nbSides: event.target.value })
-    this.handleChange()
-  }
-
-  handleModifierChange(event) {
-    this.setState({ modifier: event.target.value })
-    this.handleChange()
-  }
-
-  handleMasterChange() {
-    this.setState({ master: !this.state.master })
-    this.handleChange()
-  }
-
-  render() {
-
-    return (
-      <Panel
-        header='Add a Test'
-      >
-        <Checkbox
-          checked={this.state.master}
-          onClick={this.handleMasterChange}
-        >
-          The story teller rolls the dice!
-        </Checkbox>
-        <FieldGroup
-          id='nbDices'
-          type='number'
-          label='Number of dices'
-          onChange={this.handleNbDicesChange}
-          value={this.state.nbDices}
-        />
-        <FieldGroup
-          id='nbSides'
-          type='number'
-          label='Number of sides'
-          onChange={this.handleNbSidesChange}
-          value={this.state.nbSides}
-        />
-        <FieldGroup
-          id='modifier'
-          type='number'
-          label='modifier'
-          onChange={this.handleModifierChange}
-          value={this.state.modifier}
-        />
-      </Panel>
-    )
-  }
-}
-
-Dice.propTypes = {
-  onChange: PropTypes.func.isRequired
-}
-
-export default Dice
+})(Dice)

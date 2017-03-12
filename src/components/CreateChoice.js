@@ -1,8 +1,15 @@
 import React, { Component, PropTypes } from 'react'
-import { ControlLabel, FormControl, FormGroup, Panel } from 'react-bootstrap'
+import {
+  Button,
+  ControlLabel,
+  FormControl,
+  FormGroup,
+  Panel
+} from 'react-bootstrap'
+import { convertToRaw, EditorState } from 'draft-js'
 
+import DraftField from '../forms/components/DraftField'
 import RenderCreator from '../creators/RenderCreator'
-import RichTextEditor from './RichTextEditor'
 
 class CreateChoice extends Component {
 
@@ -10,10 +17,15 @@ class CreateChoice extends Component {
     super(props)
     this.state = {
       content: {},
+      editorState: EditorState.createEmpty(),
       type: 'default'
     }
-    this.handleContentChange = this.handleContentChange.bind(this)
+    this.handleEditorChange = this.handleEditorChange.bind(this)
     this.handleTypeChange = this.handleTypeChange.bind(this)
+  }
+
+  handleEditorChange(editorState) {
+    this.setState({ editorState })
   }
 
   handleTypeChange(event) {
@@ -22,25 +34,17 @@ class CreateChoice extends Component {
       type: event.target.value })
   }
 
-  handleContentChange(content) {
-    this.setState({ content })
-  }
-
   render() {
-    const { createChoice, crossroadId } = this.props
+    const { submitChoice, crossroadId } = this.props
 
     return (<Panel
       header='Add a Choice'
     >
-      <RichTextEditor
-        handleSave={
-          text => (createChoice({
-            content: this.state.content,
-            crossroadId,
-            text,
-            type: this.state.type
-          }))
-        }
+      <DraftField
+        input={{
+          onChange: this.handleEditorChange,
+          value: this.state.editorState
+        }}
       />
       <FormGroup controlId='selectType'>
         <ControlLabel>Select type</ControlLabel>
@@ -54,17 +58,23 @@ class CreateChoice extends Component {
           <option value='dice'>Dice roll</option>
         </FormControl>
       </FormGroup>
-      <RenderCreator
-        onChange={this.handleContentChange}
-        type={this.state.type}
-      />
+      <RenderCreator type={this.state.type} />
+      <Button
+        onClick={() => submitChoice({
+          crossroadId,
+          text: convertToRaw(this.state.editorState.getCurrentContent()),
+          type: this.state.type
+        })}
+      >
+        Submit
+      </Button>
     </Panel>)
   }
 }
 
 CreateChoice.propTypes = {
-  createChoice: PropTypes.func.isRequired,
-  crossroadId: PropTypes.string.isRequired
+  crossroadId: PropTypes.string.isRequired,
+  submitChoice: PropTypes.func.isRequired
 }
 
 export default CreateChoice

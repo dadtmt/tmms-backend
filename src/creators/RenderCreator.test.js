@@ -1,33 +1,27 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import renderer from 'react-test-renderer'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import { reducer } from 'redux-form'
 
 import RenderCreator from './RenderCreator'
+
+const store = createStore(reducer)
 
 it('renders without crashing', () => {
   const div = document.createElement('div')
 
   ReactDOM.render(
-    <RenderCreator />,
+    <Provider store={store}><RenderCreator /></Provider>,
     div
   )
 })
 
 it('renders dice if dice type', () => {
-  const props = {
-    onChange: jest.fn(),
-    type: 'dice'
-  }
   expect(
-    renderer.create(<RenderCreator {...props} />).toJSON()
-  ).toMatchSnapshot()
-})
-
-it('renders empty div on unknown type', () => {
-  const props = {
-    type: 'unknown'
-  }
-  expect(
-    renderer.create(<RenderCreator {...props} />).toJSON()
+    renderer.create(<Provider store={store}>
+      <RenderCreator type='dice' />
+    </Provider>).toJSON()
   ).toMatchSnapshot()
 })

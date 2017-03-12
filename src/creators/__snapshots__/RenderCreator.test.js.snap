@@ -1,69 +1,88 @@
 exports[`test renders dice if dice type 1`] = `
-<div
-  className="panel panel-default"
-  id={undefined}>
+<form>
   <div
-    className="panel-heading">
-    Add a Test
+    className="checkbox"
+    style={undefined}>
+    <label>
+      <input
+        checked=""
+        disabled={false}
+        name="master"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        type="checkbox"
+        value="" />
+      The story teller rolls the dice!
+    </label>
   </div>
   <div
-    className="panel-body">
-    <div
-      className="checkbox"
-      style={undefined}>
-      <label>
-        <input
-          checked={false}
-          disabled={false}
-          onChange={[Function]}
-          type="checkbox" />
-        The story teller rolls the dice!
-      </label>
-    </div>
-    <div
-      className="form-group">
-      <label
-        className="control-label"
-        htmlFor="nbDices">
-        Number of dices
-      </label>
-      <input
-        className="form-control"
-        id="nbDices"
-        onChange={[Function]}
-        type="number"
-        value={1} />
-    </div>
-    <div
-      className="form-group">
-      <label
-        className="control-label"
-        htmlFor="nbSides">
-        Number of sides
-      </label>
-      <input
-        className="form-control"
-        id="nbSides"
-        onChange={[Function]}
-        type="number"
-        value={6} />
-    </div>
-    <div
-      className="form-group">
-      <label
-        className="control-label"
-        htmlFor="modifier">
-        modifier
-      </label>
-      <input
-        className="form-control"
-        id="modifier"
-        onChange={[Function]}
-        type="number"
-        value={0} />
-    </div>
+    className="form-group">
+    <label
+      className="control-label"
+      htmlFor="nbDices">
+      Number of dices:
+    </label>
+    <input
+      className="form-control"
+      id="nbDices"
+      name="nbDices"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onDragStart={[Function]}
+      onDrop={[Function]}
+      onFocus={[Function]}
+      placeholder={undefined}
+      type="number"
+      value="" />
+    <span
+      className="help-block" />
   </div>
-</div>
+  <div
+    className="form-group">
+    <label
+      className="control-label"
+      htmlFor="nbSides">
+      Number of sides:
+    </label>
+    <input
+      className="form-control"
+      id="nbSides"
+      name="nbSides"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onDragStart={[Function]}
+      onDrop={[Function]}
+      onFocus={[Function]}
+      placeholder={undefined}
+      type="number"
+      value="" />
+    <span
+      className="help-block" />
+  </div>
+  <div
+    className="form-group">
+    <label
+      className="control-label"
+      htmlFor="modifier">
+      Modifier:
+    </label>
+    <input
+      className="form-control"
+      id="modifier"
+      name="modifier"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onDragStart={[Function]}
+      onDrop={[Function]}
+      onFocus={[Function]}
+      placeholder={undefined}
+      type="number"
+      value="" />
+    <span
+      className="help-block" />
+  </div>
+</form>
 `;
-
-exports[`test renders empty div on unknown type 1`] = `<div />`;

@@ -1,0 +1,24 @@
+exports[`test should render correctly 1`] = `
+<div
+  className="form-group">
+  <label
+    className="control-label"
+    htmlFor="SelectValue">
+    Select a value
+  </label>
+  <select
+    className="form-control"
+    id="SelectValue"
+    type={undefined}
+    value="default">
+    <option
+      value="default">
+      Default value
+    </option>
+    <option
+      value="some">
+      Some value
+    </option>
+  </select>
+</div>
+`;

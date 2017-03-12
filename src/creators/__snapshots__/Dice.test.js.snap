@@ -1,22 +1,21 @@
 exports[`test renders correctly 1`] = `
-<div
-  className="panel panel-default"
-  id={undefined}>
-  <div
-    className="panel-heading">
-    Add a Test
-  </div>
-  <div
-    className="panel-body">
+<form>
+  <form>
     <div
       className="checkbox"
       style={undefined}>
       <label>
         <input
-          checked={false}
+          checked=""
           disabled={false}
+          name="master"
+          onBlur={[Function]}
           onChange={[Function]}
-          type="checkbox" />
+          onDragStart={[Function]}
+          onDrop={[Function]}
+          onFocus={[Function]}
+          type="checkbox"
+          value="" />
         The story teller rolls the dice!
       </label>
     </div>
@@ -25,43 +24,67 @@ exports[`test renders correctly 1`] = `
       <label
         className="control-label"
         htmlFor="nbDices">
-        Number of dices
+        Number of dices:
       </label>
       <input
         className="form-control"
         id="nbDices"
+        name="nbDices"
+        onBlur={[Function]}
         onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        placeholder={undefined}
         type="number"
-        value={1} />
+        value="" />
+      <span
+        className="help-block" />
     </div>
     <div
       className="form-group">
       <label
         className="control-label"
         htmlFor="nbSides">
-        Number of sides
+        Number of sides:
       </label>
       <input
         className="form-control"
         id="nbSides"
+        name="nbSides"
+        onBlur={[Function]}
         onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        placeholder={undefined}
         type="number"
-        value={6} />
+        value="" />
+      <span
+        className="help-block" />
     </div>
     <div
       className="form-group">
       <label
         className="control-label"
         htmlFor="modifier">
-        modifier
+        Modifier:
       </label>
       <input
         className="form-control"
         id="modifier"
+        name="modifier"
+        onBlur={[Function]}
         onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        placeholder={undefined}
         type="number"
-        value={0} />
+        value="" />
+      <span
+        className="help-block" />
     </div>
-  </div>
-</div>
+  </form>
+</form>
 `;

@@ -6,7 +6,7 @@ import {
   UPDATE_CHOICE_SUBSCRIPTION,
   UPDATE_TESTDICE_SUBSCRIPTION
 } from '../graphql/subscriptions'
-import CreateChoice from './CreateChoice'
+import CreateChoice from '../containers/CreateChoiceWithMutation'
 import CreateCrossroad from './CreateCrossroad'
 import CurrentCrossroad from './CurrentCrossroad'
 import Crossroads from './Crossroads'
@@ -46,9 +46,6 @@ export const isChoiceMade = R.pipe(
 )
 
 class StoryEditor extends Component {
-  constructor(props) {
-    super(props)
-  }
 
   componentWillReceiveProps(newProps) {
     const { data } = newProps

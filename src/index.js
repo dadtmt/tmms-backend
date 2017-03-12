@@ -2,6 +2,7 @@ import React from 'react'
 import { ApolloProvider } from 'react-apollo'
 import ReactDOM from 'react-dom'
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
+import { reducer as form } from 'redux-form'
 
 import makeApolloClient from './makeApolloClient'
 import App from './App'
@@ -14,7 +15,8 @@ const client = makeApolloClient()
 
 const store = createStore(
   combineReducers({
-    apollo: client.reducer()
+    apollo: client.reducer(),
+    form
   }),
   {},
   compose(
