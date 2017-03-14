@@ -1,0 +1,296 @@
+exports[`test renders correctly 1`] = `
+<form
+  onSubmit={[Function]}>
+  <div
+    className="checkbox"
+    style={undefined}>
+    <label>
+      <input
+        checked=""
+        disabled={false}
+        name="isPlayer"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        type="checkbox"
+        value="" />
+      player sheet
+    </label>
+  </div>
+  <div
+    className="form-group">
+    <label
+      className="control-label"
+      htmlFor="name">
+      Character name:
+    </label>
+    <input
+      className="form-control"
+      id="name"
+      name="name"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onDragStart={[Function]}
+      onDrop={[Function]}
+      onFocus={[Function]}
+      placeholder={undefined}
+      type="text"
+      value="toto" />
+    <span
+      className="help-block" />
+  </div>
+  <div
+    className="form-group">
+    <label
+      className="control-label"
+      htmlFor="description">
+      description:
+    </label>
+    <input
+      className="form-control"
+      id="description"
+      name="description"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onDragStart={[Function]}
+      onDrop={[Function]}
+      onFocus={[Function]}
+      placeholder={undefined}
+      type="text"
+      value="" />
+    <span
+      className="help-block" />
+  </div>
+  <div
+    className="form-group">
+    <label
+      className="control-label"
+      htmlFor={undefined}>
+      image:
+    </label>
+    <input
+      className="form-control"
+      id={undefined}
+      name="image"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onDragStart={[Function]}
+      onDrop={[Function]}
+      onFocus={[Function]}
+      placeholder="Image url"
+      type="text"
+      value="" />
+    <img
+      className="img-rounded"
+      src="" />
+  </div>
+  <div>
+    <div
+      className="form-group">
+      <button
+        className="btn btn-default"
+        disabled={false}
+        onClick={[Function]}
+        type="button">
+        <span
+          className="glyphicon glyphicon-plus" />
+      </button>
+    </div>
+    <ul
+      className="list-group">
+      <li
+        className="list-group-item">
+        <div
+          className="form-group">
+          <button
+            className="btn btn-default"
+            disabled={false}
+            onClick={[Function]}
+            title="remove"
+            type="button">
+            <span
+              className="glyphicon glyphicon-trash" />
+          </button>
+        </div>
+        <div
+          className="form-group">
+          <label
+            className="control-label"
+            htmlFor="characs[0].name">
+            Characteristic:
+          </label>
+          <input
+            className="form-control"
+            id="characs[0].name"
+            name="characs[0].name"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onDragStart={[Function]}
+            onDrop={[Function]}
+            onFocus={[Function]}
+            placeholder={undefined}
+            type="text"
+            value="Force" />
+          <span
+            className="help-block" />
+        </div>
+        <div
+          className="form-group">
+          <label
+            className="control-label"
+            htmlFor="characs[0].value">
+            Value:
+          </label>
+          <input
+            className="form-control"
+            id="characs[0].value"
+            name="characs[0].value"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onDragStart={[Function]}
+            onDrop={[Function]}
+            onFocus={[Function]}
+            placeholder={undefined}
+            type="number"
+            value={4} />
+          <span
+            className="help-block" />
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <div
+      className="form-group">
+      <button
+        className="btn btn-default"
+        disabled={false}
+        onClick={[Function]}
+        type="button">
+        <span
+          className="glyphicon glyphicon-plus" />
+      </button>
+    </div>
+    <ul
+      className="list-group">
+      <li
+        className="list-group-item">
+        <div
+          className="form-group">
+          <button
+            className="btn btn-default"
+            disabled={false}
+            onClick={[Function]}
+            title="remove"
+            type="button">
+            <span
+              className="glyphicon glyphicon-trash" />
+          </button>
+        </div>
+        <div
+          className="form-group">
+          <label
+            className="control-label"
+            htmlFor="gear[0].name">
+            Name:
+          </label>
+          <input
+            className="form-control"
+            id="gear[0].name"
+            name="gear[0].name"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onDragStart={[Function]}
+            onDrop={[Function]}
+            onFocus={[Function]}
+            placeholder={undefined}
+            type="text"
+            value="Arc de feu" />
+          <span
+            className="help-block" />
+        </div>
+        <div
+          className="form-group">
+          <label
+            className="control-label"
+            htmlFor="gear[0].description">
+            Description:
+          </label>
+          <input
+            className="form-control"
+            id="gear[0].description"
+            name="gear[0].description"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onDragStart={[Function]}
+            onDrop={[Function]}
+            onFocus={[Function]}
+            placeholder={undefined}
+            type="text"
+            value="" />
+          <span
+            className="help-block" />
+        </div>
+        <div
+          className="form-group">
+          <label
+            className="control-label"
+            htmlFor={undefined}>
+            Image:
+          </label>
+          <input
+            className="form-control"
+            id={undefined}
+            name="gear[0].image"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onDragStart={[Function]}
+            onDrop={[Function]}
+            onFocus={[Function]}
+            placeholder="Image url"
+            type="text"
+            value="http://arc.png" />
+          <img
+            className="img-rounded"
+            src="http://arc.png" />
+        </div>
+        <div
+          className="form-group">
+          <label
+            className="control-label"
+            htmlFor="gear[0].count">
+            Count:
+          </label>
+          <input
+            className="form-control"
+            id="gear[0].count"
+            name="gear[0].count"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onDragStart={[Function]}
+            onDrop={[Function]}
+            onFocus={[Function]}
+            placeholder={undefined}
+            type="number"
+            value={1} />
+          <span
+            className="help-block" />
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="form-group">
+    <button
+      className="btn btn-default"
+      disabled={false}
+      title="save"
+      type="submit">
+      <span
+        className="glyphicon glyphicon-save" />
+    </button>
+  </div>
+</form>
+`;

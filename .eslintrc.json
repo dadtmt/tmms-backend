@@ -70,7 +70,7 @@
         "id-blacklist": "error",
         "id-length": 0,
         "id-match": "error",
-        "indent": ["error", 2],
+        "indent": ["warn", 2],
         "init-declarations": "error",
         "jsx-quotes": [
             "error",

@@ -1,4 +1,4 @@
-exports[`test renders CharacterSheet if characterSheet type 1`] = `
+exports[`test renders correctly 1`] = `
 <div
   className="panel panel-default"
   id={undefined}>
@@ -78,15 +78,3 @@ exports[`test renders CharacterSheet if characterSheet type 1`] = `
   </div>
 </div>
 `;
-
-exports[`test renders dice if dice type 1`] = `
-<div>
-  <span
-    className="label label-default">
-    Lancer les dés: 
-    1D6+0
-  </span>
-</div>
-`;
-
-exports[`test renders empty div on unknown type 1`] = `<div />`;

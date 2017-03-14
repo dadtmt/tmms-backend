@@ -1,0 +1,197 @@
+exports[`getSheetByIdFromData should get sheets 1`] = `
+Object {
+  "__typename": "Sheets",
+  "charateristics": null,
+  "description": null,
+  "id": "id_2",
+  "image": null,
+  "inventory": null,
+  "isPlayer": false,
+  "name": "toto",
+}
+`;
+
+exports[`getSheetsFromData should get sheets 1`] = `
+Array [
+  Object {
+    "__typename": "SheetsEdge",
+    "node": Object {
+      "__typename": "Sheets",
+      "charateristics": null,
+      "description": "sdfsdf",
+      "id": "id_1",
+      "image": "dsfdf",
+      "inventory": null,
+      "isPlayer": true,
+      "name": "Jojo le first",
+    },
+  },
+  Object {
+    "__typename": "SheetsEdge",
+    "node": Object {
+      "__typename": "Sheets",
+      "charateristics": null,
+      "description": null,
+      "id": "id_2",
+      "image": null,
+      "inventory": null,
+      "isPlayer": false,
+      "name": "toto",
+    },
+  },
+]
+`;
+
+exports[`test renders correctly 1`] = `
+<div>
+  <div
+    className="form-group">
+    <label
+      className="control-label"
+      htmlFor="selectCharacter">
+      Select Character
+    </label>
+    <select
+      className="form-control"
+      id="selectCharacter"
+      onChange={[Function]}
+      placeholder="select"
+      type={undefined}
+      value={undefined}>
+      <option
+        value="">
+        create a new character
+      </option>
+    </select>
+  </div>
+  <form
+    onSubmit={[Function]}>
+    <div
+      className="checkbox"
+      style={undefined}>
+      <label>
+        <input
+          checked=""
+          disabled={false}
+          name="isPlayer"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onDragStart={[Function]}
+          onDrop={[Function]}
+          onFocus={[Function]}
+          type="checkbox"
+          value="" />
+        player sheet
+      </label>
+    </div>
+    <div
+      className="form-group">
+      <label
+        className="control-label"
+        htmlFor="name">
+        Character name:
+      </label>
+      <input
+        className="form-control"
+        id="name"
+        name="name"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        placeholder={undefined}
+        type="text"
+        value="" />
+      <span
+        className="help-block" />
+    </div>
+    <div
+      className="form-group">
+      <label
+        className="control-label"
+        htmlFor="description">
+        description:
+      </label>
+      <input
+        className="form-control"
+        id="description"
+        name="description"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        placeholder={undefined}
+        type="text"
+        value="" />
+      <span
+        className="help-block" />
+    </div>
+    <div
+      className="form-group">
+      <label
+        className="control-label"
+        htmlFor={undefined}>
+        image:
+      </label>
+      <input
+        className="form-control"
+        id={undefined}
+        name="image"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onDragStart={[Function]}
+        onDrop={[Function]}
+        onFocus={[Function]}
+        placeholder="Image url"
+        type="text"
+        value="" />
+      <img
+        className="img-rounded"
+        src="" />
+    </div>
+    <div>
+      <div
+        className="form-group">
+        <button
+          className="btn btn-default"
+          disabled={false}
+          onClick={[Function]}
+          type="button">
+          <span
+            className="glyphicon glyphicon-plus" />
+        </button>
+      </div>
+      <ul
+        className="list-group" />
+    </div>
+    <div>
+      <div
+        className="form-group">
+        <button
+          className="btn btn-default"
+          disabled={false}
+          onClick={[Function]}
+          type="button">
+          <span
+            className="glyphicon glyphicon-plus" />
+        </button>
+      </div>
+      <ul
+        className="list-group" />
+    </div>
+    <div
+      className="form-group">
+      <button
+        className="btn btn-default"
+        disabled={false}
+        title="save"
+        type="submit">
+        <span
+          className="glyphicon glyphicon-save" />
+      </button>
+    </div>
+  </form>
+</div>
+`;

@@ -1,0 +1,30 @@
+exports[`test handles CREATE_SHEET_MUTATION 1`] = `
+Object {
+  "selectedSheet": Object {
+    "description": "semi orc",
+    "id": "SOME_ID",
+    "image": "marom.png",
+    "isPlayer": true,
+    "name": "Marom",
+  },
+}
+`;
+
+exports[`test handles SELECT_SHEET 1`] = `
+Object {
+  "selectedSheet": Object {
+    "id": "SOME_ID",
+    "name": "Marom",
+  },
+}
+`;
+
+exports[`test return initial state 1`] = `
+Object {
+  "selectedSheet": Object {
+    "characteristics": Array [],
+    "inventory": Array [],
+    "name": "type a name for this character",
+  },
+}
+`;

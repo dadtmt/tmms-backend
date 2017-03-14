@@ -5,6 +5,7 @@ import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
 import { reducer as form } from 'redux-form'
 
 import makeApolloClient from './makeApolloClient'
+import sheetSelector from './reducers/sheetSelector'
 import App from './App'
 
 import './index.css'
@@ -16,7 +17,8 @@ const client = makeApolloClient()
 const store = createStore(
   combineReducers({
     apollo: client.reducer(),
-    form
+    form,
+    sheetSelector
   }),
   {},
   compose(

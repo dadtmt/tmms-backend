@@ -1,0 +1,19 @@
+exports[`test should render correctly 1`] = `
+<div
+  className="form-group">
+  <label
+    className="control-label"
+    htmlFor={undefined}>
+    Image url
+  </label>
+  <input
+    className="form-control"
+    id={undefined}
+    placeholder="Image url"
+    type="text"
+    value="http://image/png" />
+  <img
+    className="img-rounded"
+    src="http://image/png" />
+</div>
+`;

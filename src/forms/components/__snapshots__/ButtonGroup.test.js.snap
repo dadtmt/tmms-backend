@@ -1,0 +1,14 @@
+exports[`test should render correctly 1`] = `
+<div
+  className="form-group">
+  <button
+    className="btn btn-default"
+    disabled={false}
+    onClick={[Function]}
+    title="add"
+    type="button">
+    <span
+      className="glyphicon glyphicon-plus" />
+  </button>
+</div>
+`;

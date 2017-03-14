@@ -48,3 +48,15 @@ export const crossroadFragment = gql`
   ${choiceFragment}
   ${testDiceFragment}
 `
+
+export const sheetFragment = gql`
+  fragment sheetFields on Sheets {
+    id
+    characs
+    description
+    gear
+    image
+    isPlayer
+    name
+  }
+`

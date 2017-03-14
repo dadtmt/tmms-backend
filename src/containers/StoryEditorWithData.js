@@ -155,6 +155,12 @@ const mutationHandlers = {
       R.prepend(createCrossroad.changedEdge)
     )
   )(state),
+  CreateSheets: (state, { createSheets }) => updatePageEditor(
+    R.over(
+      R.lensPath(['node', 'sheets', 'edges']),
+      R.append(createSheets.changedEdge)
+    )
+  )(state),
   CreateTestDice: (state, { createTestDice }) => updateCrossroad(
     R.over(
       R.lensPath(['node', 'testDices', 'edges']),

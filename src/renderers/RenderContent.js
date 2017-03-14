@@ -2,6 +2,7 @@ import R from 'ramda'
 import React from 'react'
 import { branch, renderComponent } from 'recompose'
 
+import CharacterSheet from './CharacterSheet'
 import Dice from './Dice'
 
 const BaseComponent = () => <div />
@@ -11,4 +12,9 @@ const mayRenderDice = branch(
   renderComponent(Dice)
 )
 
-export default mayRenderDice(BaseComponent)
+const mayRenderCharacterSheet = branch(
+  R.propEq('type', 'characterSheet'),
+  renderComponent(CharacterSheet)
+)
+
+export default R.pipe(mayRenderCharacterSheet, mayRenderDice)(BaseComponent)

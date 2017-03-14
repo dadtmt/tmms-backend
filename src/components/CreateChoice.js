@@ -56,6 +56,7 @@ class CreateChoice extends Component {
         >
           <option value='default'>default</option>
           <option value='dice'>Dice roll</option>
+          <option value='characterSheet'>Character sheet</option>
         </FormControl>
       </FormGroup>
       <RenderCreator type={this.state.type} />
