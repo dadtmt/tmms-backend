@@ -5,9 +5,8 @@ import { propType } from 'graphql-anywhere'
 import RichTextDisplay from './RichTextDisplay'
 import { crossroadFragment } from '../graphql/fragments'
 import Choice from './Choice'
-import TestDice from './TestDice'
 
-const CurrentCrossroad = ({ crossroad, deleteChoice, deleteTestDice }) =>
+const CurrentCrossroad = ({ crossroad, deleteChoice }) =>
   <Panel header='What the player see'>
     <RichTextDisplay rawContent={crossroad.text} />
     <ListGroup>
@@ -21,17 +20,6 @@ const CurrentCrossroad = ({ crossroad, deleteChoice, deleteTestDice }) =>
       </ListGroupItem>
     )}
     </ListGroup>
-    <ListGroup>
-    {crossroad.testDices.edges.map(
-      ({ node }) => <ListGroupItem key={node.id}>
-      {!crossroad.isReady &&
-        <Button bsStyle='danger' onClick={() => deleteTestDice(node.id)}>
-          delete
-        </Button>}
-        <TestDice {...node} />
-      </ListGroupItem>
-    )}
-    </ListGroup>
   </Panel>
 
 CurrentCrossroad.fragments = {
@@ -40,8 +28,7 @@ CurrentCrossroad.fragments = {
 
 CurrentCrossroad.propTypes = {
   crossroad: propType(CurrentCrossroad.fragments.crossroad),
-  deleteChoice: PropTypes.func.isRequired,
-  deleteTestDice: PropTypes.func.isRequired
+  deleteChoice: PropTypes.func.isRequired
 }
 
 export default CurrentCrossroad

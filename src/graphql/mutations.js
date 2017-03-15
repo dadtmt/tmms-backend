@@ -3,8 +3,7 @@ import gql from 'graphql-tag'
 import {
   choiceFragment,
   crossroadFragment,
-  sheetFragment,
-  testDiceFragment
+  sheetFragment
 } from './fragments'
 
 export const CREATE_CHOICE_MUTATION = gql`
@@ -67,29 +66,6 @@ mutation UpdateSheet($sheet: UpdateSheetsInput!) {
   }
 }
 ${sheetFragment}
-`
-
-export const CREATE_TEST_MUTATION = gql`
-mutation CreateTestDice($createTest: CreateTestDiceInput!) {
-  createTestDice(input: $createTest){
-    changedEdge{
-      node{
-        ...testDiceFields
-      }
-    }
-  }
-}
-${testDiceFragment}
-`
-
-export const DELETE_TEST_MUTATION = gql`
-  mutation DeleteTestDice($testDice: DeleteTestDiceInput!){
-    deleteTestDice(input: $testDice) {
-      changedTestDice {
-        id
-      }
-    }
-  }
 `
 
 export const TOGGLE_CROSSROAD_IS_READY = gql`

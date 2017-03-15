@@ -6,8 +6,6 @@ import {
   CREATE_CHOICE_MUTATION,
   DELETE_CHOICE_MUTATION,
   CREATE_CROSSROAD_MUTATION,
-  CREATE_TEST_MUTATION,
-  DELETE_TEST_MUTATION,
   TOGGLE_CROSSROAD_IS_READY,
   UPDATE_CROSSROAD_TEXT
 } from '../graphql/mutations'
@@ -71,38 +69,6 @@ const withCreateCrossroad = graphql(
     })
   }
 )
-
-const withCreateTestDice = graphql(
-  CREATE_TEST_MUTATION,
-  {
-    props: ({ mutate }) => ({
-      createTest: values => mutate({
-        variables: {
-          createTest: {
-            ...values,
-            made: false
-          }
-        }
-      })
-    })
-  }
-)
-
-const withDeleteTestDice = graphql(
-  DELETE_TEST_MUTATION,
-  {
-    props: ({ mutate }) => ({
-      deleteTestDice: id => mutate({
-        variables: {
-          testDice: {
-            id
-          }
-        }
-      })
-    })
-  }
-)
-
 
 const withToggleCrossroadIsReady = graphql(
   TOGGLE_CROSSROAD_IS_READY,
@@ -171,22 +137,10 @@ const mutationHandlers = {
       R.append(createSheets.changedEdge)
     )
   )(state),
-  CreateTestDice: (state, { createTestDice }) => updateCrossroad(
-    R.over(
-      R.lensPath(['node', 'testDices', 'edges']),
-      R.append(createTestDice.changedEdge)
-    )
-  )(state),
   DeleteChoice: (state, { deleteChoice }) => updateCrossroad(
     R.over(
       R.lensPath(['node', 'choices', 'edges']),
       R.filter(({ node }) => node.id !== deleteChoice.changedChoice.id)
-    )
-  )(state),
-  DeleteTestDice: (state, { deleteTestDice }) => updateCrossroad(
-    R.over(
-      R.lensPath(['node', 'testDices', 'edges']),
-      R.filter(({ node }) => node.id !== deleteTestDice.changedTestDice.id)
     )
   )(state)
 }
@@ -218,8 +172,6 @@ export default R.compose(
   withCreateChoice,
   withDeleteChoice,
   withCreateCrossroad,
-  withCreateTestDice,
-  withDeleteTestDice,
   withData,
   withToggleCrossroadIsReady,
   withUpdateCrossroadText

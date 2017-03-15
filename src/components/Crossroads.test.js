@@ -25,7 +25,6 @@ it('renders without crashing', () => {
         choices: { edges: [] },
         createdAt: 'some date',
         id: 'SOME_ID',
-        testDices: { edges: [] },
         text
       }
     }] },

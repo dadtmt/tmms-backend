@@ -8,10 +8,6 @@ Object {
   "createdAt": "2017-03-07T11:37:25.000Z",
   "id": "Q3Jvc3Nyb2FkOjIx",
   "isReady": false,
-  "testDices": Object {
-    "__typename": "TestDiceConnection",
-    "edges": Array [],
-  },
   "text": Object {
     "blocks": Array [
       Object {

@@ -57,10 +57,6 @@ describe('getCurrentCrossroad', () => {
                             'edges': [],
                             '__typename': 'ChoiceConnection'
                           },
-                          'testDices': {
-                            'edges': [],
-                            '__typename': 'TestDiceConnection'
-                          },
                           '__typename': 'Crossroad'
                         },
                         '__typename': 'CrossroadEdge'
@@ -140,10 +136,6 @@ describe('isChoiceMade', () => {
                             ],
                             '__typename': 'ChoiceConnection'
                           },
-                          'testDices': {
-                            'edges': [],
-                            '__typename': 'TestDiceConnection'
-                          },
                           '__typename': 'Crossroad'
                         },
                         '__typename': 'CrossroadEdge'
@@ -170,98 +162,6 @@ describe('isChoiceMade', () => {
     ).toBeTruthy()
   })
 
-  it('return true if one test is made', () => {
-
-    /* eslint-disable sort-keys */
-    const data = {
-      'variables': {
-        'pageEditorId': 'UGFnZUVkaXRvcjox'
-      },
-      'loading': false,
-      'networkStatus': 7,
-      'viewer': {
-        'user': {
-          'editors': {
-            'edges': [
-              {
-                'node': {
-                  'id': 'UGFnZUVkaXRvcjox',
-                  'crossroads': {
-                    'edges': [
-                      {
-                        'node': {
-                          'createdAt': '2017-03-07T11:37:25.000Z',
-                          'id': 'Q3Jvc3Nyb2FkOjIx',
-                          'isReady': false,
-                          'text': {
-                            'entityMap': {},
-                            'blocks': [
-                              {
-                                'key': '8ussa',
-                                'text': 'fsdfsfsdfsfd',
-                                'type': 'unstyled',
-                                'depth': 0,
-                                'inlineStyleRanges': [],
-                                'entityRanges': [],
-                                'data': {}
-                              }
-                            ]
-                          },
-                          'choices': {
-                            'edges': [
-                              {
-                                node: {
-                                  made: false
-                                }
-                              },
-                              {
-                                node: {
-                                  made: false
-                                }
-                              }
-                            ],
-                            '__typename': 'ChoiceConnection'
-                          },
-                          'testDices': {
-                            'edges': [
-                              {
-                                node: {
-                                  made: true
-                                }
-                              },
-                              {
-                                node: {
-                                  made: false
-                                }
-                              }
-                            ],
-                            '__typename': 'TestDiceConnection'
-                          },
-                          '__typename': 'Crossroad'
-                        },
-                        '__typename': 'CrossroadEdge'
-                      }
-                    ],
-                    '__typename': 'CrossroadConnection'
-                  },
-                  '__typename': 'PageEditor'
-                },
-                '__typename': 'UserEditorsEdge'
-              }
-            ],
-            '__typename': 'UserEditorsConnection'
-          },
-          '__typename': 'User'
-        },
-        '__typename': 'Viewer'
-      }
-    }
-
-    /* eslint-enable sort-keys */
-    expect(
-      isChoiceMade(getCurrentCrossroad(getCrossroadsFromData(data)))
-    ).toBeTruthy()
-  })
   it('return false if no crossroad', () => {
     const data = {
       loading: true
@@ -322,21 +222,6 @@ describe('isChoiceMade', () => {
                             ],
                             '__typename': 'ChoiceConnection'
                           },
-                          'testDices': {
-                            'edges': [
-                              {
-                                node: {
-                                  made: false
-                                }
-                              },
-                              {
-                                node: {
-                                  made: false
-                                }
-                              }
-                            ],
-                            '__typename': 'TestDiceConnection'
-                          },
                           '__typename': 'Crossroad'
                         },
                         '__typename': 'CrossroadEdge'
@@ -374,7 +259,6 @@ it('renders without crashing', () => {
     createTest: jest.fn(),
     data: {},
     deleteChoice: jest.fn(),
-    deleteTestDice: jest.fn(),
     toggleIsReady: jest.fn(),
     updateCrossroadText: jest.fn()
   }

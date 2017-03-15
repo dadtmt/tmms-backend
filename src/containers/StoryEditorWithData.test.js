@@ -100,39 +100,6 @@ describe('reducer', () => {
                           ],
                           '__typename': 'ChoiceConnection'
                         },
-                        'testDices': {
-                          'edges': [
-                            {
-                              'node': {
-                                'id': 'VGVzdERpY2U6MzI=',
-                                'made': false,
-                                'text': {
-                                  'entityMap': {},
-                                  'blocks': [
-                                    {
-                                      'key': 'f10c4',
-                                      'text': 'I KILL YOU',
-                                      'type': 'unstyled',
-                                      'depth': 0,
-                                      'inlineStyleRanges': [],
-                                      'entityRanges': [],
-                                      'data': {}
-                                    }
-                                  ]
-                                },
-                                'master': true,
-                                'modifier': 0,
-                                'nbDices': 1,
-                                'nbSides': 6,
-                                'details': ' (3)  + 0',
-                                'result': 3,
-                                '__typename': 'TestDice'
-                              },
-                              '__typename': 'TestDiceEdge'
-                            }
-                          ],
-                          '__typename': 'TestDiceConnection'
-                        },
                         '__typename': 'Crossroad'
                       },
                       '__typename': 'CrossroadEdge'
@@ -190,10 +157,6 @@ describe('reducer', () => {
                 'choices': {
                   'edges': [],
                   '__typename': 'ChoiceConnection'
-                },
-                'testDices': {
-                  'edges': [],
-                  '__typename': 'TestDiceConnection'
                 },
                 '__typename': 'Crossroad'
               },
@@ -266,120 +229,6 @@ describe('reducer', () => {
               '__typename': 'Choice'
             },
             '__typename': 'DeleteChoicePayload'
-          }
-        }
-      }
-    }
-
-    /* eslint-enable sort-keys */
-
-    expect(reducer(state, action)).toMatchSnapshot()
-  })
-
-  it('handles DELETE_TEST_MUTATION', () => {
-
-    /* eslint-disable sort-keys */
-    const action = {
-      'type': 'APOLLO_MUTATION_RESULT',
-      'operationName': 'DeleteTestDice',
-      'result': {
-        'data': {
-          'deleteTestDice': {
-            'changedTestDice': {
-              'id': 'VGVzdERpY2U6MzI=',
-              '__typename': 'TestDice'
-            },
-            '__typename': 'DeleteTestDicePayload'
-          }
-        }
-      }
-    }
-
-    /* eslint-enable sort-keys */
-
-    expect(reducer(state, action)).toMatchSnapshot()
-  })
-
-  it('handles DELETE_TEST_MUTATION', () => {
-
-    /* eslint-disable sort-keys */
-    const action = {
-      'type': 'APOLLO_MUTATION_RESULT',
-      'operationName': 'CreateChoice',
-      'result': {
-        'data': {
-          'createChoice': {
-            'changedEdge': {
-              'node': {
-                'id': 'Q2hvaWNlOjU2',
-                'made': false,
-                'text': {
-                  'entityMap': {},
-                  'blocks': [
-                    {
-                      'key': 'nts2',
-                      'text': 'This is my choice',
-                      'type': 'unstyled',
-                      'depth': 0,
-                      'inlineStyleRanges': [],
-                      'entityRanges': [],
-                      'data': {}
-                    }
-                  ]
-                },
-                '__typename': 'Choice'
-              },
-              '__typename': 'ChoiceEdge'
-            },
-            '__typename': 'CreateChoicePayload'
-          }
-        }
-      }
-    }
-
-    /* eslint-enable sort-keys */
-
-    expect(reducer(state, action)).toMatchSnapshot()
-  })
-
-  it('handles CREATE_TEST_MUTATION', () => {
-
-    /* eslint-disable sort-keys */
-    const action = {
-      'type': 'APOLLO_MUTATION_RESULT',
-      'operationName': 'CreateTestDice',
-      'result': {
-        'data': {
-          'createTestDice': {
-            'changedEdge': {
-              'node': {
-                'id': 'VGVzdERpY2U6MjY=',
-                'made': false,
-                'text': {
-                  'entityMap': {},
-                  'blocks': [
-                    {
-                      'key': 'alu20',
-                      'text': 'Roll to survive...',
-                      'type': 'unstyled',
-                      'depth': 0,
-                      'inlineStyleRanges': [],
-                      'entityRanges': [],
-                      'data': {}
-                    }
-                  ]
-                },
-                'master': false,
-                'modifier': 0,
-                'nbDices': 1,
-                'nbSides': 20,
-                'details': ' (17)  + 0',
-                'result': 17,
-                '__typename': 'TestDice'
-              },
-              '__typename': 'TestDiceEdge'
-            },
-            '__typename': 'CreateTestDicePayload'
           }
         }
       }

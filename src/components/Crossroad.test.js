@@ -23,7 +23,6 @@ it('renders without crashing', () => {
     choices: { edges: [] },
     createdAt: 'some date',
     header: 'header',
-    testDices: { edges: [] },
     text
   }
   ReactDOM.render(

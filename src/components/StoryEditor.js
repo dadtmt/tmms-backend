@@ -2,10 +2,7 @@ import R from 'ramda'
 import React, { Component, PropTypes } from 'react'
 import { Checkbox, Col, Row } from 'react-bootstrap'
 
-import {
-  UPDATE_CHOICE_SUBSCRIPTION,
-  UPDATE_TESTDICE_SUBSCRIPTION
-} from '../graphql/subscriptions'
+import { UPDATE_CHOICE_SUBSCRIPTION } from '../graphql/subscriptions'
 import CreateChoice from '../containers/CreateChoiceWithMutation'
 import CreateCrossroad from './CreateCrossroad'
 import CurrentCrossroad from './CurrentCrossroad'
@@ -26,19 +23,8 @@ export const getCurrentCrossroad = R.pipe(
 )
 
 export const isChoiceMade = R.pipe(
-  R.converge(
-    R.concat,
-    [
-      R.pipe(
-        R.pathOr([], ['choices', 'edges']),
-        R.map(R.path(['node', 'made']))
-      ),
-      R.pipe(
-        R.pathOr([], ['testDices', 'edges']),
-        R.map(R.path(['node', 'made']))
-      )
-    ]
-  ),
+  R.pathOr([], ['choices', 'edges']),
+  R.map(R.path(['node', 'made'])),
   R.reduce(
     R.or,
     false
@@ -72,17 +58,6 @@ class StoryEditor extends Component {
           }
         }
       })
-      this.testDiceSubscription = data.subscribeToMore({
-        document: UPDATE_TESTDICE_SUBSCRIPTION,
-        updateQuery: prev => prev,
-        variables: {
-          testDiceFilter: {
-            crossroadId: {
-              eq: crossroadId
-            }
-          }
-        }
-      })
     }
   }
 
@@ -91,7 +66,6 @@ class StoryEditor extends Component {
       createChoice,
       deleteChoice,
       createCrossroad,
-      deleteTestDice,
       data,
       toggleIsReady,
       updateCrossroadText
@@ -139,7 +113,6 @@ class StoryEditor extends Component {
           {currentCrossroad && <CurrentCrossroad
             crossroad={currentCrossroad}
             deleteChoice={deleteChoice}
-            deleteTestDice={deleteTestDice}
           />}
           <Crossroads crossroads={{ edges: crossroadsWithoutCurrent }} />
         </Col>
@@ -151,10 +124,8 @@ class StoryEditor extends Component {
 StoryEditor.propTypes = {
   createChoice: PropTypes.func.isRequired,
   createCrossroad: PropTypes.func.isRequired,
-  createTest: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
   deleteChoice: PropTypes.func.isRequired,
-  deleteTestDice: PropTypes.func.isRequired,
   toggleIsReady: PropTypes.func.isRequired,
   updateCrossroadText: PropTypes.func.isRequired
 }
