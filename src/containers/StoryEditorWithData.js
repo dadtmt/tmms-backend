@@ -15,6 +15,15 @@ import { GET_PAGE_EDITOR_QUERY } from '../graphql/queries'
 import makeReducer from '../reducers/makeReducer'
 import StoryEditor from '../components/StoryEditor'
 
+export const isInteractive = R.cond([
+  [
+    R.propEq('type', 'dice'),
+    R.pipe(R.path(['content', 'master']), R.not)
+  ],
+  [R.propEq('type', 'characterSheet'), R.F],
+  [R.T, R.T]
+])
+
 const withCreateChoice = graphql(
   CREATE_CHOICE_MUTATION,
   {
@@ -23,6 +32,7 @@ const withCreateChoice = graphql(
         variables: {
           newChoice: {
             ...values,
+            interactive: isInteractive(values),
             made: false
           }
         }

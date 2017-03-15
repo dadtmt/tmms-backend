@@ -4,6 +4,7 @@ export const choiceFragment = gql`
   fragment choiceFields on Choice {
     content
     id
+    interactive
     made
     text
     type
