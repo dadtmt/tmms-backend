@@ -1,7 +1,7 @@
 import R from 'ramda'
 import React, { PropTypes } from 'react'
 import { graphql } from 'react-apollo'
-import { ListGroup, ListGroupItem } from 'react-bootstrap'
+import { Alert, ListGroup, ListGroupItem, Panel } from 'react-bootstrap'
 import {
   Field,
   FieldArray,
@@ -134,7 +134,7 @@ renderGear.propTypes = {
   fields: PropTypes.object.isRequired
 }
 
-const CharacterSheet = ({ handleSubmit }) =>
+const CharacterSheet = ({ handleSubmit, pristine }) =>
 <form onSubmit={handleSubmit}>
   <Field
     component={CheckboxGroup}
@@ -161,9 +161,14 @@ const CharacterSheet = ({ handleSubmit }) =>
     label='image:'
     name='image'
   />
-  <FieldArray name='characs' component={renderCharacs} />
-  <FieldArray name='gear' component={renderGear} />
-  <ButtonGroup glyph='save' title='save' type='submit' />
+  <Panel header='Characteristics (add and edit)' >
+    <FieldArray name='characs' component={renderCharacs} />
+  </Panel>
+  <Panel header='Gear (add and edit item)' >
+    <FieldArray name='gear' component={renderGear} />
+  </Panel>
+  {!pristine && <Alert bsStyle='warning'>Modifications not saved</Alert>}
+  <ButtonGroup disabled={pristine} glyph='save' title='save' type='submit' />
 </form>
 
 CharacterSheet.propTypes = {

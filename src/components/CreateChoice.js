@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import {
-  Button,
   ControlLabel,
   FormControl,
   FormGroup,
@@ -8,6 +7,7 @@ import {
 } from 'react-bootstrap'
 import { convertToRaw, EditorState } from 'draft-js'
 
+import ButtonGroup from '../forms/components/ButtonGroup'
 import DraftField from '../forms/components/DraftField'
 import RenderCreator from '../creators/RenderCreator'
 
@@ -60,7 +60,9 @@ class CreateChoice extends Component {
         </FormControl>
       </FormGroup>
       <RenderCreator type={this.state.type} />
-      <Button
+      <ButtonGroup
+        bsStyle='primary'
+        glyph='send'
         onClick={() => submitChoice({
           crossroadId,
           text: convertToRaw(this.state.editorState.getCurrentContent()),
@@ -68,7 +70,7 @@ class CreateChoice extends Component {
         })}
       >
         Submit
-      </Button>
+      </ButtonGroup>
     </Panel>)
   }
 }

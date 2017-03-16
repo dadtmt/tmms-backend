@@ -12,24 +12,28 @@ const CharacterSheet = ({
   {isPlayer && <Label>Player sheet</Label>}
   <Well>{description}</Well>
   {image && <Image src={image} rounded />}
-  <Table>
-    <tbody>
-      {characs.map(charac => <tr key={charac.name}>
-        <td>{charac.name}:</td>
-        <td>{charac.value}:</td>
-      </tr>)}
-    </tbody>
-  </Table>
-  <Table>
-    <tbody>
-      {gear.map(item => <tr key={item.name}>
-        <td>{item.name}</td>
-        <td>{item.description}</td>
-        <td>{item.image && <Image src={item.image} rounded />}</td>
-        <td>{item.count}</td>
-      </tr>)}
-    </tbody>
-  </Table>
+  <Panel header='Characteristics'>
+    <Table>
+      <tbody>
+        {characs.map(charac => <tr key={charac.name}>
+          <td>{charac.name}:</td>
+          <td>{charac.value}</td>
+        </tr>)}
+      </tbody>
+    </Table>
+  </Panel>
+  <Panel header='Gear'>
+    <Table>
+      <tbody>
+        {gear.map(item => <tr key={item.name}>
+          <td>{item.name}</td>
+          <td>{item.description}</td>
+          <td>{item.image && <Image src={item.image} rounded width='50' />}</td>
+          <td>{item.count}</td>
+        </tr>)}
+      </tbody>
+    </Table>
+  </Panel>
 </Panel>
 
 CharacterSheet.propTypes = {
