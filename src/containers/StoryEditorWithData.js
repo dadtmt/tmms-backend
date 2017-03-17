@@ -1,6 +1,8 @@
 import R from 'ramda'
 import { graphql } from 'react-apollo'
 
+import { newChoice } from '../api/choice'
+import { updateCrossroad, updateEditor } from '../api/editor'
 import { pageEditorId } from '../config'
 import {
   CREATE_CHOICE_MUTATION,
@@ -13,26 +15,13 @@ import { GET_PAGE_EDITOR_QUERY } from '../graphql/queries'
 import makeReducer from '../reducers/makeReducer'
 import StoryEditor from '../components/StoryEditor'
 
-export const isInteractive = R.cond([
-  [
-    R.propEq('type', 'dice'),
-    R.pipe(R.path(['content', 'master']), R.not)
-  ],
-  [R.propEq('type', 'characterSheet'), R.F],
-  [R.T, R.T]
-])
-
 const withCreateChoice = graphql(
   CREATE_CHOICE_MUTATION,
   {
     props: ({ mutate }) => ({
       createChoice: values => mutate({
         variables: {
-          newChoice: {
-            ...values,
-            interactive: isInteractive(values),
-            made: false
-          }
+          newChoice: newChoice(values)
         }
       })
     })
@@ -100,24 +89,6 @@ const withUpdateCrossroadText = graphql(
   }
 )
 
-const updatePageEditor = update => R.over(
-  R.lensPath(['viewer', 'user', 'editors', 'edges']),
-  R.over(
-    R.lensIndex(0),
-    update
-  )
-)
-
-const updateCrossroad = update => updatePageEditor(
-  R.over(
-    R.lensPath(['node', 'crossroads', 'edges']),
-    R.over(
-      R.lensIndex(0),
-      update
-    )
-  )
-)
-
 const mutationHandlers = {
   CreateChoice: (state, { createChoice }) => updateCrossroad(
     R.over(
@@ -125,18 +96,18 @@ const mutationHandlers = {
       R.append(createChoice.changedEdge)
     )
   )(state),
-  CreateCrossroad: (state, { createCrossroad }) => updatePageEditor(
+  CreateCrossroad: (state, { createCrossroad }) => updateEditor(
     R.over(
       R.lensPath(['node', 'crossroads', 'edges']),
       R.prepend(createCrossroad.changedEdge)
     )
   )(state),
-  CreateSheets: (state, { createSheets }) => updatePageEditor(
-    R.over(
-      R.lensPath(['node', 'sheets', 'edges']),
-      R.append(createSheets.changedEdge)
-    )
-  )(state),
+  // CreateSheets: (state, { createSheets }) => updateEditor(
+  //   R.over(
+  //     R.lensPath(['node', 'sheets', 'edges']),
+  //     R.append(createSheets.changedEdge)
+  //   )
+  // )(state),
   DeleteChoice: (state, { deleteChoice }) => updateCrossroad(
     R.over(
       R.lensPath(['node', 'choices', 'edges']),

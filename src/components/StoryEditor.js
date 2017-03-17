@@ -2,62 +2,37 @@ import R from 'ramda'
 import React, { Component, PropTypes } from 'react'
 import { Checkbox, Col, Row } from 'react-bootstrap'
 
+import { isChoiceMade } from '../api/crossroad'
+import { getCurrentCrossroadId, splitCrossroads } from '../api/editor'
 import { UPDATE_CHOICE_SUBSCRIPTION } from '../graphql/subscriptions'
 import CreateChoice from '../containers/CreateChoiceWithMutation'
 import CreateCrossroad from './CreateCrossroad'
 import CurrentCrossroad from './CurrentCrossroad'
 import Crossroads from './Crossroads'
 
-export const getCrossroadsFromData = R.pipe(
-  R.pathOr(
-    [],
-    ['viewer', 'user', 'editors', 'edges']
-  ),
-  R.head,
-  R.pathOr([], ['node', 'crossroads', 'edges'])
-)
-
-export const getCurrentCrossroad = R.pipe(
-  R.head,
-  R.propOr(null, 'node')
-)
-
-export const isChoiceMade = R.pipe(
-  R.pathOr([], ['choices', 'edges']),
-  R.map(R.path(['node', 'made'])),
-  R.reduce(
-    R.or,
-    false
-  )
-)
-
 class StoryEditor extends Component {
 
   componentWillReceiveProps(newProps) {
     const { data } = newProps
     const { loading } = data
-    const crossroadId = R.propOr(
-      null,
-      'id'
-    )(getCurrentCrossroad(getCrossroadsFromData(data)))
-    const lastCrossroadId =
-      R.propOr(
-        null,
-        'id'
-      )(getCurrentCrossroad(getCrossroadsFromData(this.props.data)))
 
-    if (!loading && !R.isNil(crossroadId) && crossroadId !== lastCrossroadId) {
-      this.choiceSubscription = data.subscribeToMore({
-        document: UPDATE_CHOICE_SUBSCRIPTION,
-        updateQuery: prev => prev,
-        variables: {
-          choiceFilter: {
-            crossroadId: {
-              eq: crossroadId
+    if (!loading) {
+      const crossroadId = getCurrentCrossroadId(data)
+      const lastCrossroadId = getCurrentCrossroadId(this.props.data)
+
+      if (!R.isNil(crossroadId) && crossroadId !== lastCrossroadId) {
+        this.choiceSubscription = data.subscribeToMore({
+          document: UPDATE_CHOICE_SUBSCRIPTION,
+          updateQuery: prev => prev,
+          variables: {
+            choiceFilter: {
+              crossroadId: {
+                eq: crossroadId
+              }
             }
           }
-        }
-      })
+        })
+      }
     }
   }
 
@@ -72,18 +47,13 @@ class StoryEditor extends Component {
     } = this.props
 
     const { loading } = data
+    const { current, lasts } = splitCrossroads(data)
 
-    const crossroads = getCrossroadsFromData(data)
+    const allowNewCrossroad = R.isNil(current) || isChoiceMade(current)
 
-    const currentCrossroad = getCurrentCrossroad(crossroads)
+    const isCrossroadReady = R.propOr(false, 'isReady')(current)
 
-    const crossroadsWithoutCurrent = R.tail(crossroads)
-    const allowNewCrossroad = R.isNil(currentCrossroad) ||
-      isChoiceMade(currentCrossroad)
-
-    const isCrossroadReady = R.propOr(false, 'isReady')(currentCrossroad)
-
-    const crossroadId = R.propOr(null, 'id')(currentCrossroad)
+    const crossroadId = R.propOr(null, 'id')(current)
 
     return (
       <Row>
@@ -91,7 +61,7 @@ class StoryEditor extends Component {
           {loading && <p>Loading...</p>}
           <CreateCrossroad
             createCrossroad={createCrossroad}
-            crossroad={allowNewCrossroad ? null : currentCrossroad}
+            crossroad={allowNewCrossroad ? null : current}
             updateCrossroadText={updateCrossroadText}
           />
           <Checkbox
@@ -110,11 +80,11 @@ class StoryEditor extends Component {
           />}
         </Col>
         <Col sm={6}>
-          {currentCrossroad && <CurrentCrossroad
-            crossroad={currentCrossroad}
+          {current && <CurrentCrossroad
+            crossroad={current}
             deleteChoice={deleteChoice}
           />}
-          <Crossroads crossroads={{ edges: crossroadsWithoutCurrent }} />
+          <Crossroads crossroads={{ edges: lasts }} />
         </Col>
       </Row>
     )

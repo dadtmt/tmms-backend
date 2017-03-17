@@ -3,43 +3,9 @@ import ReactDOM from 'react-dom'
 import ApolloClient from 'apollo-client'
 import { ApolloProvider } from 'react-apollo'
 
-import StoryEditorWithData, {
-  isInteractive,
-  reducer
-} from './StoryEditorWithData'
+import StoryEditorWithData, { reducer } from './StoryEditorWithData'
 
 const client = new ApolloClient()
-
-describe('isInteractive', () => {
-  it('return true by default', () => {
-    const values = {}
-    expect(isInteractive(values)).toBeTruthy()
-  })
-  it('return false if type is dice and master true', () => {
-    const values = {
-      content: {
-        master: true
-      },
-      type: 'dice'
-    }
-    expect(isInteractive(values)).toBeFalsy()
-  })
-  it('return true if type is dice and master false', () => {
-    const values = {
-      content: {
-        master: false
-      },
-      type: 'dice'
-    }
-    expect(isInteractive(values)).toBeTruthy()
-  })
-  it('return false if type is characterSheet', () => {
-    const values = {
-      type: 'characterSheet'
-    }
-    expect(isInteractive(values)).toBeFalsy()
-  })
-})
 
 describe('reducer', () => {
 

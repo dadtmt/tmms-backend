@@ -19,62 +19,83 @@ exports[`test renders CharacterSheet if characterSheet type 1`] = `
     <img
       className="img-rounded"
       src="https://s-media-cache-ak0.pinimg.com/736x/fe/a2/b2/fea2b2e27dc64aed4228bb3697018436.jpg" />
-    <table
-      className="table">
-      <tbody>
-        <tr>
-          <td>
-            Force
-            :
-          </td>
-          <td>
-            17
-            :
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Dex
-            :
-          </td>
-          <td>
-            18
-            :
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <table
-      className="table">
-      <tbody>
-        <tr>
-          <td>
-            Arc Feu
-          </td>
-          <td>
-            1D8 + 1D6 feu
-          </td>
-          <td>
-            <img
-              className="img-rounded"
-              src="https://s-media-cache-ak0.pinimg.com/236x/3b/76/10/3b76104f3387a68e7210c438de6a23c7.jpg" />
-          </td>
-          <td>
-            1
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Fleches
-          </td>
-          <td />
-          <td />
-          <td>
-            10
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div
+      className="panel panel-default"
+      id={undefined}>
+      <div
+        className="panel-heading">
+        Characteristics
+      </div>
+      <div
+        className="panel-body">
+        <table
+          className="table">
+          <tbody>
+            <tr>
+              <td>
+                Force
+                :
+              </td>
+              <td>
+                17
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Dex
+                :
+              </td>
+              <td>
+                18
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div
+      className="panel panel-default"
+      id={undefined}>
+      <div
+        className="panel-heading">
+        Gear
+      </div>
+      <div
+        className="panel-body">
+        <table
+          className="table">
+          <tbody>
+            <tr>
+              <td>
+                Arc Feu
+              </td>
+              <td>
+                1D8 + 1D6 feu
+              </td>
+              <td>
+                <img
+                  className="img-rounded"
+                  src="https://s-media-cache-ak0.pinimg.com/236x/3b/76/10/3b76104f3387a68e7210c438de6a23c7.jpg"
+                  width="50" />
+              </td>
+              <td>
+                1
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Fleches
+              </td>
+              <td />
+              <td />
+              <td>
+                10
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
 `;
