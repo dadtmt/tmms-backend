@@ -10,7 +10,7 @@ query GetPageEditor($pageEditorId: ID!) {
         edges{
           node{
             id
-            crossroads(first: 1, orderBy: {field:createdAt, direction:DESC}){
+            crossroads(first: 10, orderBy: {field:createdAt, direction:DESC}){
               edges{
                 node{
                   ...crossroadFields

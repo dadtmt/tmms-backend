@@ -1,8 +1,9 @@
 import R from 'ramda'
 import { graphql } from 'react-apollo'
+import { newChoice } from 'tmms-api/lib/choice'
+import { addChoiceEdge, deleteChoiceEdge } from 'tmms-api/lib/crossroad'
+import { setCurrentCrossroad, updateCrossroad } from 'tmms-api/lib/editor'
 
-import { newChoice } from '../api/choice'
-import { updateCrossroad, updateEditor } from '../api/editor'
 import { pageEditorId } from '../config'
 import {
   CREATE_CHOICE_MUTATION,
@@ -91,28 +92,12 @@ const withUpdateCrossroadText = graphql(
 
 const mutationHandlers = {
   CreateChoice: (state, { createChoice }) => updateCrossroad(
-    R.over(
-      R.lensPath(['node', 'choices', 'edges']),
-      R.append(createChoice.changedEdge)
-    )
+    addChoiceEdge(createChoice.changedEdge)
   )(state),
-  CreateCrossroad: (state, { createCrossroad }) => updateEditor(
-    R.over(
-      R.lensPath(['node', 'crossroads', 'edges']),
-      R.prepend(createCrossroad.changedEdge)
-    )
-  )(state),
-  // CreateSheets: (state, { createSheets }) => updateEditor(
-  //   R.over(
-  //     R.lensPath(['node', 'sheets', 'edges']),
-  //     R.append(createSheets.changedEdge)
-  //   )
-  // )(state),
+  CreateCrossroad: (state, { createCrossroad }) =>
+    setCurrentCrossroad(state, createCrossroad.changedEdge),
   DeleteChoice: (state, { deleteChoice }) => updateCrossroad(
-    R.over(
-      R.lensPath(['node', 'choices', 'edges']),
-      R.filter(({ node }) => node.id !== deleteChoice.changedChoice.id)
-    )
+    deleteChoiceEdge(deleteChoice.changedChoice)
   )(state)
 }
 

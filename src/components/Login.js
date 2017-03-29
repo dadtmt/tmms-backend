@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { ButtonToolbar, Button } from 'react-bootstrap'
+import { ButtonToolbar, Button, FormGroup } from 'react-bootstrap'
 
 export class Login extends React.Component {
 
@@ -27,7 +27,7 @@ export class Login extends React.Component {
     const { auth } = this.props
 
     return (
-      <div>
+      <FormGroup>
         <ButtonToolbar >
           {
             this.state.loggedIn
@@ -42,7 +42,7 @@ export class Login extends React.Component {
               </Button>
           }
         </ButtonToolbar>
-      </div>
+      </FormGroup>
     )
   }
 }
